@@ -9,12 +9,12 @@ import FoodExplore from './Pages/FoodExplore';
 import FoodIngredientesExplore from './Pages/FoodIngredientesExplore';
 import FoodPlaceExplore from './Pages/FoodPlaceExplore';
 import Profile from './Pages/Profile';
-import DoneRecipes from './Pages/DoneRecipes';
 import FoodDetails from './Pages/FoodDetails';
+import DrinkDetails from './Pages/DrinkDetails';
 import DrinkIngredientesExplore from './Pages/DrinksIngredientExplore';
-import DrinksDetails from './Pages/DrinksDetails';
 import NotFound from './Pages/NotFound';
 import CurrentRecipe from './Pages/CurrentRecipe';
+import DoneRecipes from './Pages/DoneRecipes';
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
       <Route exact path="/explorar/bebidas" component={ DrinksExplore } />
       <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/comidas/:id" component={ FoodDetails } />
-      <Route exact path="/bebidas/:id" component={ DrinksDetails } />
+      <Route exact path="/bebidas/:id" component={ DrinkDetails } />
       <Route exact path="/comidas" component={ FoodMainPage } />
       <Route exact path="/bebidas" component={ DrinkMainPage } />
       <Route exact path="/explorar" component={ Explore } />
