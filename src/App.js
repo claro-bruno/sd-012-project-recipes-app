@@ -14,7 +14,7 @@ import FoodDetails from './Pages/FoodDetails';
 import DrinkIngredientesExplore from './Pages/DrinksIngredientExplore';
 import DrinksDetails from './Pages/DrinksDetails';
 import NotFound from './Pages/NotFound';
-
+import CurrentRecipe from './Pages/CurrentRecipe';
 
 function App() {
   return (
@@ -35,6 +35,7 @@ function App() {
         path="/explorar/bebidas/ingredientes"
         component={ DrinkIngredientesExplore }
       />
+      <Route exact path="/comidas/:id/in-progress" component={ CurrentRecipe } />
       <Route exact path="/explorar/comidas" component={ FoodExplore } />
       <Route exact path="/explorar/bebidas" component={ DrinksExplore } />
       <Route exact path="/perfil" component={ Profile } />
