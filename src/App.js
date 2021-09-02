@@ -15,7 +15,6 @@ import DrinkIngredientesExplore from './Pages/DrinksIngredientExplore';
 import DrinksDetails from './Pages/DrinksDetails';
 import NotFound from './Pages/NotFound';
 
-
 function App() {
   return (
     <Switch>
