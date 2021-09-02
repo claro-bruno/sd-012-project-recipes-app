@@ -150,9 +150,5 @@ export const IngredientsBackground = styled.div`
     justify-content: space-around;
     flex-wrap: wrap;
     align-items: center;
-<<<<<<< HEAD
-    padding-top: 50px;
-=======
     padding-top: 10vh;
->>>>>>> 91b7696ae091c847e93715fee63ba13b0f96c56e
 `;
