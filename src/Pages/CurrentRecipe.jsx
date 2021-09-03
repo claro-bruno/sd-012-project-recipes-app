@@ -7,7 +7,7 @@ import IngredientsCard from './IngredientsCard';
 
 function CurrentRecipe() {
   // const [recipes, setRecipe] = React.useState([]);
-  const recipe = useSelector((state) => state.recipeDetails.mealDetails);
+  const recipe = useSelector((state) => state.recipeDetail.mealDetail);
   console.log(recipe);
 
   return (
