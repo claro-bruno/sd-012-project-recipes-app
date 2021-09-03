@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import ReactPlayer from 'react-player';
 import Loading from '../Components/Loading';
 import RecipeHeader from '../Components/RecipeHeader';
+import RenderRecommendations from '../Components/RenderRecommendations';
 import IngredientsAndMeasures from '../Components/IngredientsAndMeasures';
 import * as required from '../helper/requiredDetails';
+<<<<<<< HEAD
 import RenderRecommendations from '../Components/RenderRecommendations';
 import { setRecipeDetails } from '../Redux/actions/actionSetRecipeDetails';
+=======
+import { setMealDetails } from '../Redux/actions/actionSetRecipeDetails';
+>>>>>>> 8876db369770aa92433d9978d5ebf3f5926a336c
 
 function FoodDetails() {
   const [recipe, setRecipe] = useState([]);
@@ -38,7 +44,7 @@ function FoodDetails() {
     verificatioinProgressRecipe]);
 
   const handleRedirect = () => {
-    dispatch(setRecipeDetails(recipe));
+    dispatch(setMealDetails(recipe));
     push(`/comidas/${id}/in-progress`);
   };
 

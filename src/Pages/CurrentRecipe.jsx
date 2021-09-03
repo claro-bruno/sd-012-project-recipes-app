@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import RecipeHeader from '../Components/RecipeHeader';
+import IngredientsCard from './IngredientsCard';
 
 // import { useHistory, useLocation } from 'react-router-dom';
 
 function CurrentRecipe() {
   // const [recipes, setRecipe] = React.useState([]);
-  const recipe = useSelector((state) => state.recipeDetails);
+  const recipe = useSelector((state) => state.recipeDetails.mealDetails);
   console.log(recipe);
 
   return (
@@ -18,6 +19,15 @@ function CurrentRecipe() {
         recipe={ recipe }
         type="comida"
       />
+      <IngredientsCard />
+      <h1>Instructions</h1>
+      <p data-testid="instructions">{recipe.strInstructions}</p>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }

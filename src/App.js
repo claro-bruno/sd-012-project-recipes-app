@@ -13,7 +13,10 @@ import FoodDetails from './Pages/FoodDetails';
 import DrinkDetails from './Pages/DrinkDetails';
 import DrinkIngredientesExplore from './Pages/DrinksIngredientExplore';
 import NotFound from './Pages/NotFound';
+<<<<<<< HEAD
 import CurrentRecipe from './Pages/CurrentRecipe';
+=======
+>>>>>>> 8876db369770aa92433d9978d5ebf3f5926a336c
 import DoneRecipes from './Pages/DoneRecipes';
 
 function App() {
