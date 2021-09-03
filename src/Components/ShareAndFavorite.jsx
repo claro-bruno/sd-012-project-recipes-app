@@ -6,7 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import favoriteRecipes from '../helper/setLocalStorage';
 
-function Button({ recipe, type }) {
+function ShareAndFavorite({ recipe, type }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -52,9 +52,9 @@ function Button({ recipe, type }) {
   );
 }
 
-Button.propTypes = {
+ShareAndFavorite.propTypes = {
   recipe: objectOf(string).isRequired,
   type: string.isRequired,
 };
 
-export default Button;
+export default ShareAndFavorite;
