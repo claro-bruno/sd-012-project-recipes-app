@@ -6,7 +6,8 @@ import Ingredients from '../../components/Ingredients';
 import Instructions from '../../components/Instructions';
 import Video from '../../components/Video';
 import RecomendationsDrinks from '../../components/RecomendationsDrinks';
-import ShareButton from '../../components/shareButton';
+import FavoriteButton from '../../components/FavoriteButton';
+import ShareButton from '../../components/ShareButton';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import './style.css';
@@ -18,6 +19,7 @@ class DetailsFood extends Component {
     this.state = {
       red: false,
     };
+
     this.setRedirect = this.setRedirect.bind(this);
   }
 
@@ -39,11 +41,18 @@ class DetailsFood extends Component {
     const { recipe, match } = this.props;
     const { params: { id } } = match;
     const { red } = this.state;
+
     return (
       <div>
         <div>
           {
-            recipe.map(({ strMeal, strCategory, strMealThumb }, index) => (
+            recipe.map(({
+              idMeal,
+              strMeal,
+              strCategory,
+              strArea,
+              strMealThumb,
+            }, index) => (
               <div key={ index }>
                 <div>
                   <img
@@ -53,14 +62,33 @@ class DetailsFood extends Component {
                     alt="foto"
                   />
                 </div>
+
+                <ShareButton
+                  position={ index }
+                  id={ id }
+                  type="comida"
+                />
+                <FavoriteButton
+                  id={ idMeal }
+                  type="comida"
+                  area={ strArea }
+                  category={ strCategory }
+                  alcoholicOrNot=""
+                  name={ strMeal }
+                  image={ strMealThumb }
+                  position={ index }
+                />
+
                 <div>
                   <h1 data-testid="recipe-title">{ strMeal }</h1>
                   <h2 data-testid="recipe-category">{ strCategory }</h2>
                 </div>
+
                 <Ingredients />
                 <Instructions />
                 <Video />
                 <RecomendationsDrinks />
+
                 <button
                   className="start-recipe-button"
                   type="button"
@@ -69,13 +97,11 @@ class DetailsFood extends Component {
                 >
                   Iniciar Receita
                 </button>
-                <ShareButton />
-                {}
               </div>
             ))
           }
           {
-            red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : console.log('chamou')
+            red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null
           }
         </div>
       </div>

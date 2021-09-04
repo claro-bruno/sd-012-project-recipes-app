@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import FilterRecipesMade from '../../components/FilterRecipesMade';
-import RecipesMadeList from '../../components/RecipesMadeList';
+import FilterRecipesMade from '../components/FilterRecipesMade';
+import Header from '../components/Header';
+import RecipesMadeList from '../components/RecipesMadeList';
 
-class FoodRecipesMade extends Component {
+class RecipesMade extends Component {
   constructor(props) {
     super(props);
 
@@ -78,6 +79,7 @@ class FoodRecipesMade extends Component {
 
     return (
       <div>
+        <Header title="Receitas Feitas" showSearchBottom={ false } />
         <FilterRecipesMade
           categories={ categories }
           handleClick={ this.filterRecipesDone }
@@ -88,4 +90,4 @@ class FoodRecipesMade extends Component {
   }
 }
 
-export default FoodRecipesMade;
+export default RecipesMade;

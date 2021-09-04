@@ -5,8 +5,8 @@ import { Redirect } from 'react-router-dom';
 import IngredientsDrink from '../../components/IngredientsDrink';
 import Instructions from '../../components/Instructions';
 import RecomendationsFoods from '../../components/RecomendationsFoods';
-import ShareButton from '../../components/shareButton';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import ShareButton from '../../components/ShareButton';
+import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import './style.css';
@@ -44,16 +44,38 @@ class DetailsDrink extends Component {
         <div>
           {
             cocktail.map(
-              ({ strDrink, strCategory, strDrinkThumb, strAlcoholic }, index) => (
+              ({
+                idDrink,
+                strDrink,
+                strCategory,
+                strDrinkThumb,
+                strAlcoholic,
+              }, index) => (
                 <div key={ index }>
                   <div>
                     <img
                       data-testid="recipe-photo"
+                      className="recipe-image"
                       src={ strDrinkThumb }
                       alt="foto"
-                      width="600 px"
                     />
                   </div>
+
+                  <ShareButton
+                    position={ index }
+                    id={ id }
+                    type="bebida"
+                  />
+                  <FavoriteButton
+                    id={ idDrink }
+                    type="bebida"
+                    category={ strCategory }
+                    alcoholicOrNot={ strAlcoholic }
+                    name={ strDrink }
+                    image={ strDrinkThumb }
+                    position={ index }
+                  />
+
                   <div>
                     <h1 data-testid="recipe-title">{ strDrink }</h1>
                     <h2 data-testid="recipe-category">
@@ -61,9 +83,11 @@ class DetailsDrink extends Component {
                       { strAlcoholic }
                     </h2>
                   </div>
+
                   <IngredientsDrink />
                   <Instructions />
                   <RecomendationsFoods />
+
                   <button
                     className="start-recipe-button"
                     type="button"
@@ -71,14 +95,6 @@ class DetailsDrink extends Component {
                     onClick={ () => this.setRedirect() }
                   >
                     Iniciar Receita
-                  </button>
-                  <ShareButton />
-                  <button type="button">
-                    <img
-                      src={ WhiteHeartIcon }
-                      alt="favorite button"
-                      data-testid="favorite-btn"
-                    />
                   </button>
                 </div>
               ),
