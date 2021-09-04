@@ -58,22 +58,27 @@ class DetailsDrink extends Component {
                       alt="foto"
                     />
                   </div>
+                  <ShareButton
+                    position={ index }
+                    id={ id }
+                    type="bebida"
+                  />
+                  <FavoriteButton
+                    id={ idDrink }
+                    type="bebida"
+                    category={ strCategory }
+                    alcoholicOrNot={ strAlcoholic }
+                    name={ strDrink }
+                    image={ strDrinkThumb }
+                    position={ index }
+                    cardType="/in-progress"
+                  />
                   <div>
                     <h1 data-testid="recipe-title">{ strDrink }</h1>
                     <h2 data-testid="recipe-category">
                       { strCategory }
                       { strAlcoholic }
                     </h2>
-                    <ShareButton id={ id } />
-                    <FavoriteButton
-                      id={ idDrink }
-                      type="bebida"
-                      category={ strCategory }
-                      alcoholicOrNot={ strAlcoholic }
-                      name={ strDrink }
-                      image={ strDrinkThumb }
-                      position={ index }
-                    />
                   </div>
                   <DrinkscheckIngredients id={ id } handleClick={ this.finishStatus } />
                   <Instructions />

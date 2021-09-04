@@ -27,10 +27,11 @@ class ShareButton extends Component {
   }
 
   async copyHandle() {
-    const { id, type } = this.props;
+    const { id, type, cardType } = this.props;
+    const typecard = cardType === '/in-progress' ? '/in-progress' : '';
     const path = type === 'comida'
-      ? `http://localhost:3000/comidas/${id}`
-      : `http://localhost:3000/bebidas/${id}`;
+      ? `http://localhost:3000/comidas/${id}${typecard}`
+      : `http://localhost:3000/bebidas/${id}${typecard}`;
 
     await copy(path);
     this.setState({ copied: true });
@@ -47,20 +48,6 @@ class ShareButton extends Component {
           data-testid="share-btn"
           onClick={ this.copyHandle }
         >
-<<<<<<< HEAD
-          <button
-            type="button"
-            className="share-fill"
-            data-testid="share-btn"
-          >
-            <img
-              src={ ShareIcon }
-              alt="share button"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-          </button>
-        </CopyToClipboard>
-=======
           <img
             src={ ShareIcon }
             alt="share button"
@@ -68,7 +55,6 @@ class ShareButton extends Component {
           />
         </button>
 
->>>>>>> 4ef71d37aaca75222f0d645bcb55c3c5f029dc68
         { copied ? <span>Link copiado!</span> : null }
       </div>
     );

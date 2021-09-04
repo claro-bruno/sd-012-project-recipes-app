@@ -54,23 +54,27 @@ class RecipesInProgress extends Component {
                   className="img-details"
                 />
               </div>
+              <ShareButton
+                position={ index }
+                id={ id }
+                type="comida"
+              />
+              <FavoriteButton
+                id={ idMeal }
+                type="comida"
+                area={ strArea }
+                category={ strCategory }
+                alcoholicOrNot=""
+                name={ strMeal }
+                image={ strMealThumb }
+                position={ index }
+              />
               <div>
                 <h2 data-testid="recipe-title">{strMeal}</h2>
                 <h2 data-testid="recipe-category">{ strCategory }</h2>
                 <p>{' '}</p>
               </div>
               <div>
-                <ShareButton id={ id } />
-                <FavoriteButton
-                  id={ idMeal }
-                  type="comida"
-                  area={ strArea }
-                  category={ strCategory }
-                  alcoholicOrNot=""
-                  name={ strMeal }
-                  image={ strMealThumb }
-                  position={ index }
-                />
                 <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
               </div>
             </div>
