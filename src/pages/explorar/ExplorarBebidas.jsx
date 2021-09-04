@@ -14,7 +14,7 @@ export default function ExplorarBebidas() {
   };
   return (
     <div>
-      <Header title="Explorar Bebidas" />
+      <Header title="Explorar Bebidas" showSearchBottom={ false } />
       <div className="container-button-explorar">
         <Link to="/explorar/bebidas/ingredientes">
           <button
@@ -25,15 +25,7 @@ export default function ExplorarBebidas() {
             Por Ingredientes
           </button>
         </Link>
-        <Link to="/explorar/bebidas/area">
-          <button
-            className="btn btn-warning button-size"
-            type="button"
-            data-testid="explore-by-area"
-          >
-            Por Local de Origem
-          </button>
-        </Link>
+
         <button
           className="btn btn-warning button-size"
           type="button"

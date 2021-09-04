@@ -1,5 +1,5 @@
 const initialStorage = {
-  coctails: {},
+  cocktails: {},
   meals: {},
 };
 
