@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import FilterRecipesMade from '../components/FilterRecipesMade';
 import RecipesFavoriteList from '../components/RecipesFavoriteList';
+import initialFavoriteStorage from '../webStorage/storages';
 
 class RecipesFavorite extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      doneRecipes: [],
+      favoritedRecipes: [],
     };
 
     this.setFavoriteRecipes = this.setFavoriteRecipes.bind(this);
@@ -19,32 +20,19 @@ class RecipesFavorite extends Component {
   }
 
   setFavoriteRecipes() {
-    const recipes = [
-      {
-        id: '52771',
-        type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        doneDate: '23/06/2020',
-        tags: ['Pasta', 'Curry'],
-      },
-      {
-        id: '178319',
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-        doneDate: '23/06/2020',
-        tags: [],
-      },
-    ];
+    const { favoriteRecipes } = initialFavoriteStorage;
+    const favoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
-    this.setState({ doneRecipes: recipes });
+    if (favoriteStorage === null) {
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(initialFavoriteStorage),
+      );
+
+      this.setState({ favoritedRecipes: favoriteRecipes });
+    } else {
+      this.setState({ favoritedRecipes: favoriteStorage.favoriteRecipes });
+    }
   }
 
   filterRecipesFavorite({ target }) {
@@ -56,12 +44,12 @@ class RecipesFavorite extends Component {
     case 'Foods':
       this.setFavoriteRecipes();
       return this.setState((state) => ({
-        doneRecipes: state.doneRecipes.filter(({ type }) => type === 'comida'),
+        favoritedRecipes: state.favoritedRecipes.filter(({ type }) => type === 'comida'),
       }));
     case 'Drinks':
       this.setFavoriteRecipes();
       return this.setState((state) => ({
-        doneRecipes: state.doneRecipes.filter(({ type }) => type === 'bebida'),
+        favoritedRecipes: state.favoritedRecipes.filter(({ type }) => type === 'bebida'),
       }));
     default:
       return this.setFavoriteRecipes();
@@ -74,7 +62,7 @@ class RecipesFavorite extends Component {
       { strCategory: 'drink', strName: 'Drinks' },
     ];
 
-    const { doneRecipes } = this.state;
+    const { favoritedRecipes } = this.state;
 
     return (
       <div>
@@ -82,7 +70,7 @@ class RecipesFavorite extends Component {
           categories={ categories }
           handleClick={ this.filterRecipesFavorite }
         />
-        <RecipesFavoriteList recipes={ doneRecipes } />
+        <RecipesFavoriteList recipes={ favoritedRecipes } />
       </div>
     );
   }

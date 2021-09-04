@@ -59,8 +59,14 @@ class RecipesFavoriteCard extends Component {
               type={ type }
             />
             <FavoriteButton
+              id={ id }
+              type={ type }
+              area={ area }
+              category={ category }
+              alcoholicOrNot=""
+              name={ name }
+              image={ image }
               position={ index }
-              favorite
             />
           </div>
         </div>
@@ -103,8 +109,12 @@ class RecipesFavoriteCard extends Component {
               type={ type }
             />
             <FavoriteButton
+              id={ id }
+              type={ type }
+              alcoholicOrNot=""
+              name={ name }
+              image={ image }
               position={ index }
-              favorite
             />
           </div>
         </div>

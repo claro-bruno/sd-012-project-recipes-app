@@ -19,6 +19,7 @@ class DetailsFood extends Component {
     this.state = {
       red: false,
     };
+
     this.setRedirect = this.setRedirect.bind(this);
   }
 
@@ -40,11 +41,18 @@ class DetailsFood extends Component {
     const { recipe, match } = this.props;
     const { params: { id } } = match;
     const { red } = this.state;
+
     return (
       <div>
         <div>
           {
-            recipe.map(({ strMeal, strCategory, strMealThumb }, index) => (
+            recipe.map(({
+              idMeal,
+              strMeal,
+              strCategory,
+              strArea,
+              strMealThumb,
+            }, index) => (
               <div key={ index }>
                 <div>
                   <img
@@ -54,14 +62,29 @@ class DetailsFood extends Component {
                     alt="foto"
                   />
                 </div>
+
+                <ShareButton />
+                <FavoriteButton
+                  id={ idMeal }
+                  type="comida"
+                  area={ strArea }
+                  category={ strCategory }
+                  alcoholicOrNot=""
+                  name={ strMeal }
+                  image={ strMealThumb }
+                  position={ index }
+                />
+
                 <div>
                   <h1 data-testid="recipe-title">{ strMeal }</h1>
                   <h2 data-testid="recipe-category">{ strCategory }</h2>
                 </div>
+
                 <Ingredients />
                 <Instructions />
                 <Video />
                 <RecomendationsDrinks />
+
                 <button
                   className="start-recipe-button"
                   type="button"
@@ -70,8 +93,6 @@ class DetailsFood extends Component {
                 >
                   Iniciar Receita
                 </button>
-                <ShareButton />
-                <FavoriteButton />
               </div>
             ))
           }

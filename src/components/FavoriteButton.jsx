@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import {
+  getLocalStorage,
+  addLocalStorage,
+  removeItem,
+  addItem,
+} from '../webStorage/favoritesHelpers';
 
 class FavoriteButton extends Component {
   constructor(props) {
@@ -12,22 +18,67 @@ class FavoriteButton extends Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
-    this.setState = this.setState.bind(this);
+    this.setFavorite = this.setFavorite.bind(this);
+    this.makeStorageObject = this.makeStorageObject.bind(this);
   }
 
   componentDidMount() {
-    this.setFavorite();
+    const { id } = this.props;
+    this.setFavorite(id);
   }
 
   handleClick() {
+    const favoriteObject = this.makeStorageObject();
     const { favorito } = this.state;
-    if (favorito) this.setState({ favorito: false });
-    if (!favorito) this.setState({ favorito: true });
+    const { id } = this.props;
+
+    const favoriteStorage = getLocalStorage();
+    const { favoriteRecipes } = favoriteStorage;
+
+    if (favorito) {
+      removeItem(favoriteRecipes, id);
+      this.setState({ favorito: false });
+    }
+
+    if (!favorito) {
+      const newFavorites = addItem(favoriteRecipes, favoriteObject);
+
+      addLocalStorage('favoriteRecipes', newFavorites);
+
+      this.setState({ favorito: true });
+    }
   }
 
-  setFavorite() {
-    const { favorite } = this.props;
-    this.setState({ favorito: favorite });
+  setFavorite(recipeId) {
+    const favoriteStorage = getLocalStorage();
+    const { favoriteRecipes } = favoriteStorage;
+    const checkFavorite = () => (
+      favoriteRecipes.some(({ id }) => id === recipeId)
+    );
+
+    this.setState({ favorito: checkFavorite() });
+  }
+
+  makeStorageObject() {
+    const {
+      id,
+      type,
+      area,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+    } = this.props;
+
+    return {
+      id,
+      type,
+      area,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+    };
   }
 
   render() {
