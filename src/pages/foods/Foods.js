@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchMealsByCategory from '../../Redux/actions/fetchMealsByCategory';
 import fetchMealsCategories from '../../Redux/actions/fetchMealsCategories';
-import fetchMeals from '../../Redux/actions/fetchMeals';
+import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import CategoriesFilter from '../../components/CategoriesFilter';
 import RecipesList from '../../components/RecipesList';
 import Header from '../../components/Header';
@@ -56,7 +56,7 @@ class Foods extends Component {
 
     return (
       <div>
-        <Header title="Comidas" />
+        <Header title="Comidas" showSearchBottom />
         <CategoriesFilter
           categories={ mealCategories }
           handleClick={ this.filterMealsByCategory }

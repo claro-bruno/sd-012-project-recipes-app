@@ -9,7 +9,7 @@ import RecomendationsDrinks from '../../components/RecomendationsDrinks';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
-import fetchDrinks from '../../Redux/actions/fetchDrinks';
+import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import './style.css';
 
 class DetailsFood extends Component {
