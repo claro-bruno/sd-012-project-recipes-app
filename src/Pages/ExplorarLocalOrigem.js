@@ -58,7 +58,7 @@ export default function ExplorarLocalOrigem() {
   return (
     <>
       <section>
-        <Header title="ExplorarLocalOrigem" searchIcon />
+        <Header title="Explorar Origem" searchIcon />
       </section>
       <select
         data-testid="explore-by-area-dropdown"

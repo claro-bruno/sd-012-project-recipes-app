@@ -43,7 +43,7 @@ export default function ExplorarComidaIngrediente() {
   return (
     <>
       <section>
-        <Header title="ExplorarComidaIngrediente" searchIcon />
+        <Header title="Explorar Ingredientes" />
       </section>
       { ingredients.map((ingredient, index) => cardIngredients(ingredient, index)) }
       <Footer />

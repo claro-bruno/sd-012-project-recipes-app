@@ -45,7 +45,7 @@ export default function ExplorarBebidas() {
   return (
     <>
       <section>
-        <Header title="ExplorarBebidas" searchIcon />
+        <Header title="Explorar Bebidas" />
       </section>
       <Link to="/explorar/bebidas/ingredientes">
         <button
