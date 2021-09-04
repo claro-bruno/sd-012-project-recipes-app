@@ -18,7 +18,7 @@ class CategoriesFilter extends Component {
     const { handleClick } = this.props;
     const filteredCategories = this.filterFiveCategories();
     return (
-      <div className="categoryStyle row row-cols-3 row-cols-md-3 g-4 mb-5">
+      <div className="categoryStyle">
         <button
           type="button"
           onClick={ handleClick }

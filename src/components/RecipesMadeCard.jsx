@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
+import CardMadeImg from './CardMadeImg';
+import CardMadeTopText from './CardMadeTopText';
 
 class RecipesMadeCard extends Component {
   constructor(props) {
@@ -35,27 +37,31 @@ class RecipesMadeCard extends Component {
     return (
       <div className="row">
         <div className="card-list-food">
-          <div>
-            <Link to={ `/${type}s/${id}` }>
-              <img
-                src={ image }
-                className="card-img"
-                alt="card"
-                data-testid={ `${index}-horizontal-image` }
+          <div className="d-flex">
+            <div>
+              <CardMadeImg
+                type={ type }
+                id={ id }
+                image={ image }
+                index={ index }
               />
-            </Link>
+            </div>
+
+            <div>
+              <ShareButton
+                position={ index }
+                id={ id }
+                type={ type }
+              />
+              <CardMadeTopText
+                index={ index }
+                area={ area }
+                category={ category }
+              />
+            </div>
           </div>
 
           <div>
-            <ShareButton
-              position={ index }
-              id={ id }
-              type={ type }
-            />
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              <span>{ `${area} - ` }</span>
-              <span>{ category }</span>
-            </p>
             <Link to={ `/${type}s/${id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
             </Link>
@@ -90,7 +96,7 @@ class RecipesMadeCard extends Component {
     return (
       <div className="row">
         <div className="card-list-food">
-          <div>
+          <div className="d-flex">
             <Link to={ `/${type}s/${id}` }>
               <img
                 src={ image }
@@ -99,14 +105,15 @@ class RecipesMadeCard extends Component {
                 data-testid={ `${index}-horizontal-image` }
               />
             </Link>
-          </div>
 
-          <div>
             <ShareButton
               position={ index }
               id={ id }
               type={ type }
             />
+          </div>
+
+          <div>
             <p data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</p>
             <Link to={ `/${type}s/${id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{ name }</p>

@@ -55,30 +55,17 @@ class DetailsDrink extends Component {
                   <div>
                     <img
                       data-testid="recipe-photo"
+                      className="recipe-image"
                       src={ strDrinkThumb }
                       alt="foto"
-                      width="600 px"
                     />
                   </div>
-                  <div>
-                    <h1 data-testid="recipe-title">{ strDrink }</h1>
-                    <h2 data-testid="recipe-category">
-                      { strCategory }
-                      { strAlcoholic }
-                    </h2>
-                  </div>
-                  <IngredientsDrink />
-                  <Instructions />
-                  <RecomendationsFoods />
-                  <button
-                    className="start-recipe-button"
-                    type="button"
-                    data-testid="start-recipe-btn"
-                    onClick={ () => this.setRedirect() }
-                  >
-                    Iniciar Receita
-                  </button>
-                  <ShareButton />
+
+                  <ShareButton
+                    position={ index }
+                    id={ id }
+                    type="bebida"
+                  />
                   <FavoriteButton
                     id={ idDrink }
                     type="bebida"
@@ -88,6 +75,27 @@ class DetailsDrink extends Component {
                     image={ strDrinkThumb }
                     position={ index }
                   />
+
+                  <div>
+                    <h1 data-testid="recipe-title">{ strDrink }</h1>
+                    <h2 data-testid="recipe-category">
+                      { strCategory }
+                      { strAlcoholic }
+                    </h2>
+                  </div>
+
+                  <IngredientsDrink />
+                  <Instructions />
+                  <RecomendationsFoods />
+
+                  <button
+                    className="start-recipe-button"
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    onClick={ () => this.setRedirect() }
+                  >
+                    Iniciar Receita
+                  </button>
                 </div>
               ),
             )

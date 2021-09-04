@@ -63,7 +63,11 @@ class DetailsFood extends Component {
                   />
                 </div>
 
-                <ShareButton />
+                <ShareButton
+                  position={ index }
+                  id={ id }
+                  type="comida"
+                />
                 <FavoriteButton
                   id={ idMeal }
                   type="comida"
