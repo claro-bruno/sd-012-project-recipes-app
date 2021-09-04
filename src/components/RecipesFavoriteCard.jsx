@@ -34,7 +34,7 @@ class RecipesFavoriteCard extends Component {
     return (
       <div className="row">
         <div className="card-list-food">
-          <div>
+          <div className="d-flex">
             <Link to={ `/${type}s/${id}` }>
               <img
                 src={ image }
@@ -43,16 +43,7 @@ class RecipesFavoriteCard extends Component {
                 data-testid={ `${index}-horizontal-image` }
               />
             </Link>
-          </div>
 
-          <div>
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              <span>{ `${area} - ` }</span>
-              <span>{ category }</span>
-            </p>
-            <Link to={ `/${type}s/${id}` }>
-              <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
-            </Link>
             <ShareButton
               position={ index }
               id={ id }
@@ -68,6 +59,16 @@ class RecipesFavoriteCard extends Component {
               image={ image }
               position={ index }
             />
+          </div>
+
+          <div>
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              <span>{ `${area} - ` }</span>
+              <span>{ category }</span>
+            </p>
+            <Link to={ `/${type}s/${id}` }>
+              <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+            </Link>
           </div>
         </div>
       </div>
@@ -87,7 +88,7 @@ class RecipesFavoriteCard extends Component {
     return (
       <div className="row">
         <div className="card-list-food">
-          <div>
+          <div className="d-flex">
             <Link to={ `/${type}s/${id}` }>
               <img
                 src={ image }
@@ -96,13 +97,7 @@ class RecipesFavoriteCard extends Component {
                 data-testid={ `${index}-horizontal-image` }
               />
             </Link>
-          </div>
 
-          <div>
-            <p data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</p>
-            <Link to={ `/${type}s/${id}` }>
-              <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
-            </Link>
             <ShareButton
               position={ index }
               id={ id }
@@ -116,6 +111,13 @@ class RecipesFavoriteCard extends Component {
               image={ image }
               position={ index }
             />
+          </div>
+
+          <div>
+            <p data-testid={ `${index}-horizontal-top-text` }>{ alcoholicOrNot }</p>
+            <Link to={ `/${type}s/${id}` }>
+              <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+            </Link>
           </div>
         </div>
       </div>
