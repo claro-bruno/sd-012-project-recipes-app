@@ -45,58 +45,62 @@ class DetailsDrink extends Component {
     const { disabled } = this.state;
     return (
       <div>
-        <div>
-          {
-            cocktail.map(
-              ({ strDrink, strCategory, strDrinkThumb, strAlcoholic, idDrink }, index) => (
-                <div key={ index }>
-                  <div>
-                    <img
-                      className="img-details"
-                      data-testid="recipe-photo"
-                      src={ strDrinkThumb }
-                      alt="foto"
-                    />
-                  </div>
-                  <ShareButton
-                    position={ index }
-                    id={ id }
-                    type="bebida"
+        {
+          cocktail.map(
+            ({
+              strDrink,
+              strCategory,
+              strDrinkThumb,
+              strAlcoholic,
+              idDrink,
+            }, index) => (
+              <div key={ index }>
+                <div>
+                  <img
+                    className="img-details"
+                    data-testid="recipe-photo"
+                    src={ strDrinkThumb }
+                    alt="foto"
                   />
-                  <FavoriteButton
-                    id={ idDrink }
-                    type="bebida"
-                    category={ strCategory }
-                    alcoholicOrNot={ strAlcoholic }
-                    name={ strDrink }
-                    image={ strDrinkThumb }
-                    position={ index }
-                    cardType="/in-progress"
-                  />
-                  <div>
-                    <h1 data-testid="recipe-title">{ strDrink }</h1>
-                    <h2 data-testid="recipe-category">
-                      { strCategory }
-                      { strAlcoholic }
-                    </h2>
-                  </div>
-                  <DrinkscheckIngredients id={ id } handleClick={ this.finishStatus } />
-                  <Instructions />
-                  <Recomendations />
-                  <button
-                    className="btn btn-warning"
-                    type="button"
-                    data-testid="finish-recipe-btn"
-                    onClick={ () => { console.log('clicado'); } }
-                    disabled={ disabled }
-                  >
-                    Finalizar drink
-                  </button>
                 </div>
-              ),
-            )
-          }
-        </div>
+                <ShareButton
+                  position={ index }
+                  id={ id }
+                  type="bebida"
+                />
+                <FavoriteButton
+                  id={ idDrink }
+                  type="bebida"
+                  category={ strCategory }
+                  alcoholicOrNot={ strAlcoholic }
+                  name={ strDrink }
+                  image={ strDrinkThumb }
+                  position={ index }
+                  cardType="/in-progress"
+                />
+                <div>
+                  <h1 data-testid="recipe-title">{ strDrink }</h1>
+                  <h2 data-testid="recipe-category">
+                    { strCategory }
+                    { strAlcoholic }
+                  </h2>
+                </div>
+                <DrinkscheckIngredients id={ id } handleClick={ this.finishStatus } />
+                <Instructions />
+                <Recomendations />
+                <button
+                  className="btn btn-warning"
+                  type="button"
+                  data-testid="finish-recipe-btn"
+                  onClick={ () => { console.log('clicado'); } }
+                  disabled={ disabled }
+                >
+                  Finalizar drink
+                </button>
+              </div>
+            ),
+          )
+        }
       </div>
     );
   }
