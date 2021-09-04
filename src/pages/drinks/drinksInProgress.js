@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Instructions from '../../components/Instructions';
 import Recomendations from '../../components/RecomendationsDrinks';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
 import DrinkscheckIngredients from '../../components/DrinksCheckIngredients';
-import ShareButton from '../../components/shareButton';
+import ShareButton from '../../components/ShareButton';
 import './style.css';
 
 class DetailsDrink extends Component {
@@ -48,7 +48,7 @@ class DetailsDrink extends Component {
         <div>
           {
             cocktail.map(
-              ({ strDrink, strCategory, strDrinkThumb, strAlcoholic }, index) => (
+              ({ strDrink, strCategory, strDrinkThumb, strAlcoholic, idDrink }, index) => (
                 <div key={ index }>
                   <div>
                     <img
@@ -65,16 +65,15 @@ class DetailsDrink extends Component {
                       { strAlcoholic }
                     </h2>
                     <ShareButton id={ id } />
-                    <button
-                      className="share-fill"
-                      type="button"
-                    >
-                      <img
-                        src={ WhiteHeartIcon }
-                        alt="favorite button"
-                        data-testid="favorite-btn"
-                      />
-                    </button>
+                    <FavoriteButton
+                      id={ idDrink }
+                      type="bebida"
+                      category={ strCategory }
+                      alcoholicOrNot={ strAlcoholic }
+                      name={ strDrink }
+                      image={ strDrinkThumb }
+                      position={ index }
+                    />
                   </div>
                   <DrinkscheckIngredients id={ id } handleClick={ this.finishStatus } />
                   <Instructions />

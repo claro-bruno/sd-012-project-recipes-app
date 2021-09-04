@@ -87,6 +87,7 @@ class FavoriteButton extends Component {
 
     return (
       <button
+        data-testid="favorite-btn"
         type="button"
         className="share-fill"
         onClick={ this.handleClick }

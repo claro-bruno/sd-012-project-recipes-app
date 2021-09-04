@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import FavoriteButton from '../../components/FavoriteButton';
 import Instructions from '../../components/Instructions';
-import ShareButton from '../../components/shareButton';
+import ShareButton from '../../components/ShareButton';
 import FoodsCheckIngredients from '../../components/FoodsCheckIngredients';
 import './style.css';
 
@@ -44,7 +44,7 @@ class RecipesInProgress extends Component {
     return (
       <>
         {
-          recipe.map(({ strMeal, strCategory, strMealThumb }, index) => (
+          recipe.map(({ strMeal, strCategory, strMealThumb, idMeal, strArea }, index) => (
             <div key={ index }>
               <div>
                 <img
@@ -61,13 +61,16 @@ class RecipesInProgress extends Component {
               </div>
               <div>
                 <ShareButton id={ id } />
-                <button type="button" className="share-fill">
-                  <img
-                    src={ WhiteHeartIcon }
-                    alt="favorite button"
-                    data-testid="favorite-btn"
-                  />
-                </button>
+                <FavoriteButton
+                  id={ idMeal }
+                  type="comida"
+                  area={ strArea }
+                  category={ strCategory }
+                  alcoholicOrNot=""
+                  name={ strMeal }
+                  image={ strMealThumb }
+                  position={ index }
+                />
                 <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
               </div>
             </div>
