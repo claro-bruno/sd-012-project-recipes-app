@@ -56,9 +56,11 @@ function App() {
 
         <Route exact path="/receitas-feitas" component={ RecipesMade } />
         <Route exact path="/receitas-favoritas" component={ RecipesFavorite } />
+
         <Route exact path="/perfil" component={ Perfil } />
         <Route exact path="/" component={ Login } />
         <Route path="/perfil" component={ Perfil } />
+
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
         <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
