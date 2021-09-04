@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
@@ -11,13 +12,21 @@ import './style.css';
 class RecipesInProgress extends Component {
   constructor(props) {
     super(props);
-    this.state = { disabled: true };
+    this.state = {
+      disabled: true,
+      redirect: false,
+    };
     this.finishStatus = this.finishStatus.bind(this);
+    this.redirecPage = this.redirecPage.bind(this);
   }
 
   componentDidMount() {
     const { match: { params: { id } }, fetchRecipe } = this.props;
     fetchRecipe(id);
+  }
+
+  redirecPage() {
+    this.setState({ redirect: true });
   }
 
   finishStatus() {
@@ -40,7 +49,7 @@ class RecipesInProgress extends Component {
 
   render() {
     const { recipe, match: { params: { id } } } = this.props;
-    const { disabled } = this.state;
+    const { disabled, redirect } = this.state;
     return (
       <>
         {
@@ -80,16 +89,18 @@ class RecipesInProgress extends Component {
             </div>
           ))
         }
-        <Instructions />
         <button
           className="btn btn-warning"
           type="button"
           data-testid="finish-recipe-btn"
-          onClick={ () => { console.log('clicado'); } }
+          onClick={ this.redirecPage }
           disabled={ disabled }
         >
           Finalizar a receita
         </button>
+        <Instructions />
+        { redirect ? <Redirect to="/receitas-feitas" />
+          : console.log('não redirecionei')}
       </>
     );
   }

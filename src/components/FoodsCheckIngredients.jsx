@@ -12,7 +12,6 @@ class Ingredients extends Component {
     this.setLocalStorage = this.setLocalStorage.bind(this);
     this.taskItem = this.taskItem.bind(this);
     this.setIngredients = this.setIngredients.bind(this);
-    // this.finishStatus = this.finishStatus.bind(this);
   }
 
   componentDidMount() {

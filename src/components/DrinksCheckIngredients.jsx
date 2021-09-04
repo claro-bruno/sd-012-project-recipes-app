@@ -84,7 +84,13 @@ class DrinkscheckIngredients extends Component {
 
   taskItem(event) {
     const { handleClick } = this.props;
-    event.target.parentNode.classList.toggle('complete');
+    const { target: { checked } } = event;
+    if (checked) {
+      event.target.parentNode.className = 'complete';
+    }
+    if (!checked) {
+      event.target.parentNode.className = '';
+    }
     this.setLocalStorage();
     handleClick();
   }

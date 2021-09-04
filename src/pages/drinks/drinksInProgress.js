@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Instructions from '../../components/Instructions';
@@ -12,14 +13,22 @@ import './style.css';
 class DetailsDrink extends Component {
   constructor(props) {
     super(props);
-    this.state = { disabled: true };
+    this.state = {
+      disabled: true,
+      redirect: false,
+    };
     this.finishStatus = this.finishStatus.bind(this);
+    this.redirecPage = this.redirecPage.bind(this);
   }
 
   componentDidMount() {
     const { getCocktail, match } = this.props;
     const { params: { id } } = match;
     getCocktail(id);
+  }
+
+  redirecPage() {
+    this.setState({ redirect: true });
   }
 
   finishStatus() {
@@ -42,7 +51,7 @@ class DetailsDrink extends Component {
 
   render() {
     const { cocktail, match: { params: { id } } } = this.props;
-    const { disabled } = this.state;
+    const { disabled, redirect } = this.state;
     return (
       <div>
         {
@@ -92,11 +101,13 @@ class DetailsDrink extends Component {
                   className="btn btn-warning"
                   type="button"
                   data-testid="finish-recipe-btn"
-                  onClick={ () => { console.log('clicado'); } }
+                  onClick={ this.redirecPage }
                   disabled={ disabled }
                 >
                   Finalizar drink
                 </button>
+                { redirect ? <Redirect to="/receitas-feitas" />
+                  : console.log('não redirecionei')}
               </div>
             ),
           )
