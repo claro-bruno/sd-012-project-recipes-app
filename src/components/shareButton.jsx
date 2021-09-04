@@ -45,7 +45,7 @@ class ShareButton extends Component {
           text={ path }
           onCopy={ this.copyHandle }
         >
-          <button type="button" className="share-fill">
+          <button data-testid="share-btn" type="button" className="share-fill">
             <img
               src={ ShareIcon }
               alt="share button"
@@ -53,7 +53,6 @@ class ShareButton extends Component {
             />
           </button>
         </CopyToClipboard>
-
         { copied ? <span>Link copiado!</span> : null }
       </div>
     );

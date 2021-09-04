@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchCocktail from '../Redux/actions/fetchCocktail';
-import initialStorage from '../webStorage/helper';
+// import initialStorage from '../webStorage/helper';
 import '../pages/drinks/style.css';
 
 class DrinkscheckIngredients extends Component {
@@ -19,12 +19,12 @@ class DrinkscheckIngredients extends Component {
   }
 
   getprogress() {
-    const { id } = this.props;
     const localProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (localProgress !== null) {
+    const { id } = this.props;
+    if (localProgress) {
       const nodeList = document.querySelectorAll('.itenLits');
-      console.log(localProgress);
-      const drinkId = localProgress.cocktails[id];
+      console.log(nodeList);
+      const drinkId = localProgress.cocktails[id] || [];
       nodeList.forEach((element, index) => {
         if (element.firstElementChild.value === drinkId[index]) {
           element.className = 'complete';
@@ -32,6 +32,10 @@ class DrinkscheckIngredients extends Component {
         }
       });
     } else {
+      const initialStorage = {
+        cocktails: { [id]: [] },
+        meals: {},
+      };
       localStorage.setItem('inProgressRecipes', JSON.stringify(initialStorage));
     }
   }
@@ -79,14 +83,10 @@ class DrinkscheckIngredients extends Component {
   }
 
   taskItem(event) {
-    const { target: { checked } } = event;
-    if (checked) {
-      event.target.parentNode.className = 'complete';
-    }
-    if (!checked) {
-      event.target.parentNode.className = '';
-    }
+    const { handleClick } = this.props;
+    event.target.parentNode.classList.toggle('complete');
     this.setLocalStorage();
+    handleClick();
   }
 
   render() {
@@ -108,6 +108,7 @@ class DrinkscheckIngredients extends Component {
                 value={ `${Object.keys(ingredient)[0]}` }
                 meansure={ `${Object.values(ingredient)[0]}` }
                 onClick={ (e) => this.taskItem(e) }
+                className="checkedbox"
               />
               {
                 `${Object.keys(ingredient)[0]}:

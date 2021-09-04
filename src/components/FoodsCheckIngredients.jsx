@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchRecipes from '../Redux/actions/fetchRecipes';
+// import initialStorage from '../webStorage/helper';
 import '../pages/foods/style.css';
-import initialStorage from '../webStorage/helper';
 
 class Ingredients extends Component {
   constructor(props) {
@@ -12,6 +12,7 @@ class Ingredients extends Component {
     this.setLocalStorage = this.setLocalStorage.bind(this);
     this.taskItem = this.taskItem.bind(this);
     this.setIngredients = this.setIngredients.bind(this);
+    // this.finishStatus = this.finishStatus.bind(this);
   }
 
   componentDidMount() {
@@ -21,9 +22,9 @@ class Ingredients extends Component {
   getprogress() {
     const { id } = this.props;
     const localProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (localProgress !== null) {
+    if (localProgress) {
       const nodeList = document.querySelectorAll('.itenLits');
-      const mealId = localProgress.meals[id];
+      const mealId = localProgress.meals[id] || [];
       nodeList.forEach((element, index) => {
         if (element.firstElementChild.value === mealId[index]) {
           element.className = 'complete';
@@ -31,6 +32,10 @@ class Ingredients extends Component {
         }
       });
     } else {
+      const initialStorage = {
+        meals: { [id]: [] },
+        cocktails: {},
+      };
       localStorage.setItem('inProgressRecipes', JSON.stringify(initialStorage));
     }
   }
@@ -77,6 +82,7 @@ class Ingredients extends Component {
   }
 
   taskItem(event) {
+    const { handleClick } = this.props;
     const { target: { checked } } = event;
     if (checked) {
       event.target.parentNode.className = 'complete';
@@ -85,12 +91,13 @@ class Ingredients extends Component {
       event.target.parentNode.className = '';
     }
     this.setLocalStorage();
+    handleClick();
   }
 
   render() {
     const ingredients = this.setIngredients();
     return (
-      <div>
+      <div className="form">
         {
           ingredients.map((ingredient, index) => (
             <h3
@@ -108,6 +115,7 @@ class Ingredients extends Component {
                 value={ `${Object.keys(ingredient)[0]}` }
                 meansure={ `${Object.values(ingredient)[0]}` }
                 onClick={ (e) => this.taskItem(e) }
+                className="checkedbox"
               />
               {
                 `${Object.keys(ingredient)[0]}: 
