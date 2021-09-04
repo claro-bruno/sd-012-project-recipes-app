@@ -27,6 +27,7 @@ export default function DetalheComida(props) {
   useEffect(() => {
     const getFood = async () => {
       const foodResult = await ComidasAPI.buscarComidaPeloID(id);
+      // console.log(foodResult[0]);
       setFood(foodResult[0]);
       const readyIngredients = getRecipeIngredients(foodResult);
       setFoodIngredients(readyIngredients);
