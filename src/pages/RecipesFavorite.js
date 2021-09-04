@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FilterRecipesMade from '../components/FilterRecipesMade';
 import RecipesFavoriteList from '../components/RecipesFavoriteList';
-import initialFavoriteStorage from '../webStorage/storages';
+import { getLocalStorage } from '../webStorage/favoritesHelpers';
 
 class RecipesFavorite extends Component {
   constructor(props) {
@@ -20,19 +20,10 @@ class RecipesFavorite extends Component {
   }
 
   setFavoriteRecipes() {
-    const { favoriteRecipes } = initialFavoriteStorage;
-    const favoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const favoriteStorage = getLocalStorage();
+    const { favoriteRecipes } = favoriteStorage;
 
-    if (favoriteStorage === null) {
-      localStorage.setItem(
-        'favoriteRecipes',
-        JSON.stringify(initialFavoriteStorage),
-      );
-
-      this.setState({ favoritedRecipes: favoriteRecipes });
-    } else {
-      this.setState({ favoritedRecipes: favoriteStorage.favoriteRecipes });
-    }
+    this.setState({ favoritedRecipes: favoriteRecipes });
   }
 
   filterRecipesFavorite({ target }) {

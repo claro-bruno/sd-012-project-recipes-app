@@ -44,7 +44,13 @@ class DetailsDrink extends Component {
         <div>
           {
             cocktail.map(
-              ({ strDrink, strCategory, strDrinkThumb, strAlcoholic }, index) => (
+              ({
+                idDrink,
+                strDrink,
+                strCategory,
+                strDrinkThumb,
+                strAlcoholic,
+              }, index) => (
                 <div key={ index }>
                   <div>
                     <img
@@ -73,7 +79,15 @@ class DetailsDrink extends Component {
                     Iniciar Receita
                   </button>
                   <ShareButton />
-                  <FavoriteButton />
+                  <FavoriteButton
+                    id={ idDrink }
+                    type="bebida"
+                    category={ strCategory }
+                    alcoholicOrNot={ strAlcoholic }
+                    name={ strDrink }
+                    image={ strDrinkThumb }
+                    position={ index }
+                  />
                 </div>
               ),
             )
