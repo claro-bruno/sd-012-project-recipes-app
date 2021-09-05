@@ -69,7 +69,7 @@ class IngredientsCheckedList extends Component {
       >
         <input
           type="checkbox"
-          checked={ checked || isChecked }
+          checked={ checked || isChecked || '' }
           className="checkedbox"
           value={ ingredientName }
           onChange={ this.handleClick }
