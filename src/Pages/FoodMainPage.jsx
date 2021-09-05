@@ -20,11 +20,6 @@ function FoodMainPage() {
   }
 
   if (showBar === false) {
-    if (meals.length === 1) {
-      const obj = meals.find((object) => object.idMeal);
-      const path = `/comidas/${obj.idMeal}`;
-      push(path);
-    }
     return (
       <div className="container">
         <FoodHeader title="Comidas" />

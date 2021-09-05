@@ -20,11 +20,6 @@ function DrinkMainPage() {
   }
 
   if (showBar === false) {
-    if (drinks.length === 1) {
-      const obj = drinks.find((object) => object.idDrink);
-      const path = `/bebidas/${obj.idDrink}`;
-      push(path);
-    }
     return (
       <div className="container">
         <DrinkHeader title="Bebidas" />
