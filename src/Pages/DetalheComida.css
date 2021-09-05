@@ -106,7 +106,7 @@
 
 .recomended-drink-section-infos {
   display: flex;
-  margin: 20px 0 120px 8px;
+  margin: 20px 0 40px 8px;
   overflow-x: scroll;
   padding: 20px 5px;
   width: 95%;
@@ -158,4 +158,5 @@
 .food-info {
   background: rgb(25, 62, 25) radial-gradient(circle, rgba(25, 62, 25, 1) 36%, black 85%);
   color: white;
+  padding-bottom: 25px;
 }
