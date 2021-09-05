@@ -1,5 +1,33 @@
-const initialFavoriteStorage = {
+export const initialFavoriteStorage = {
   favoriteRecipes: [],
 };
 
-export default initialFavoriteStorage;
+export const initialInProgressStorage = {
+  cocktails: {
+    13501: [
+      'Amaretto',
+      'Baileys irish cream',
+    ],
+  },
+  meals: {
+    52978: [
+      'Potatoes',
+      'Butter',
+    ],
+  },
+};
+
+// const initialInProgressStorage = {
+//   cocktails: {
+//     13501: [
+//       'Amaretto',
+//       'Baileys irish cream',
+//     ],
+//   },
+//   meals: {
+//     52978: [
+//       'Potatoes',
+//       'Butter',
+//     ],
+//   },
+// };

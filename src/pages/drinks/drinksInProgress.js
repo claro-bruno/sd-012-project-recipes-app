@@ -85,7 +85,12 @@ class DetailsDrink extends Component {
                     { strAlcoholic }
                   </h2>
                 </div>
-                <DrinkscheckIngredients id={ id } handleClick={ this.finishStatus } />
+
+                <DrinkscheckIngredients
+                  id={ id }
+                  handleClick={ this.finishStatus }
+                />
+
                 <Instructions />
                 <Recomendations />
                 <button

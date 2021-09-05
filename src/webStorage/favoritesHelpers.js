@@ -1,4 +1,4 @@
-import initialFavoriteStorage from './storages';
+import { initialFavoriteStorage } from './storages';
 
 export const getLocalStorage = () => {
   let storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
