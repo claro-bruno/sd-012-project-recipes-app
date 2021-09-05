@@ -26,7 +26,6 @@ export default function DetalheBebida(props) {
   useEffect(() => {
     const getDrink = async () => {
       const drinkResult = await BebidasAPI.buscarBebidaPeloID(id);
-      // console.log(drinkResult);
       setDrink(drinkResult.drinks[0]);
 
       const readyIngredients = getRecipeIngredients(drinkResult.drinks);
