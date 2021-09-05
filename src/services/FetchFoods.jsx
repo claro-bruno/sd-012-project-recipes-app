@@ -1,7 +1,7 @@
 const getFood = async (api) => {
   const endpoint = api;
   const response = await fetch(endpoint);
-  if (!response.ok) return console.log('Falha na requisição de receitas por ingrediente');
+  if (!response.ok) return [];
   const result = response.json();
   return result;
 };

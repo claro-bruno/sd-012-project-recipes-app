@@ -30,9 +30,9 @@ export function getFoodsApi(api) {
   };
 }
 
-export function getDrinksApi(api) {
+export function getDrinksApi(url) {
   return async (dispatch) => {
-    const cocktail = await getDrink(api);
+    const cocktail = await getDrink(url);
     dispatch(getDrinksSuccess(cocktail));
   };
 }

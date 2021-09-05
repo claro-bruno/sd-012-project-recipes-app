@@ -5,14 +5,22 @@ import mealApi from '../services/GetUrl';
 
 function FoodSearchBar() {
   const [search, setSearch] = useState({ type: '', entry: '' });
+  const [showAlert, setShowAlert] = useState(false);
   const dispatch = useDispatch();
 
   const handleChange = ({ target }) => setSearch(
     (prevState) => ({ ...prevState, type: target.value }),
   );
 
+  const handleShowAlert = async () => {
+    const time = 2000;
+    setShowAlert(true);
+    await setTimeout(() => setShowAlert(false), time);
+  };
+
   return (
     <section className="search-bar">
+      { showAlert ? window.alert('Sua busca deve conter somente 1 (um) caracter') : null }
       <input
         type="text"
         data-testid="search-input"
@@ -59,6 +67,9 @@ function FoodSearchBar() {
         type="button"
         className="btn btn-outline-danger btn-sm"
         onClick={ () => {
+          if (search.type === 'first-letter' && search.entry.length > 1) {
+            handleShowAlert();
+          }
           dispatch(changeFoodSearch(search));
           const url = mealApi(search.type, search.entry);
           dispatch(getFoodsApi(url));

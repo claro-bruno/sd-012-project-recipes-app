@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { changeDrinkSearch, getDrinksApi } from '../Redux/actions/apiActions';
-import drinkApi from '../services/GetUrl';
+import drinkApi from '../services/GetDrinkUrl';
 
 function FoodSearchBar() {
-  const [search, setSearch] = useState({ type: '', entry: '' });
+  const [param, setParam] = useState({ type: '', entry: '' });
+  const [showAlert, setShowAlert] = useState(false);
   const dispatch = useDispatch();
 
-  const handleChange = ({ target }) => setSearch(
+  const handleChange = ({ target }) => setParam(
     (prevState) => ({ ...prevState, type: target.value }),
   );
 
+  const handleShowAlert = async () => {
+    const time = 10000;
+    setShowAlert(true);
+    await setTimeout(() => setShowAlert(false), time);
+  };
+
   return (
     <section className="search-bar">
+      { showAlert ? window.alert('Sua busca deve conter somente 1 (um) caracter') : null }
       <input
         type="text"
         data-testid="search-input"
         name="search"
-        onChange={ ({ target }) => setSearch(
+        onChange={ ({ target }) => setParam(
           (prevState) => ({ ...prevState, entry: target.value }),
         ) }
       />
@@ -59,9 +67,13 @@ function FoodSearchBar() {
         type="button"
         className="btn btn-outline-danger btn-sm"
         onClick={ () => {
-          dispatch(changeDrinkSearch(search));
-          const url = drinkApi(search.type, search.entry);
-          dispatch(getDrinksApi(url));
+          if (param.type === 'first-letter' && param.entry.length > 1) {
+            handleShowAlert();
+          }
+          dispatch(changeDrinkSearch(param));
+          const drinkUrl = drinkApi(param.type, param.entry);
+          dispatch(getDrinksApi(drinkUrl));
+          setParam((prevState) => ({ ...prevState, type: '', entry: '' }));
         } }
       >
         Buscar

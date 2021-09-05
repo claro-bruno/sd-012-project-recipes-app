@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 import Footer from '../Components/Footer';
@@ -9,12 +10,21 @@ import '../styles/MainPages.css';
 function DrinkMainPage() {
   const { drinks } = useSelector((state) => state.drinksReducer);
   const { drinksBar, showBar } = useSelector((state) => state.mainPage);
+  const { push } = useHistory();
 
-  if (!drinks) {
+  console.log(drinksBar.length);
+  console.log(drinks.length);
+
+  if (drinks === []) {
     return <Spinner animation="border" variant="danger" />;
   }
 
-  if (!showBar) {
+  if (showBar === false) {
+    if (drinks.length === 1) {
+      const obj = drinks.find((object) => object.idDrink);
+      const path = `/bebidas/${obj.idDrink}`;
+      push(path);
+    }
     return (
       <div className="container">
         <DrinkHeader title="Bebidas" />
@@ -34,16 +44,21 @@ function DrinkMainPage() {
     );
   }
 
+  if (drinksBar.length === 1) {
+    const obj = drinksBar.find((object) => object.idDrink);
+    const path = `/bebidas/${obj.idDrink}`;
+    push(path);
+  }
   return (
     <div className="container">
-      <DrinkHeader title="Comidas" />
+      <DrinkHeader title="Bebidas" />
       <section className="cards">
         { drinksBar.map((drink) => (
           <RecipeCard
-            key={ drink.idMeal }
-            id={ drink.idMeal }
-            thumbnail={ drink.strMealThumb }
-            title={ drink.strMeal }
+            key={ drink.idDrink }
+            id={ drink.key }
+            thumbnail={ drink.strDrinkThumb }
+            title={ drink.strDrink }
             index={ drink.key }
           />
         ))}

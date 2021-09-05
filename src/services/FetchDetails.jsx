@@ -1,6 +1,6 @@
 const getDetails = async (api) => {
   const response = await fetch(api);
-  if (!response.ok) return console.log('Falha na requisição de detalhes');
+  if (!response.ok) return [];
   const result = await response.json();
   return result;
 };

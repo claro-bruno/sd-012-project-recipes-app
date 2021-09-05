@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
+import Footer from '../Components/Footer';
 
 function FoodPlaceExplore() {
   const [data, setData] = useState([]);
@@ -96,6 +97,7 @@ function FoodPlaceExplore() {
             </Link>
           ))
       }
+      <Footer />
     </div>
   );
 }

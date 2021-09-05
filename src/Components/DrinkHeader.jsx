@@ -9,8 +9,10 @@ import DrinkSearchBar from './DrinkSearchBar';
 import { changeShowBar, getDrinksApi } from '../Redux/actions/apiActions';
 import drinkApi from '../services/GetDrinkUrl';
 
-function FoodHeader({ title }) {
-  const { showBar, foodSearch: { type, entry } } = useSelector((state) => state.mainPage);
+function DrinkHeader({ title }) {
+  const {
+    showBar,
+    drinkSearch: { type, entry } } = useSelector((state) => state.mainPage);
 
   const dispatch = useDispatch();
 
@@ -71,8 +73,8 @@ function FoodHeader({ title }) {
   );
 }
 
-FoodHeader.propTypes = {
+DrinkHeader.propTypes = {
   title: PropTypes.string,
 }.isRequired;
 
-export default FoodHeader;
+export default DrinkHeader;
