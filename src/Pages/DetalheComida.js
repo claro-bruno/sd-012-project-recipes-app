@@ -177,6 +177,7 @@ export default function DetalheComida(props) {
         <h5>Video</h5>
         <iframe data-testid="video" title="food-video" src={ getEmbedURL(food) } />
       </div>
+      <h5>Recomended</h5>
       <div className="recomended-drink-section-infos">
         { randomDrinks.map((drink, index) => (
           <RecomendedCard

@@ -1,13 +1,17 @@
 import React from 'react';
-import { findByRole, findByTestId, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
+import oneMeal from './mocks/oneMeal';
+import recomendedDrinks from './mocks/RecomendedDrinks';
 import * as ComidasAPI from '../service/ComidasAPI';
+import * as BebidasAPI from '../service/BebidasAPI';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import App from '../App';
 
-const url = '/comidas/52772';
+const url = '/comidas/52771';
 const ingredientsIds = {
   ingredient1: '0-ingredient-name-and-measure',
   ingredient2: '1-ingredient-name-and-measure',
@@ -20,60 +24,13 @@ const ingredientsIds = {
   ingredient9: '8-ingredient-name-and-measure',
 };
 
-const foodResult = [
-  {
-    idMeal: '52772',
-    strCategory: 'Chicken',
-    strIngredient1: 'soy sauce',
-    strIngredient2: 'water',
-    strIngredient3: 'brown sugar',
-    strIngredient4: 'ground ginger',
-    strIngredient5: 'minced garlic',
-    strIngredient6: 'cornstarch',
-    strIngredient7: 'chicken breasts',
-    strIngredient8: 'stir-fry vegetables',
-    strIngredient9: 'brown rice',
-    strInstructions: `Preheat oven to 350° F.
-      Spray a 9x13-inch baking pan with non-stick spray.
-      Combine soy sauce, ½ cup water, brown sugar,
-      ginger and garlic in a small saucepan and cover.
-      Bring to a boil over medium heat.
-      Remove lid and cook for one minute once boiling.
-      Meanwhile, stir together the corn starch and 2
-      tablespoons of water in a separate dish until smooth.
-      Once sauce is boiling, add mixture
-      to the saucepan and stir to combine.
-      Cook until the sauce starts to thicken
-      then remove from heat. Place the chicken breasts in the prepared pan.
-      Pour one cup of the sauce over top of chicken.
-      Place chicken in oven and bake 35 minutes or until cooked through.
-      Remove from oven and shred chicken in the dish using two forks.
-      *Meanwhile, steam or cook the vegetables according to package directions.
-      Add the cooked vegetables and rice to the casserole dish with the chicken.
-      Add most of the remaining sauce, reserving
-      a bit to drizzle over the top when serving.
-      Gently toss everything together in the casserole
-      dish until combined. Return to oven and cook 15 minutes.
-      Remove from oven and let stand 5 minutes before serving.
-      Drizzle each serving with remaining sauce. Enjoy!`,
-    strMeal: 'Teriyaki Chicken Casserole',
-    strMealThumb: 'https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg',
-    strMeasure1: '3/4 cup',
-    strMeasure2: '1/2 cup',
-    strMeasure3: '1/4 cup',
-    strMeasure4: '1/2 teaspoon',
-    strMeasure5: '1/2 teaspoon',
-    strMeasure6: '4 Tablespoons',
-    strMeasure7: '2',
-    strMeasure8: '1 (12 oz.)',
-    strMeasure9: '3 cups',
-    strYoutube: 'https://www.youtube.com/watch?v=4aZr5hZXP_s',
-  },
-];
+jest.mock('clipboard-copy', () => jest.fn());
+const copyToClipBoard = require('clipboard-copy');
 
 describe('Testes da pagina de detalhes de comida', () => {
   beforeEach(() => {
-    jest.spyOn(ComidasAPI, 'buscarComidaPeloID').mockResolvedValue(foodResult);
+    jest.spyOn(ComidasAPI, 'buscarComidaPeloID').mockResolvedValue(oneMeal);
+    jest.spyOn(BebidasAPI, 'buscarBebidaAleatoria').mockResolvedValue(recomendedDrinks);
   });
 
   it('Verifica se a imagem principal renderiza corretamente', async () => {
@@ -82,7 +39,7 @@ describe('Testes da pagina de detalhes de comida', () => {
 
     const mainImage = await screen.findByTestId('recipe-photo');
 
-    expect(mainImage).toHaveProperty('src', 'https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg');
+    expect(mainImage).toHaveProperty('src', 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg');
   });
 
   it('Verifica se o título da comida renderiza corretamente', async () => {
@@ -91,7 +48,7 @@ describe('Testes da pagina de detalhes de comida', () => {
 
     const mainTitle = await screen.findByTestId('recipe-title');
 
-    expect(mainTitle.innerHTML).toBe('Teriyaki Chicken Casserole');
+    expect(mainTitle.innerHTML).toBe('Spicy Arrabiata Penne');
   });
 
   it('Verifica se os botões de compartilhar e favoritar renderizam normalmente',
@@ -112,7 +69,7 @@ describe('Testes da pagina de detalhes de comida', () => {
 
     const category = await screen.findByTestId('recipe-category');
 
-    expect(category.innerHTML).toBe('Chicken');
+    expect(category.innerHTML).toBe('Vegetarian');
   });
 
   it('Verifica se existe o título "Ingredients"', async () => {
@@ -136,17 +93,15 @@ describe('Testes da pagina de detalhes de comida', () => {
     const ingredient6 = await screen.findByTestId(ingredientsIds.ingredient6);
     const ingredient7 = await screen.findByTestId(ingredientsIds.ingredient7);
     const ingredient8 = await screen.findByTestId(ingredientsIds.ingredient8);
-    const ingredient9 = await screen.findByTestId(ingredientsIds.ingredient9);
 
-    expect(ingredient1.innerHTML).toBe('- soy sauce - 3/4 cup');
-    expect(ingredient2.innerHTML).toBe('- water - 1/2 cup');
-    expect(ingredient3.innerHTML).toBe('- brown sugar - 1/4 cup');
-    expect(ingredient4.innerHTML).toBe('- ground ginger - 1/2 teaspoon');
-    expect(ingredient5.innerHTML).toBe('- minced garlic - 1/2 teaspoon');
-    expect(ingredient6.innerHTML).toBe('- cornstarch - 4 Tablespoons');
-    expect(ingredient7.innerHTML).toBe('- chicken breasts - 2');
-    expect(ingredient8.innerHTML).toBe('- stir-fry vegetables - 1 (12 oz.)');
-    expect(ingredient9.innerHTML).toBe('- brown rice - 3 cups');
+    expect(ingredient1.innerHTML).toBe('- penne rigate - 1 pound');
+    expect(ingredient2.innerHTML).toBe('- olive oil - 1/4 cup');
+    expect(ingredient3.innerHTML).toBe('- garlic - 3 cloves');
+    expect(ingredient4.innerHTML).toBe('- chopped tomatoes - 1 tin');
+    expect(ingredient5.innerHTML).toBe('- red chile flakes - 1/2 teaspoon');
+    expect(ingredient6.innerHTML).toBe('- italian seasoning - 1/2 teaspoon');
+    expect(ingredient7.innerHTML).toBe('- basil - 6 leaves');
+    expect(ingredient8.innerHTML).toBe('- Parmigiano-Reggiano - spinkling');
   });
 
   it('Verifica se existe o título "Instructions"', async () => {
@@ -177,5 +132,76 @@ describe('Testes da pagina de detalhes de comida', () => {
     );
 
     expect(videoTitle).toBeDefined();
+  });
+
+  it('Verifica se o vídeo é renderizado normalmente', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push(url);
+
+    const video = await screen.findByTestId('video');
+
+    expect(video).toHaveProperty('src', 'https://www.youtube.com/embed/1IszT_guI08');
+  });
+
+  it('Verifica se existe o título "Recomended"', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push(url);
+
+    const recomendedTitle = await screen.findByRole('heading', { name: 'Recomended' });
+
+    expect(recomendedTitle).toBeDefined();
+  });
+
+  it('Verifica se existe 6 cards de bebidas recomendadas', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push(url);
+
+    const card1 = await screen.findByTestId('0-recomendation-card');
+    const card2 = await screen.findByTestId('1-recomendation-card');
+    const card3 = await screen.findByTestId('2-recomendation-card');
+    const card4 = await screen.findByTestId('3-recomendation-card');
+    const card5 = await screen.findByTestId('4-recomendation-card');
+    const card6 = await screen.findByTestId('5-recomendation-card');
+
+    expect(card1).toBeDefined();
+    expect(card2).toBeDefined();
+    expect(card3).toBeDefined();
+    expect(card4).toBeDefined();
+    expect(card5).toBeDefined();
+    expect(card6).toBeDefined();
+  });
+
+  it('Verifica se existe o botão de iniciar receita', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push(url);
+
+    const startBtn = await screen.findByTestId('start-recipe-btn');
+
+    expect(startBtn).toBeDefined();
+  });
+
+  it('Verifica se ao clicar no botão de compartilhar, a função é chamada', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push(url);
+
+    const shareBtn = await screen.findByTestId('share-btn');
+    userEvent.click(shareBtn);
+
+    expect(copyToClipBoard).toHaveBeenCalledTimes(1);
+  });
+
+  it('Verifica se ao clicar no botão de favoritar, a comida é favoritada', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push(url);
+
+    const favoriteBtn = await screen.findByTestId('favorite-btn');
+    userEvent.click(favoriteBtn);
+
+    expect(favoriteBtn).toHaveProperty('src', `http://localhost/${blackHeartIcon}`);
+
+    const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const hasFood = storage.some((item) => item.id === oneMeal[0].idMeal);
+
+    expect(hasFood).toBe(true);
   });
 });
