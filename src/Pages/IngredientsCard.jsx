@@ -7,6 +7,7 @@ function IngredientsCard({ recipe }) {
   const [measures, setMeasures] = useState([]);
 
   useEffect(() => {
+    console.log(recipe);
     setIngredients(createIngredientsAndMesure(recipe, 'ingredients'));
     setMeasures(createIngredientsAndMesure(recipe, 'mesure'));
   }, [recipe]);
