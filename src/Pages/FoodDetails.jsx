@@ -6,6 +6,7 @@ import RecipeHeader from '../Components/RecipeHeader';
 import RenderRecommendations from '../Components/RenderRecommendations';
 import IngredientsAndMeasures from '../Components/IngredientsAndMeasures';
 import * as required from '../helper/requiredDetails';
+import '../styles/Details.css';
 
 function FoodDetails() {
   const [recipe, setRecipe] = useState([]);
@@ -53,7 +54,7 @@ function FoodDetails() {
         <h1>Instructions</h1>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
-      <div>
+      <div className="video">
         <ReactPlayer url={ recipe.strYoutube } controls data-testid="video" />
       </div>
       <div>

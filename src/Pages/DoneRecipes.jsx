@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DoneRecipesCard from '../Components/DoneRecipeCard';
 import shareIcon from '../images/shareIcon.svg';
+import Header from '../Components/Header';
 
 // const doneRecipesMock = [
 //   {
@@ -57,6 +58,7 @@ function DoneRecipes() {
 
   return (
     <div>
+      <Header title="Receitas Feitas" />
       <button
         type="button"
         data-testid="filter-by-all-btn"

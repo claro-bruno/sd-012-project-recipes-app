@@ -4,8 +4,9 @@ import Button from './Button';
 
 function RecipeHeader({ thumb, title, category, recipe, type }) {
   return (
-    <header>
+    <header className="header-detail">
       <img
+        className="header-img"
         src={ thumb }
         alt={ title }
         data-testid="recipe-photo"

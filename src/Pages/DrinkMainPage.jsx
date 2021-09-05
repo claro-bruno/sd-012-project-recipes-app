@@ -48,13 +48,13 @@ function DrinkMainPage() {
     <div className="container">
       <DrinkHeader title="Bebidas" />
       <section className="cards">
-        { drinksBar.map((drink) => (
+        { drinksBar.map(({ idDrink, strDrinkThumb, strDrink }, key) => (
           <RecipeCard
-            key={ drink.idDrink }
-            id={ drink.key }
-            thumbnail={ drink.strDrinkThumb }
-            title={ drink.strDrink }
-            index={ drink.key }
+            key={ idDrink }
+            id={ key }
+            thumbnail={ strDrinkThumb }
+            title={ strDrink }
+            index={ key }
           />
         ))}
       </section>

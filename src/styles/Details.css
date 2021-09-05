@@ -1,0 +1,16 @@
+.header-img {
+  width: 100%;
+}
+
+h1 {
+  color: #940022;
+  font-size: 30px;
+}
+
+.header-detail input {
+  margin: 8px;
+}
+
+.video {
+  width: 100%;
+}

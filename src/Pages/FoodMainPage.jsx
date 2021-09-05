@@ -55,13 +55,13 @@ function FoodMainPage() {
     <div className="container">
       <FoodHeader title="Comidas" />
       <section className="cards">
-        { mealsBar.map((meal) => (
+        { mealsBar.map(({ idMeal, strMealThumb, strMeal }, key) => (
           <RecipeCard
-            key={ meal.idMeal }
-            id={ meal.key }
-            thumbnail={ meal.strMealThumb }
-            title={ meal.strMeal }
-            index={ meal.key }
+            key={ idMeal }
+            id={ key }
+            thumbnail={ strMealThumb }
+            title={ strMeal }
+            index={ key }
           />
         ))}
       </section>

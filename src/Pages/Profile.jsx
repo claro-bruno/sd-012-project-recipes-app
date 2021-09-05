@@ -1,14 +1,11 @@
 import React from 'react';
 import Header from '../Components/Header';
 import ButtonCard from '../Components/ButtonCard';
+import Footer from '../Components/Footer';
 
 function Profile() {
   const getUser = localStorage.getItem('user');
   const user = JSON.parse(getUser);
-
-  const onClickLogout = () => {
-    localStorage.clear();
-  };
 
   return (
     <>
@@ -31,9 +28,12 @@ function Profile() {
       <ButtonCard
         page="/"
         testId="profile-logout-btn"
-        onClick={ onClickLogout }
+        onClick={ () => {
+          window.localStorage.clear();
+        } }
         buttonText="Sair"
       />
+      <Footer />
     </>
   );
 }
