@@ -6,6 +6,7 @@ import Ingredients from '../../components/Ingredients';
 import Instructions from '../../components/Instructions';
 import Video from '../../components/Video';
 import RecomendationsDrinks from '../../components/RecomendationsDrinks';
+import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/shareButton';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
@@ -57,6 +58,10 @@ class DetailsFood extends Component {
                   <h1 data-testid="recipe-title">{ strMeal }</h1>
                   <h2 data-testid="recipe-category">{ strCategory }</h2>
                 </div>
+                <div className="buttons">
+                  <ShareButton position={ index } id={ id } type="comida" />
+                  <FavoriteButton />
+                </div>
                 <Ingredients />
                 <Instructions />
                 <Video />
@@ -69,8 +74,6 @@ class DetailsFood extends Component {
                 >
                   Iniciar Receita
                 </button>
-                <ShareButton />
-                {}
               </div>
             ))
           }

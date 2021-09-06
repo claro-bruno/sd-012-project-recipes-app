@@ -6,7 +6,7 @@ import IngredientsDrink from '../../components/IngredientsDrink';
 import Instructions from '../../components/Instructions';
 import RecomendationsFoods from '../../components/RecomendationsFoods';
 import ShareButton from '../../components/shareButton';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import './style.css';
@@ -17,22 +17,61 @@ class DetailsDrink extends Component {
 
     this.state = {
       red: false,
+      // recipes: [],
     };
+    // this.setRecipes = this.setRecipes.bind(this);
     this.setRedirect = this.setRedirect.bind(this);
   }
 
   componentDidMount() {
     const { setCocktail, match, setMeals } = this.props;
     const { params: { id } } = match;
+    // const startButton = document.querySelector('start-recipe-button');
+    // console.log(startButton);
+    // startButton.style.visibility = 'visible';
     setCocktail(id);
     setMeals();
+    // this.setRecipes();
   }
+
+  // setRecipes() {
+  //   const recipesMock = [
+  //     {
+  //       id: '52771',
+  //       type: 'comida',
+  //       area: 'Italian',
+  //       category: 'Vegetarian',
+  //       alcoholicOrNot: '',
+  //       name: 'Spicy Arrabiata Penne',
+  //       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+  //       doneDate: '23/06/2020',
+  //       tags: ['Pasta', 'Curry'],
+  //     },
+  //     {
+  //       id: '178319',
+  //       type: 'bebida',
+  //       area: '',
+  //       category: 'Cocktail',
+  //       alcoholicOrNot: 'Alcoholic',
+  //       name: 'Aquamarine',
+  //       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+  //       doneDate: '23/06/2020',
+  //       tags: [],
+  //     },
+  //   ];
+  //   localStorage.setItem('recipesMock', JSON.stringify(recipesMock));
+  //   const savedRecipes = JSON.parse(localStorage.getItem('recipesMock'));
+
+  //   this.setState({ recipesMock: recipes });
+  // }
 
   setRedirect() {
     const { red } = this.state;
     this.setState({
       red: !red,
     });
+    // const startButton = document.querySelector('start-recipe-button');
+    // startButton.style.visibility = 'hidden';
   }
 
   render() {
@@ -48,10 +87,10 @@ class DetailsDrink extends Component {
                 <div key={ index }>
                   <div>
                     <img
+                      className="img-details"
                       data-testid="recipe-photo"
                       src={ strDrinkThumb }
                       alt="foto"
-                      width="600 px"
                     />
                   </div>
                   <div>
@@ -60,6 +99,10 @@ class DetailsDrink extends Component {
                       { strCategory }
                       { strAlcoholic }
                     </h2>
+                  </div>
+                  <div className="buttons">
+                    <ShareButton position={ index } id={ id } type="bebida" />
+                    <FavoriteButton />
                   </div>
                   <IngredientsDrink />
                   <Instructions />
@@ -71,14 +114,6 @@ class DetailsDrink extends Component {
                     onClick={ () => this.setRedirect() }
                   >
                     Iniciar Receita
-                  </button>
-                  <ShareButton />
-                  <button type="button">
-                    <img
-                      src={ WhiteHeartIcon }
-                      alt="favorite button"
-                      data-testid="favorite-btn"
-                    />
                   </button>
                 </div>
               ),
