@@ -50,7 +50,7 @@ function Profile() {
           {email}
         </h3>
       </div>
-      <section className="profile-buttons">
+      <div className="profile-buttons">
         <Link to="/receitas-feitas">
           <Btn { ...doneProps } />
         </Link>
@@ -60,7 +60,7 @@ function Profile() {
         <Link to="/">
           <Btn { ...logOutProps } />
         </Link>
-      </section>
+      </div>
       <BottomMenu />
     </div>
   );
