@@ -83,7 +83,6 @@ class DetailsFood extends Component {
                   <h1 data-testid="recipe-title">{ strMeal }</h1>
                   <h2 data-testid="recipe-category">{ strCategory }</h2>
                 </div>
-
                 <Ingredients />
                 <Instructions />
                 <Video />
