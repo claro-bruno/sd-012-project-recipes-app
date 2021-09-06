@@ -1,7 +1,7 @@
 const createIngredientsAndMesure = (recipe, value) => {
   let count = 1;
   const arrValue = [];
-
+  console.log(recipe);
   if (value === 'ingredients') {
     while (recipe[`strIngredient${count}`]) {
       arrValue.push(recipe[`strIngredient${count}`]);

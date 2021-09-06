@@ -7,7 +7,7 @@ import shareIcon from '../images/shareIcon.svg';
 import favoriteRecipes from '../helper/setLocalStorage';
 import { verificationIsFavorite } from '../helper/requiredDetails';
 
-function Button({ recipe, type }) {
+function ShareAndFavorite({ recipe, type }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -58,9 +58,9 @@ function Button({ recipe, type }) {
   );
 }
 
-Button.propTypes = {
+ShareAndFavorite.propTypes = {
   recipe: objectOf(string).isRequired,
   type: string.isRequired,
 };
 
-export default Button;
+export default ShareAndFavorite;

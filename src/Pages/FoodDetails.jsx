@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+<<<<<<< HEAD
+import { useDispatch } from 'react-redux';
+=======
+>>>>>>> 26bdaca6c1c195d217f6ee3ed54deb7e716961ab
 import { useParams, useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Loading from '../Components/Loading';
