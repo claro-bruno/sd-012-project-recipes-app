@@ -93,7 +93,6 @@ class DetailsDrink extends Component {
                 <div key={ index }>
                   <div>
                     <img
-                      className="img-details"
                       data-testid="recipe-photo"
                       src={ strDrinkThumb }
                       alt="foto"

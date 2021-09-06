@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
@@ -11,12 +12,12 @@ import './style.css';
 class RecipesInProgress extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       disabled: true,
+      redirect: false,
     };
-
-    // this.finishStatus = this.finishStatus.bind(this);
+    this.finishStatus = this.finishStatus.bind(this);
+    this.redirecPage = this.redirecPage.bind(this);
   }
 
   componentDidMount() {
@@ -24,27 +25,31 @@ class RecipesInProgress extends Component {
     fetchRecipe(id);
   }
 
-  // finishStatus() {
-  //   const colectionHTML = document.querySelectorAll('.checkedbox');
-  //   const arrayboolean = [];
-  //   colectionHTML.forEach((element) => {
-  //     arrayboolean.push(element.parentNode.className === 'complete');
-  //   });
-  //   if (arrayboolean.every((element) => element === true)) {
-  //     this.setState({
-  //       disabled: false,
-  //     });
-  //   }
-  //   if (arrayboolean.some((element) => element === false)) {
-  //     this.setState({
-  //       disabled: true,
-  //     });
-  //   }
-  // }
+  redirecPage() {
+    this.setState({ redirect: true });
+  }
+
+  finishStatus() {
+    const colectionHTML = document.querySelectorAll('.checkedbox');
+    const arrayboolean = [];
+    colectionHTML.forEach((element) => {
+      arrayboolean.push(element.parentNode.className === 'complete');
+    });
+    if (arrayboolean.every((element) => element === true)) {
+      this.setState({
+        disabled: false,
+      });
+    }
+    if (arrayboolean.some((element) => element === false)) {
+      this.setState({
+        disabled: true,
+      });
+    }
+  }
 
   render() {
     const { recipe, match: { params: { id } } } = this.props;
-    const { disabled } = this.state;
+    const { disabled, redirect } = this.state;
     return (
       <>
         {
@@ -91,7 +96,7 @@ class RecipesInProgress extends Component {
                 className="btn btn-warning"
                 type="button"
                 data-testid="finish-recipe-btn"
-                onClick={ () => { console.log('clicado'); } }
+                onClick={ this.redirecPage }
                 disabled={ disabled }
               >
                 Finalizar a receita
@@ -99,6 +104,9 @@ class RecipesInProgress extends Component {
             </div>
           ))
         }
+
+        { redirect ? <Redirect to="/receitas-feitas" />
+          : console.log('não redirecionei')}
       </>
     );
   }
