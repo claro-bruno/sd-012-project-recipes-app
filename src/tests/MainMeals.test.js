@@ -28,8 +28,11 @@ describe('testa estrutura padrão de paginas de comidas principal', () => {
 
   it('confere card unico de categoria', async () => {
     expect(screen.getByTestId('Goat-category-filter')).toBeInTheDocument();
-    userEvent.click(screen.getByTestId('Goat-category-filter'));
-    const a = await screen.findByTestId('12-recipe-card');
+    userEvent.click(screen.getByTestId('search-top-btn'));
+    userEvent.type(screen.getByTestId('search-input'), 'apples');
+    userEvent.click(screen.getByTestId('ingredient-search-radio'));
+    userEvent.click(screen.getByTestId('exec-search-btn'));
+    const a = await screen.findByTestId('11-recipe-card');
     expect(a).toBeInTheDocument();
   });
 });
