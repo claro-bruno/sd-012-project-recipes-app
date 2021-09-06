@@ -122,10 +122,6 @@ class DetailsDrink extends Component {
                       { strAlcoholic }
                     </h2>
                   </div>
-                  <div className="buttons">
-                    <ShareButton position={ index } id={ id } type="bebida" />
-                    <FavoriteButton />
-                  </div>
                   <IngredientsDrink />
                   <Instructions />
                   <RecomendationsFoods />

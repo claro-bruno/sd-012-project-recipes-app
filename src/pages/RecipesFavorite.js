@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FilterRecipesMade from '../components/FilterRecipesMade';
+import Header from '../components/Header';
 import RecipesFavoriteList from '../components/RecipesFavoriteList';
 import { getLocalStorage } from '../webStorage/favoritesHelpers';
 
@@ -57,6 +58,7 @@ class RecipesFavorite extends Component {
 
     return (
       <div>
+        <Header title="Receitas Favoritas" />
         <FilterRecipesMade
           categories={ categories }
           handleClick={ this.filterRecipesFavorite }
