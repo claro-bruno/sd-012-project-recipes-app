@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 class CardMadeImg extends Component {
   render() {
     const { type, id, image, index } = this.props;
+
     return (
       <Link to={ `/${type}s/${id}` }>
         <img
