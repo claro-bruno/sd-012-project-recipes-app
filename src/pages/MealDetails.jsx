@@ -164,7 +164,11 @@ export default function MealDetails(props) {
                     alt="imagem da receita"
                   />
                   <Carousel.Caption>
-                    <h4>{ drink.strDrink }</h4>
+                    <h4
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      { drink.strDrink }
+                    </h4>
                     <p>{ `${drink.strCategory} - ${drink.strAlcoholic}` }</p>
                   </Carousel.Caption>
                 </div>
