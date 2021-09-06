@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
+import { Share } from '@material-ui/icons';
 import Header from '../../Components/Header';
-import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import Btn from '../../Components/Btn';
+import IconButton from '../../Components/IconBtn';
+import './index.css';
 
 function ReceitasFavoritas() {
   const getFavoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
@@ -48,27 +50,32 @@ function ReceitasFavoritas() {
       .filter((recipes) => recipes.type === 'bebida')),
   };
 
+  const shareBtn = {
+    name: 'share',
+    'data-testid': 'share-btn',
+    icon: Share,
+    alt: 'shareIcon',
+    type: 'button',
+    variant: 'contained',
+  };
+
   return (
-    <div>
+    <div className="favorite-page">
       <Header
         title="Receitas Favoritas"
         searchButton={ false }
       />
-      <div>
+      <div className="favorite-buttons">
         <Btn { ...allButtonProps } />
-      </div>
-      <div>
         <Btn { ...foodButtonProps } />
-      </div>
-      <div>
         <Btn { ...drinksButtonProps } />
       </div>
-      <div>
+      <div className="favorite-recipes">
         {
           favorited.map((recipe, index) => (
             <div key={ index }>
               {recipe.type === 'bebida' ? (
-                <div>
+                <div className="card-recipe">
                   <Link
                     to={ `/bebidas/${recipe.id}` }
                   >
@@ -87,33 +94,35 @@ function ReceitasFavoritas() {
                   >
                     { recipe.alcoholicOrNot }
                   </p>
-                  <button
-                    type="button"
-                    onClick={ () => {
-                      clipboardCopy(`http://localhost:3000/bebidas/${recipe.id}`);
-                      setCopied(true);
-                    } }
-                  >
-                    { copied ? <span>Link copiado!</span> : <img
-                      src={ shareIcon }
-                      alt="compartilhar"
-                      data-testid={ `${index}-horizontal-share-btn` }
-                    /> }
-                  </button>
-                  <button
-                    src={ blackHeartIcon }
-                    type="button"
-                    onClick={ (e) => removeFavorite(e, recipe.id) }
-                  >
-                    <img
+                  <div className="buttons">
+                    <button
+                      type="button"
+                      onClick={ () => {
+                        clipboardCopy(`http://localhost:3000/bebidas/${recipe.id}`);
+                        setCopied(true);
+                      } }
+                    >
+                      { copied ? <span>Link copiado!</span> : <IconButton
+                        { ...shareBtn }
+                        alt="compartilhar"
+                        data-testid={ `${index}-horizontal-share-btn` }
+                      /> }
+                    </button>
+                    <button
                       src={ blackHeartIcon }
-                      data-testid={ `${index}-horizontal-favorite-btn` }
-                      alt="favorited"
-                    />
-                  </button>
+                      type="button"
+                      onClick={ (e) => removeFavorite(e, recipe.id) }
+                    >
+                      <img
+                        src={ blackHeartIcon }
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                        alt="favorited"
+                      />
+                    </button>
+                  </div>
                 </div>
               ) : (
-                <div key={ index }>
+                <div className="card-recipe" key={ index }>
                   <Link
                     to={ `/comidas/${recipe.id}` }
                   >
@@ -132,30 +141,32 @@ function ReceitasFavoritas() {
                   >
                     { `${recipe.area} - ${recipe.category}` }
                   </p>
-                  <button
-                    type="button"
-                    onClick={ () => {
-                      clipboardCopy(`http://localhost:3000/comidas/${recipe.id}`);
-                      setCopied(true);
-                    } }
-                  >
-                    { copied ? <span>Link copiado!</span> : <img
-                      src={ shareIcon }
-                      alt="compartilhar"
-                      data-testid={ `${index}-horizontal-share-btn` }
-                    /> }
-                  </button>
-                  <button
-                    src={ blackHeartIcon }
-                    type="button"
-                    onClick={ (e) => removeFavorite(e, recipe.id) }
-                  >
-                    <img
+                  <div className="buttons">
+                    <button
+                      type="button"
+                      onClick={ () => {
+                        clipboardCopy(`http://localhost:3000/comidas/${recipe.id}`);
+                        setCopied(true);
+                      } }
+                    >
+                      { copied ? <span>Link copiado!</span> : <IconButton
+                        { ...shareBtn }
+                        alt="compartilhar"
+                        data-testid={ `${index}-horizontal-share-btn` }
+                      /> }
+                    </button>
+                    <button
                       src={ blackHeartIcon }
-                      data-testid={ `${index}-horizontal-favorite-btn` }
-                      alt="favorited"
-                    />
-                  </button>
+                      type="button"
+                      onClick={ (e) => removeFavorite(e, recipe.id) }
+                    >
+                      <img
+                        src={ blackHeartIcon }
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                        alt="favorited"
+                      />
+                    </button>
+                  </div>
                 </div>
               ) }
             </div>
