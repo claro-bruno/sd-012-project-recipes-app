@@ -17,3 +17,11 @@
   position: fixed;
 }
 
+.complete {
+  font-size: small;
+  text-decoration: line-through;
+}
+
+.itenLits {
+  font-size: small;
+}

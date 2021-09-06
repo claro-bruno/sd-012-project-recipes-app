@@ -9,6 +9,8 @@ import Perfil from './pages/perfil/Profile';
 import DetailsFood from './pages/foods/DetailsFood';
 import RecipesInProgress from './pages/foods/RecipesInProgress';
 import DrinksInProgress from './pages/drinks/drinksInProgress';
+import RecipesMade from './pages/RecipesMade';
+import RecipesFavorite from './pages/RecipesFavorite';
 import Explorar from './pages/explorar';
 import ExplorarComidas from './pages/explorar/ExplorarComidas';
 import ExplorarBebidas from './pages/explorar/ExplorarBebidas';
@@ -16,8 +18,6 @@ import DrinksIngredients from './pages/explorar/ingredientes/DrinksIngredients';
 import FoodIngredients from './pages/explorar/ingredientes/FoodIngredients';
 import AreaFood from './pages/explorar/area/AreaFood';
 import AreaDrink from './pages/explorar/area/AreaDrinks';
-import FoodRecipesMade from './pages/foods/FoodRecipesMade';
-import FavoriteFoods from './pages/foods/FavoriteFoods';
 
 function App() {
   return (
@@ -53,14 +53,14 @@ function App() {
             <DrinksInProgress { ...props } />
           ) }
         />
-        <Route
-          exact
-          path="/receitas-feitas"
-          component={ FoodRecipesMade }
-        />
+
+        <Route exact path="/receitas-feitas" component={ RecipesMade } />
+        <Route exact path="/receitas-favoritas" component={ RecipesFavorite } />
+
         <Route exact path="/perfil" component={ Perfil } />
         <Route exact path="/" component={ Login } />
         <Route path="/perfil" component={ Perfil } />
+
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
         <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
@@ -68,7 +68,6 @@ function App() {
         <Route path="/explorar/bebidas/ingredientes" component={ DrinksIngredients } />
         <Route path="/explorar/comidas/area" component={ AreaFood } />
         <Route path="/explorar/bebidas/area" component={ AreaDrink } />
-        <Route path="/receitas-favoritas" component={ FavoriteFoods } />
       </Switch>
     </div>
   );

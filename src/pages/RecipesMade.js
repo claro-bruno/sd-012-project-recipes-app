@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import FilterRecipesMade from '../../components/FilterRecipesMade';
-import Header from '../../components/Header';
-import RecipesMadeList from '../../components/RecipesMadeList';
+import FilterRecipesMade from '../components/FilterRecipesMade';
+import Header from '../components/Header';
+import RecipesMadeList from '../components/RecipesMadeList';
 
-class FoodRecipesMade extends Component {
+class RecipesMade extends Component {
   constructor(props) {
     super(props);
 
@@ -90,4 +90,4 @@ class FoodRecipesMade extends Component {
   }
 }
 
-export default FoodRecipesMade;
+export default RecipesMade;

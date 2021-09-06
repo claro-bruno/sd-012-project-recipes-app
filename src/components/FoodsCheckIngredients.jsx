@@ -2,15 +2,41 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetchRecipes from '../Redux/actions/fetchRecipes';
+// import initialStorage from '../webStorage/helper';
+import '../pages/foods/style.css';
 
 class Ingredients extends Component {
   constructor(props) {
     super(props);
+    this.getprogress = this.getprogress.bind(this);
+    this.setLocalStorage = this.setLocalStorage.bind(this);
     this.taskItem = this.taskItem.bind(this);
     this.setIngredients = this.setIngredients.bind(this);
-    this.state = {
-      className: '',
-    };
+  }
+
+  componentDidMount() {
+    this.getprogress();
+  }
+
+  getprogress() {
+    const { id } = this.props;
+    const localProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (localProgress) {
+      const nodeList = document.querySelectorAll('.itenLits');
+      const mealId = localProgress.meals[id] || [];
+      nodeList.forEach((element, index) => {
+        if (element.firstElementChild.value === mealId[index]) {
+          element.className = 'complete';
+          element.firstElementChild.setAttribute('checked', true);
+        }
+      });
+    } else {
+      const initialStorage = {
+        meals: { [id]: [] },
+        cocktails: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(initialStorage));
+    }
   }
 
   setIngredients() {
@@ -38,38 +64,66 @@ class Ingredients extends Component {
     ), []);
   }
 
-  taskItem({ target: { checked, index } }) {
+  setLocalStorage() {
+    const { id } = this.props;
+    const progress = document.querySelectorAll('.complete');
+    const localprogress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const result = [];
+    progress.forEach((element) => result.push(element.firstElementChild.value));
+    const progressObject = {
+      ...localprogress,
+      meals: {
+        ...localprogress.meals,
+        [id]: [...result],
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressObject));
+  }
+
+  taskItem(event) {
+    const { handleClick } = this.props;
+    const { target: { checked } } = event;
     if (checked) {
-      this.setState({ className: 'complet' });
-      console.log('marquei', index);
+      event.target.parentNode.className = 'complete';
     }
+    if (!checked) {
+      event.target.parentNode.className = '';
+    }
+    this.setLocalStorage();
+    handleClick();
   }
 
   render() {
     const ingredients = this.setIngredients();
-    const { className } = this.state;
     return (
-      <ul>
+      <div className="form">
         {
           ingredients.map((ingredient, index) => (
-            <h2
+            <h3
+              id="iten"
               key={ index }
+              value={ `${Object.keys(ingredient)[0]}` }
+              index={ index }
               data-testid={ `${index}-ingredient-step` }
-              className={ className }
+              className="itenLits"
             >
               <input
                 key={ index }
+                index={ index }
                 type="checkbox"
+                value={ `${Object.keys(ingredient)[0]}` }
+                meansure={ `${Object.values(ingredient)[0]}` }
                 onClick={ (e) => this.taskItem(e) }
+                className="checkedbox"
               />
               {
-                `${Object.keys(ingredient)[0]}:
+                `${Object.keys(ingredient)[0]}: 
                 ${Object.values(ingredient)[0]}`
               }
-            </h2>
+            </h3>
           ))
         }
-      </ul>
+      </div>
     );
   }
 }

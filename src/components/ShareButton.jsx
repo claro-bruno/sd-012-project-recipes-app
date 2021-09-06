@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ShareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
 
 class ShareButton extends Component {
   constructor(props) {
@@ -25,38 +26,34 @@ class ShareButton extends Component {
     this.setState({ index: position });
   }
 
-  copyHandle() {
+  async copyHandle() {
+    const { id, type, cardType } = this.props;
+    const typecard = cardType === '/in-progress' ? '/in-progress' : '';
+    const path = type === 'comida'
+      ? `http://localhost:3000/comidas/${id}${typecard}`
+      : `http://localhost:3000/bebidas/${id}${typecard}`;
+
+    await copy(path);
     this.setState({ copied: true });
   }
 
   render() {
-    const { id, type } = this.props;
     const { index, copied } = this.state;
-    const path = type === 'comida'
-      ? `http://localhost:3000/comidas/${id}`
-      : `http://localhost:3000/bebidas/${id}`;
-
-    // window.navigator.clipboard.readText()
-    //   .then((value) => console.log(value));
 
     return (
       <div>
-        <CopyToClipboard
-          text={ path }
-          onCopy={ this.copyHandle }
+        <button
+          type="button"
+          className="share-fill"
+          data-testid="share-btn"
+          onClick={ this.copyHandle }
         >
-          <button
-            type="button"
-            className="share-fill"
-            data-testid="share-btn"
-          >
-            <img
-              src={ ShareIcon }
-              alt="share button"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-          </button>
-        </CopyToClipboard>
+          <img
+            src={ ShareIcon }
+            alt="share button"
+            data-testid={ `${index}-horizontal-share-btn` }
+          />
+        </button>
 
         { copied ? <span>Link copiado!</span> : null }
       </div>

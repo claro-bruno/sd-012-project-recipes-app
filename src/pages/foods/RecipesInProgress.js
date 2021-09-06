@@ -1,24 +1,59 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
-import ShareIcon from '../../images/shareIcon.svg';
-import WhiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import FavoriteButton from '../../components/FavoriteButton';
 import Instructions from '../../components/Instructions';
+import ShareButton from '../../components/ShareButton';
 import FoodsCheckIngredients from '../../components/FoodsCheckIngredients';
+import './style.css';
 
 class RecipesInProgress extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      disabled: true,
+      redirect: false,
+    };
+    this.finishStatus = this.finishStatus.bind(this);
+    this.redirecPage = this.redirecPage.bind(this);
+  }
+
   componentDidMount() {
     const { match: { params: { id } }, fetchRecipe } = this.props;
     fetchRecipe(id);
   }
 
+  redirecPage() {
+    this.setState({ redirect: true });
+  }
+
+  finishStatus() {
+    const colectionHTML = document.querySelectorAll('.checkedbox');
+    const arrayboolean = [];
+    colectionHTML.forEach((element) => {
+      arrayboolean.push(element.parentNode.className === 'complete');
+    });
+    if (arrayboolean.every((element) => element === true)) {
+      this.setState({
+        disabled: false,
+      });
+    }
+    if (arrayboolean.some((element) => element === false)) {
+      this.setState({
+        disabled: true,
+      });
+    }
+  }
+
   render() {
-    const { recipe } = this.props;
+    const { recipe, match: { params: { id } } } = this.props;
+    const { disabled, redirect } = this.state;
     return (
       <>
         {
-          recipe.map(({ strMeal, strCategory, strMealThumb }, index) => (
+          recipe.map(({ strMeal, strCategory, strMealThumb, idMeal, strArea }, index) => (
             <div key={ index }>
               <div>
                 <img
@@ -28,41 +63,44 @@ class RecipesInProgress extends Component {
                   className="img-details"
                 />
               </div>
+              <ShareButton
+                position={ index }
+                id={ id }
+                type="comida"
+              />
+              <FavoriteButton
+                id={ idMeal }
+                type="comida"
+                area={ strArea }
+                category={ strCategory }
+                alcoholicOrNot=""
+                name={ strMeal }
+                image={ strMealThumb }
+                position={ index }
+              />
               <div>
                 <h2 data-testid="recipe-title">{strMeal}</h2>
                 <h2 data-testid="recipe-category">{ strCategory }</h2>
+                <p>{' '}</p>
               </div>
               <div>
-                <button
-                  type="button"
-                  className="share-fill"
-                >
-                  <img
-                    src={ ShareIcon }
-                    alt="share button"
-                    data-testid="share-btn"
-                  />
-                </button>
-                <button type="button" className="share-fill">
-                  <img
-                    src={ WhiteHeartIcon }
-                    alt="favorite button"
-                    data-testid="favorite-btn"
-                  />
-                </button>
-                <FoodsCheckIngredients />
+                <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
               </div>
             </div>
           ))
         }
-        <Instructions />
-        <buttons
+        <button
           className="btn btn-warning"
           type="button"
           data-testid="finish-recipe-btn"
+          onClick={ this.redirecPage }
+          disabled={ disabled }
         >
           Finalizar a receita
-        </buttons>
+        </button>
+        <Instructions />
+        { redirect ? <Redirect to="/receitas-feitas" />
+          : console.log('não redirecionei')}
       </>
     );
   }

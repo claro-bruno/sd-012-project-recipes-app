@@ -1,11 +1,33 @@
 .img-details {
   border-radius: 4px;
-  width: 50%;
+  width: 80%;
+}
+
+.share-fill {
+  background-color: rgba(250, 150, 250, 0.212);
+  border-color: rgb(255, 196, 0);
+  border-radius: 100%;
+  color: white;
+  height: 50px;
+  width: 50px;
 }
 
 .start-recipe-button {
   bottom: 0;
   position: fixed;
+}
+
+.complete {
+  font-size: small;
+  text-decoration: line-through;
+}
+
+.itenLits {
+  font-size: small;
+}
+
+.recipe-image {
+  width: 60%;
 }
 
 .buttons {

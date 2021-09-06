@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import {
+  getLocalStorage,
+  addLocalStorage,
+  removeItem,
+  addItem,
+} from '../webStorage/favoritesHelpers';
 
 class FavoriteButton extends Component {
   constructor(props) {
@@ -9,62 +16,94 @@ class FavoriteButton extends Component {
     this.state = {
       favorito: false,
     };
-    this.white = this.white.bind(this);
-    this.black = this.black.bind(this);
+
     this.handleClick = this.handleClick.bind(this);
+    this.setFavorite = this.setFavorite.bind(this);
+    this.makeStorageObject = this.makeStorageObject.bind(this);
+  }
+
+  componentDidMount() {
+    const { id } = this.props;
+    this.setFavorite(id);
   }
 
   handleClick() {
+    const favoriteObject = this.makeStorageObject();
     const { favorito } = this.state;
-    if (favorito) this.setState({ favorito: false });
-    if (!favorito) this.setState({ favorito: true });
-  }
+    const { id } = this.props;
 
-  white() {
-    const { favorito } = this.state;
-    if (favorito === false) {
-      return (
-        <button
-          type="button"
-          className="share-fill"
-          onClick={ this.handleClick }
-        >
-          <img
-            src={ WhiteHeartIcon }
-            alt="favorite button"
-            data-testid="favorite-btn"
-          />
-        </button>
-      );
+    const favoriteStorage = getLocalStorage();
+    const { favoriteRecipes } = favoriteStorage;
+
+    if (favorito) {
+      removeItem(favoriteRecipes, id);
+      this.setState({ favorito: false });
+    }
+
+    if (!favorito) {
+      const newFavorites = addItem(favoriteRecipes, favoriteObject);
+
+      addLocalStorage('favoriteRecipes', newFavorites);
+
+      this.setState({ favorito: true });
     }
   }
 
-  black() {
-    const { favorito } = this.state;
-    if (favorito === true) {
-      return (
-        <button
-          type="button"
-          className="share-fill"
-          onClick={ this.handleClick }
-        >
-          <img
-            src={ BlackHeartIcon }
-            alt="favorite button"
-            data-testid="favorite-btn"
-          />
-        </button>
-      );
-    }
+  setFavorite(recipeId) {
+    const favoriteStorage = getLocalStorage();
+    const { favoriteRecipes } = favoriteStorage;
+    const checkFavorite = () => (
+      favoriteRecipes.some(({ id }) => id === recipeId)
+    );
+
+    this.setState({ favorito: checkFavorite() });
+  }
+
+  makeStorageObject() {
+    const {
+      id,
+      type,
+      area,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+    } = this.props;
+
+    return {
+      id,
+      type,
+      area,
+      category,
+      alcoholicOrNot,
+      name,
+      image,
+    };
   }
 
   render() {
-    const blackButton = this.black();
-    const whiteButton = this.white();
     const { favorito } = this.state;
-    if (favorito === false) return whiteButton;
-    if (favorito === true) return blackButton;
+    const { position } = this.props;
+
+    return (
+      <button
+        data-testid="favorite-btn"
+        type="button"
+        className="share-fill"
+        onClick={ this.handleClick }
+      >
+        <img
+          src={ favorito ? BlackHeartIcon : WhiteHeartIcon }
+          alt="favorite button"
+          data-testid={ `${position}-horizontal-favorite-btn` }
+        />
+      </button>
+    );
   }
 }
 
 export default FavoriteButton;
+
+FavoriteButton.propTypes = {
+  index: PropTypes.number,
+}.isRequired;
