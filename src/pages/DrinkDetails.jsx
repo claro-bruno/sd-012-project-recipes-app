@@ -147,7 +147,11 @@ export default function DrinkDetails(props) {
                     alt="imagem da receita"
                   />
                   <Carousel.Caption>
-                    <h4>{ meal.strMeal }</h4>
+                    <h4
+                      data-testid={ `${index}-recomendation-title` }
+                    >
+                      { meal.strMeal }
+                    </h4>
                     <p>{ `${meal.strCategory} - ${meal.strArea}` }</p>
                   </Carousel.Caption>
                 </div>
@@ -155,11 +159,10 @@ export default function DrinkDetails(props) {
             ))
           }
         </Carousel>
-        <div className="button-wrapper-details">
+        <div className="button-wrapper-details" data-testid="start-recipe-btn">
           <Link to={ `/bebidas/${props.match.params.id}/in-progress` }>
             <button
               type="button"
-              data-testid="start-recipe-btn"
               onClick={ handleStartRecipe }
             >
               { verifyIfRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
