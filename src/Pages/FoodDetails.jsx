@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux';
+=======
+>>>>>>> 26bdaca6c1c195d217f6ee3ed54deb7e716961ab
 import { useParams, useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Loading from '../Components/Loading';
@@ -7,14 +10,13 @@ import RecipeHeader from '../Components/RecipeHeader';
 import RenderRecommendations from '../Components/RenderRecommendations';
 import IngredientsAndMeasures from '../Components/IngredientsAndMeasures';
 import * as required from '../helper/requiredDetails';
-import { setMealDetails } from '../Redux/actions/actionSetRecipeDetails';
 
 function FoodDetails() {
   const [recipe, setRecipe] = useState([]);
   const [recommendation, setRecommendation] = useState([]);
   const [doneRecipe, setDoneRecipe] = useState(true);
   const [progressRecipe, setProgressRecipe] = useState(false);
-  const dispatch = useDispatch();
+
 
   const { id } = useParams();
   const { push } = useHistory();
@@ -37,11 +39,6 @@ function FoodDetails() {
     verificationDoneRecipe,
     verificatioinProgressRecipe]);
 
-  const handleRedirect = () => {
-    dispatch(setMealDetails(recipe));
-    push(`/comidas/${id}/in-progress`);
-  };
-
   if (recipe.length === 0) {
     return <Loading />;
   }
@@ -58,6 +55,7 @@ function FoodDetails() {
         recipe={ recipe }
       />
       <div>
+        <h1>Instructions</h1>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
       <div>
@@ -73,7 +71,7 @@ function FoodDetails() {
           <button
             type="button"
             data-testid="start-recipe-btn"
-            onClick={ handleRedirect }
+            onClick={ () => push(`/comidas/${id}/in-progress`) }
           >
             { progressRecipe ? 'Continuar Receita' : 'Iniciar Receita' }
           </button>
