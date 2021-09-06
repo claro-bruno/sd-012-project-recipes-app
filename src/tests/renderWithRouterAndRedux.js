@@ -10,7 +10,7 @@ import rootReducer from '../redux/reducers';
 const renderWithRouterAndRedux = (component, {
   initialState = {
     meals: {
-      recipes: [],
+      recipes: {},
       filter: '',
       ingredients: {},
       areas: {},
