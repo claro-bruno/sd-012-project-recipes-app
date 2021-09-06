@@ -155,11 +155,10 @@ export default function DrinkDetails(props) {
             ))
           }
         </Carousel>
-        <div className="button-wrapper-details">
+        <div className="button-wrapper-details" data-testid="start-recipe-btn">
           <Link to={ `/bebidas/${props.match.params.id}/in-progress` }>
             <button
               type="button"
-              data-testid="start-recipe-btn"
               onClick={ handleStartRecipe }
             >
               { verifyIfRecipeInProgress() ? 'Continuar Receita' : 'Iniciar Receita' }
