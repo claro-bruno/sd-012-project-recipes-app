@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import Ingredients from '../../components/Ingredients';
 import Instructions from '../../components/Instructions';
 import Video from '../../components/Video';
+import ButtonDetails from '../../components/ButtonDetails';
 import RecomendationsDrinks from '../../components/RecomendationsDrinks';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
@@ -13,16 +13,6 @@ import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import './style.css';
 
 class DetailsFood extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      red: false,
-    };
-
-    this.setRedirect = this.setRedirect.bind(this);
-  }
-
   componentDidMount() {
     const { fetchRecipe, match, setDrinks } = this.props;
     const { params: { id } } = match;
@@ -30,18 +20,9 @@ class DetailsFood extends Component {
     setDrinks();
   }
 
-  setRedirect() {
-    const { red } = this.state;
-    this.setState({
-      red: !red,
-    });
-  }
-
   render() {
     const { recipe, match } = this.props;
     const { params: { id } } = match;
-    const { red } = this.state;
-
     return (
       <div>
         <div>
@@ -83,28 +64,13 @@ class DetailsFood extends Component {
                   <h1 data-testid="recipe-title">{ strMeal }</h1>
                   <h2 data-testid="recipe-category">{ strCategory }</h2>
                 </div>
-                <div className="buttons">
-                  <ShareButton position={ index } id={ id } type="comida" />
-                  <FavoriteButton />
-                </div>
                 <Ingredients />
                 <Instructions />
                 <Video />
                 <RecomendationsDrinks />
-
-                <button
-                  className="start-recipe-button"
-                  type="button"
-                  data-testid="start-recipe-btn"
-                  onClick={ () => this.setRedirect() }
-                >
-                  Iniciar Receita
-                </button>
+                <ButtonDetails />
               </div>
             ))
-          }
-          {
-            red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null
           }
         </div>
       </div>
