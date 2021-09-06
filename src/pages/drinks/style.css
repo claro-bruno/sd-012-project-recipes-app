@@ -29,3 +29,8 @@
 .recipe-image {
   width: 60%;
 }
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
