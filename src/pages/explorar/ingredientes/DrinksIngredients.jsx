@@ -20,7 +20,7 @@ export default function IgredientesDrinks() {
   return (
     <div>
       <Header title="Explorar Ingredientes" />
-      <div className="div-cards-ingredients">
+      <div>
         {ingredients.length > 0 && ingredients.map((ingredient, index) => (
           <div
             role="presentation"
