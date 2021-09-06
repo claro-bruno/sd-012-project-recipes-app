@@ -4,6 +4,7 @@ import Btn from '../../Components/Btn';
 import BottomMenu from '../../Components/Footer/BottomMenu';
 import { ContextApp } from '../../Context/ContextApp';
 import Header from '../../Components/Header/index';
+import './Profile.css';
 
 function Profile() {
   const getUser = JSON.parse(localStorage.getItem('user'));
@@ -39,15 +40,17 @@ function Profile() {
   };
 
   return (
-    <div>
+    <div className="profile-page">
       <Header
         title="Perfil"
         searchButton={ false }
       />
-      <h2 data-testid="profile-email">
-        {email}
-      </h2>
-      <section>
+      <div className="user-name">
+        <h3 data-testid="profile-email">
+          {email}
+        </h3>
+      </div>
+      <section className="profile-buttons">
         <Link to="/receitas-feitas">
           <Btn { ...doneProps } />
         </Link>
