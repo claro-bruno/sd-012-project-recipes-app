@@ -6,8 +6,8 @@
 }
 
 .done-recipes .done-buttons {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-evenly;
 }
 
