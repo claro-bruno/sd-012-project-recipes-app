@@ -25,7 +25,7 @@ function SearchBar() {
         value={ searchText }
         variant="outlined"
         inputProps={ { 'data-testid': 'search-input',
-          autocomplete: 'off',
+          autoComplete: 'off',
           style: { color: 'white' } } }
       />
       <SearchBarDiv onChange={ handleChange }>

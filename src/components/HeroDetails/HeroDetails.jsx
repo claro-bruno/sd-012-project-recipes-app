@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import Modal from 'react-modal';
 import shareIconImg from '../../images/shareIcon.svg';
@@ -15,7 +15,7 @@ function HeroDetails({ recipe, type }) {
     closeModal,
     customStyles } = UseModal();
 
-  Modal.setAppElement('#root');
+  useEffect(() => { Modal.setAppElement('*'); }, []);
 
   return (
     <section>
