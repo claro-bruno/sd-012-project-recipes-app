@@ -7,6 +7,38 @@ function Profile() {
   const getUser = localStorage.getItem('user');
   const user = JSON.parse(getUser);
 
+  if (getUser === null) {
+    return (
+      <>
+        <Header title="Perfil" />
+        <h3
+          data-testid="profile-email"
+        >
+          email@email.com
+        </h3>
+        <ButtonCard
+          page="/receitas-feitas"
+          testId="profile-done-btn"
+          buttonText="Receitas Feitas"
+        />
+        <ButtonCard
+          page="/receitas-favoritas"
+          testId="profile-favorite-btn"
+          buttonText="Receitas Favoritas"
+        />
+        <ButtonCard
+          page="/"
+          testId="profile-logout-btn"
+          onClick={ () => {
+            window.localStorage.clear();
+          } }
+          buttonText="Sair"
+        />
+        <Footer />
+      </>
+    );
+  }
+
   return (
     <>
       <Header title="Perfil" />

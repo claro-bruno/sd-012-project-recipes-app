@@ -35,6 +35,7 @@ function DrinkHeader({ title }) {
           </Link>
           <h2 data-testid="page-title">{ title }</h2>
           <button
+            src={ searchIcon }
             className="header-button"
             type="button"
             data-testid="search-top-btn"
@@ -60,6 +61,7 @@ function DrinkHeader({ title }) {
         </Link>
         <h2 data-testid="page-title">{ title }</h2>
         <button
+          src={ searchIcon }
           className="header-button"
           type="button"
           data-testid="search-top-btn"

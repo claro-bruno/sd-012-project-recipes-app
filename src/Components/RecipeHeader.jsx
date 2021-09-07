@@ -1,6 +1,6 @@
 import React from 'react';
 import { string, objectOf } from 'prop-types';
-import Button from './Button';
+import ShareAndFavorite from './ShareAndFavorite';
 
 function RecipeHeader({ thumb, title, category, recipe, type }) {
   return (
@@ -13,7 +13,7 @@ function RecipeHeader({ thumb, title, category, recipe, type }) {
       />
       <h1 data-testid="recipe-title">{ title }</h1>
       <h2 data-testid="recipe-category">{ category }</h2>
-      <Button recipe={ recipe } type={ type } />
+      <ShareAndFavorite recipe={ recipe } type={ type } />
     </header>
   );
 }

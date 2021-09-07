@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import FoodHeader from '../Components/FoodHeader';
+import AreaHeader from '../Components/AreaHeader';
 import Footer from '../Components/Footer';
 
 function FoodPlaceExplore() {
@@ -43,7 +43,7 @@ function FoodPlaceExplore() {
 
   return (
     <div>
-      <FoodHeader title="Explorar Origem" />
+      <AreaHeader title="Explorar Origem" />
       <select
         data-testid="explore-by-area-dropdown"
         value={ filter }
