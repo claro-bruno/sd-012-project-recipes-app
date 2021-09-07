@@ -12,9 +12,6 @@ function DrinkMainPage() {
   const { drinksBar, showBar } = useSelector((state) => state.mainPage);
   const { push } = useHistory();
 
-  console.log(drinksBar.length);
-  console.log(drinks.length);
-
   if (drinks === []) {
     return <Spinner animation="border" variant="danger" />;
   }
@@ -37,6 +34,11 @@ function DrinkMainPage() {
         <Footer />
       </div>
     );
+  }
+
+  if (drinksBar === null) {
+    return (
+      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'));
   }
 
   if (drinksBar.length === 1) {

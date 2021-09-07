@@ -33,7 +33,7 @@ function DoneRecipesCard(props) {
   };
 
   return (
-    <div>
+    <div className="recipe-cards">
       <Link
         to={ `/comidas/${id}` }
       >

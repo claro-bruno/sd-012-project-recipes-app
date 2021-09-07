@@ -25,14 +25,14 @@ const mainPage = (state = INICIAL_STATE, action) => {
 
   switch (type) {
   case GET_FOODS_SUCCESS:
-    if (!payload) {
-      return { ...state, mealsBar: [] };
+    if (payload.meals === null) {
+      return { ...state, mealsBar: null };
     }
     return { ...state, mealsBar: payload.meals.slice(0, DOZE) };
 
   case GET_DRINKS_SUCCESS:
-    if (!payload) {
-      return { ...state, drinksBar: [] };
+    if (payload.drinks === null) {
+      return { ...state, drinksBar: null };
     }
     return { ...state, drinksBar: payload.drinks.slice(0, DOZE) };
 

@@ -30,7 +30,8 @@ function Profile() {
           page="/"
           testId="profile-logout-btn"
           onClick={ () => {
-            window.localStorage.clear();
+            localStorage.removeItem('cocktailsToken', 'mealsToken');
+            localStorage.clear();
           } }
           buttonText="Sair"
         />
@@ -61,7 +62,8 @@ function Profile() {
         page="/"
         testId="profile-logout-btn"
         onClick={ () => {
-          window.localStorage.clear();
+          localStorage.removeItem('cocktailsToken', 'mealsToken');
+          localStorage.clear();
         } }
         buttonText="Sair"
       />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
 import Footer from '../Components/Footer';
 import RecipeCard from '../Components/RecipeCard';
 import FoodHeader from '../Components/FoodHeader';
@@ -14,9 +14,8 @@ function FoodMainPage() {
 
   if (meals === []) {
     return (
-      <Alert variant="danger">
-        Sinto muito, não encontramos nenhuma receita para esses filtros.
-      </Alert>);
+      <Spinner animation="grow" variant="danger" />
+    );
   }
 
   if (showBar === false) {
@@ -39,18 +38,17 @@ function FoodMainPage() {
     );
   }
 
+  if (mealsBar === null) {
+    return (
+      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'));
+  }
+
   if (mealsBar.length === 1) {
     const obj = mealsBar.find((object) => object.idMeal);
     const path = `/comidas/${obj.idMeal}`;
     push(path);
   }
 
-  if (mealsBar === []) {
-    return (
-      <Alert variant="danger">
-        Sinto muito, não encontramos nenhuma receita para esses filtros.
-      </Alert>);
-  }
   return (
     <div className="container">
       <FoodHeader title="Comidas" />
