@@ -16,11 +16,18 @@ class ButtonDetails extends Component {
     this.setRedirect = this.setRedirect.bind(this);
   }
 
+  // componentDidMount() {
+  //   const button = document.querySelector('.start-recipe-button');
+  //   button.style.visibility = 'visible';
+  // }
+
   setRedirect() {
     const { red } = this.state;
     this.setState({
       red: !red,
     });
+    // const button = document.querySelector('.start-recipe-button');
+    // button.style.visibility = 'hidden';
   }
 
   render() {
