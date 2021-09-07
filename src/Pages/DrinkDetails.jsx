@@ -5,6 +5,7 @@ import RecipeHeader from '../Components/RecipeHeader';
 import RenderRecommendations from '../Components/RenderRecommendations';
 import IngredientsAndMeasures from '../Components/IngredientsAndMeasures';
 import * as required from '../helper/requiredDetails';
+import '../styles/MainPages.css';
 
 function DrinkDetails() {
   const [recipe, setRecipe] = useState([]);
@@ -48,7 +49,7 @@ function DrinkDetails() {
       <IngredientsAndMeasures
         recipe={ recipe }
       />
-      <div>
+      <div className="inst-details">
         <h1>Instructions</h1>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
@@ -58,7 +59,7 @@ function DrinkDetails() {
           key
         />
       </div>
-      <div>
+      <div className="footer">
         {!doneRecipe && (
           <button
             type="button"

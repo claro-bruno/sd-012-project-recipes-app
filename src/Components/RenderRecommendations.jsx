@@ -6,28 +6,28 @@ function RenderRecommendations({ recommendation, key }) {
   return (
     <Carousel>
       {recommendation && recommendation.map((item, index) => (
-        <div
+        <Carousel.Item
+          interval={ 1000 }
+          className="recipe-cards"
           key={ key ? item.idMeal : item.idDrink }
           data-testid={ `${index}-recomendation-card` }
         >
-          <Carousel.Item interval={ 1000 }>
-            <Carousel.Caption>
-              <img
-                src={ key ? item.strMealThumb : item.strDrinkThumb }
-                data-testid={ `${index}-card-img` }
-                alt={ key ? item.strMeal : item.strDrink }
-              />
-              <div>
-                <span data-testid={ `${index}-card-name` }>
-                  { key ? item.strMeal : item.strDrink }
-                </span>
-                <span>
-                  { key ? item.strCategory : item.strAlcoholic }
-                </span>
-              </div>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </div>
+          <img
+            src={ key ? item.strMealThumb : item.strDrinkThumb }
+            data-testid={ `${index}-card-img` }
+            alt={ key ? item.strMeal : item.strDrink }
+          />
+          <Carousel.Caption>
+            <div>
+              <span data-testid={ `${index}-card-name` }>
+                { key ? item.strMeal : item.strDrink }
+              </span>
+              <span>
+                { key ? item.strCategory : item.strAlcoholic }
+              </span>
+            </div>
+          </Carousel.Caption>
+        </Carousel.Item>
       ))}
     </Carousel>
   );
