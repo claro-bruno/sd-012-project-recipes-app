@@ -11,7 +11,6 @@ const favoriteRecipes = (state = INITIAL_STATE, action) => {
     return newState; }
   case REMOVE_FAVORITE_RECIPE:
   { const newState = state.filter((recipe) => recipe.id !== action.payload);
-    console.log(newState);
     localStorage.setItem('favoriteRecipes', JSON.stringify(newState));
     return newState; }
   default:

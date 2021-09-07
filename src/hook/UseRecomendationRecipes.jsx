@@ -22,13 +22,13 @@ const UseRecomendationRecipes = (type) => {
     return () => { isMounted = false; };
   }, [type]);
 
-  const maxItensIndexOnScreen = 5;
+  const maxItensIndexOnScreen = 6;
   if (recipes.meals) {
-    return recipes.meals.map((e, index) => index <= maxItensIndexOnScreen
-    && <RecomendationCard index={ index } key={ e.idMeal } recipe={ e } />);
+    return recipes.meals.slice(0, maxItensIndexOnScreen).map((e, index) => (
+      <RecomendationCard index={ index } key={ e.idMeal } recipe={ e } />));
   } if (recipes.drinks) {
-    return recipes.drinks.map((e, index) => index <= maxItensIndexOnScreen
-    && <RecomendationCard index={ index } key={ e.idDrink } recipe={ e } />);
+    return recipes.drinks.slice(0, maxItensIndexOnScreen).map((e, index) => (
+      <RecomendationCard index={ index } key={ e.idDrink } recipe={ e } />));
   }
 
   return recipes;
