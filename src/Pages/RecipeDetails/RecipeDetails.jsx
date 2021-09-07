@@ -75,7 +75,7 @@ function RecipeDetails({ match: { params } }) {
     type: 'button',
     variant: 'contained',
     onClick: handleFav,
-    src: fav ? 'blackHeartIcon' : 'whiteHeartIcon',
+    src: fav ? 'whiteHeartIcon' : 'blackHeartIcon',
   };
   const categoryProps = {
     'data-testid': 'recipe-category',
