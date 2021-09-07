@@ -18,8 +18,6 @@ function UseFinishRecipe(recipe, type) {
     month: '2-digit',
     day: '2-digit',
   });
-  console.log(day);
-  console.log(doneDate);
 
   const dispatch = useDispatch();
   const finishedRecipe = {
