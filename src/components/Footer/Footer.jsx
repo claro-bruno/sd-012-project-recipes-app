@@ -9,13 +9,14 @@ import { FooterSection, FooterImg } from './styles';
 
 function Footer() {
   const dispatch = useDispatch();
+
   return (
     <FooterSection data-testid="footer">
       <Link
         to="/bebidas"
         data-testid="drinks-bottom-btn"
         src={ drinkIconImg }
-        onClick={ () => dispatch(changeFilterType('searchBar')) }
+        onClick={ () => dispatch(changeFilterType('')) }
       >
         <FooterImg src={ drinkIconImg } alt="drinks-button" width="50px" height="50px" />
       </Link>
@@ -35,7 +36,7 @@ function Footer() {
         to="/comidas"
         data-testid="food-bottom-btn"
         src={ mealIconImg }
-        onClick={ () => dispatch(changeFilterType('searchBar')) }
+        onClick={ () => dispatch(changeFilterType('')) }
       >
         <FooterImg src={ mealIconImg } alt="profile-button" width="50px" height="50px" />
       </Link>
