@@ -26,11 +26,10 @@ background:
 
 export const NavProfileDiv = styled.div`
   width: 100vw;
-  margin-top: 2vh;
   height: 78vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
   color: black;
 `;
@@ -43,9 +42,9 @@ export const ProfileBtn = styled.div`
   text-align: center;
   background-color: rgba(0,0,0,0.6);
   border-radius: 6px;
-  width: 40vw;
+  width: 55vw;
   p{
-    padding: 10px;
+    padding: 5px;
     font-weight: 700;
     font-size: 20px;
     color: whitesmoke;
