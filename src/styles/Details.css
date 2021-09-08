@@ -1,0 +1,32 @@
+main body section {
+  display: grid;
+  max-height: 640px;
+  max-width: 360px;
+}
+
+.header-detail {
+  grid-area: header;
+}
+
+.header-img {
+  width: 100%;
+}
+
+.footer button {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+h1 {
+  color: #940022;
+  font-size: 30px;
+}
+
+.header-detail input {
+  margin: 8px;
+}
+
+.video {
+  width: 100%;
+}
