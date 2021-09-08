@@ -39,7 +39,7 @@ class DetailsFood extends Component {
   }
 
   render() {
-    const { recipe, match } = this.props;
+    const { loading, recipe, match } = this.props;
     const { params: { id } } = match;
     const { red } = this.state;
 
@@ -47,58 +47,61 @@ class DetailsFood extends Component {
       <div>
         <div>
           {
-            recipe.map(({
-              idMeal,
-              strMeal,
-              strCategory,
-              strArea,
-              strMealThumb,
-            }, index) => (
-              <div key={ uuidv4() }>
-                <div>
-                  <img
-                    className="img-details"
-                    data-testid="recipe-photo"
-                    src={ strMealThumb }
-                    alt="foto"
-                  />
-                </div>
+            !loading
+              ? (
+                recipe.map(({
+                  idMeal,
+                  strMeal,
+                  strCategory,
+                  strArea,
+                  strMealThumb,
+                }, index) => (
+                  <div key={ uuidv4() }>
+                    <div>
+                      <img
+                        className="img-details"
+                        data-testid="recipe-photo"
+                        src={ strMealThumb }
+                        alt="foto"
+                      />
+                    </div>
 
-                <ShareButton
-                  position={ index }
-                  id={ id }
-                  type="comida"
-                />
-                <FavoriteButton
-                  id={ idMeal }
-                  type="comida"
-                  area={ strArea }
-                  category={ strCategory }
-                  alcoholicOrNot=""
-                  name={ strMeal }
-                  image={ strMealThumb }
-                  position={ index }
-                />
+                    <ShareButton
+                      position={ index }
+                      id={ id }
+                      type="comida"
+                    />
+                    <FavoriteButton
+                      id={ idMeal }
+                      type="comida"
+                      area={ strArea }
+                      category={ strCategory }
+                      alcoholicOrNot=""
+                      name={ strMeal }
+                      image={ strMealThumb }
+                      position={ index }
+                    />
 
-                <div>
-                  <h1 data-testid="recipe-title">{ strMeal }</h1>
-                  <h2 data-testid="recipe-category">{ strCategory }</h2>
-                </div>
-                <Ingredients />
-                <Instructions />
-                <Video />
-                <RecomendationsDrinks />
+                    <div>
+                      <h1 data-testid="recipe-title">{ strMeal }</h1>
+                      <h2 data-testid="recipe-category">{ strCategory }</h2>
+                    </div>
+                    <Ingredients />
+                    <Instructions />
+                    <Video />
+                    <RecomendationsDrinks />
 
-                <button
-                  className="start-recipe-button"
-                  type="button"
-                  data-testid="start-recipe-btn"
-                  onClick={ () => this.setRedirect() }
-                >
-                  Iniciar Receita
-                </button>
-              </div>
-            ))
+                    <button
+                      className="start-recipe-button"
+                      type="button"
+                      data-testid="start-recipe-btn"
+                      onClick={ () => this.setRedirect() }
+                    >
+                      Iniciar Receita
+                    </button>
+                  </div>
+                ))
+              ) : <div>Loading...</div>
           }
           {
             red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null
@@ -118,6 +121,7 @@ DetailsFood.propTypes = {
 const mapStateToProps = (state) => ({
   recipe: state.foods.recipes,
   drinks: state.drinks.drinks,
+  loading: state.foods.loading,
 });
 
 const mapDispatchToProps = (dispach) => ({

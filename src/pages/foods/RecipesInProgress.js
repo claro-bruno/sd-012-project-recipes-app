@@ -49,46 +49,55 @@ class RecipesInProgress extends Component {
   }
 
   render() {
-    const { recipe, match: { params: { id } } } = this.props;
+    const { loading, recipe, match: { params: { id } } } = this.props;
     const { disabled, redirect } = this.state;
     return (
       <>
         {
-          recipe.map(({ strMeal, strCategory, strMealThumb, idMeal, strArea }, index) => (
-            <div key={ uuidv4() }>
-              <div>
-                <img
-                  data-testid="recipe-photo"
-                  src={ strMealThumb }
-                  alt="foto da receita"
-                  className="img-details"
-                />
-              </div>
-              <ShareButton
-                position={ index }
-                id={ id }
-                type="comida"
-              />
-              <FavoriteButton
-                id={ idMeal }
-                type="comida"
-                area={ strArea }
-                category={ strCategory }
-                alcoholicOrNot=""
-                name={ strMeal }
-                image={ strMealThumb }
-                position={ index }
-              />
-              <div>
-                <h2 data-testid="recipe-title">{strMeal}</h2>
-                <h2 data-testid="recipe-category">{ strCategory }</h2>
-                <p>{' '}</p>
-              </div>
-              <div>
-                <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
-              </div>
-            </div>
-          ))
+          !loading
+            ? (
+              recipe.map(({
+                strMeal,
+                strCategory,
+                strMealThumb,
+                idMeal,
+                strArea,
+              }, index) => (
+                <div key={ uuidv4() }>
+                  <div>
+                    <img
+                      data-testid="recipe-photo"
+                      src={ strMealThumb }
+                      alt="foto da receita"
+                      className="img-details"
+                    />
+                  </div>
+                  <ShareButton
+                    position={ index }
+                    id={ id }
+                    type="comida"
+                  />
+                  <FavoriteButton
+                    id={ idMeal }
+                    type="comida"
+                    area={ strArea }
+                    category={ strCategory }
+                    alcoholicOrNot=""
+                    name={ strMeal }
+                    image={ strMealThumb }
+                    position={ index }
+                  />
+                  <div>
+                    <h2 data-testid="recipe-title">{strMeal}</h2>
+                    <h2 data-testid="recipe-category">{ strCategory }</h2>
+                    <p>{' '}</p>
+                  </div>
+                  <div>
+                    <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
+                  </div>
+                </div>
+              ))
+            ) : <div>Loading...</div>
         }
         <button
           className="btn btn-warning"
@@ -113,6 +122,7 @@ const mapDispatchToProps = (dispach) => ({
 
 const mapStateToProps = (state) => ({
   recipe: state.foods.recipes,
+  loading: state.foods.loading,
 });
 
 RecipesInProgress.propTypes = {
