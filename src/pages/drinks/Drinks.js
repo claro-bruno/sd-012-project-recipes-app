@@ -52,16 +52,24 @@ class Drinks extends Component {
   }
 
   render() {
-    const { drinks, drinksCategories } = this.props;
+    const { drinks, drinksCategories, loading } = this.props;
 
     return (
       <div>
         <Header title="Bebidas" showSearchBottom />
-        <CategoriesFilter
-          categories={ drinksCategories }
-          handleClick={ this.filterMealsByCategory }
-        />
-        <RecipesList recipes={ drinks } type="drinks" />
+        {loading
+          ? (
+            <CategoriesFilter
+              categories={ drinksCategories }
+              handleClick={ this.filterMealsByCategory }
+            />
+          )
+          : <div>Loading...</div>}
+        {
+          loading
+            ? <RecipesList recipes={ drinks } type="drinks" />
+            : <div>Loading...</div>
+        }
         <MenuFooter />
       </div>
     );
@@ -77,6 +85,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   drinks: state.drinks.drinks,
   drinksCategories: state.drinks.categories,
+  loading: state.foods.loading,
 });
 
 Drinks.propTypes = {
