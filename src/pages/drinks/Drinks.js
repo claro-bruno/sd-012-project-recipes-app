@@ -85,7 +85,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   drinks: state.drinks.drinks,
   drinksCategories: state.drinks.categories,
-  loading: state.foods.loading,
+  loading: state.drinks.loading,
 });
 
 Drinks.propTypes = {
