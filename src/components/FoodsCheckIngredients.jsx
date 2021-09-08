@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import fetchRecipes from '../Redux/actions/fetchRecipes';
 // import initialStorage from '../webStorage/helper';
@@ -101,14 +102,14 @@ class Ingredients extends Component {
           ingredients.map((ingredient, index) => (
             <h3
               id="iten"
-              key={ index }
+              key={ uuidv4() }
               value={ `${Object.keys(ingredient)[0]}` }
               index={ index }
               data-testid={ `${index}-ingredient-step` }
               className="itenLits"
             >
               <input
-                key={ index }
+                key={ uuidv4() }
                 index={ index }
                 type="checkbox"
                 value={ `${Object.keys(ingredient)[0]}` }

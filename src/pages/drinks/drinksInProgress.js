@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Instructions from '../../components/Instructions';
@@ -63,7 +64,7 @@ class DetailsDrink extends Component {
               strAlcoholic,
               idDrink,
             }, index) => (
-              <div key={ index }>
+              <div key={ uuidv4() }>
                 <div>
                   <img
                     className="img-details"

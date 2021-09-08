@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import RecipesMadeCard from './RecipesMadeCard';
 
@@ -20,7 +21,7 @@ class RecipesMadeList extends Component {
             alcoholicOrNot,
             area,
           }, i) => (
-            <div key={ i }>
+            <div key={ uuidv4() }>
               <RecipesMadeCard
                 id={ id }
                 index={ i }

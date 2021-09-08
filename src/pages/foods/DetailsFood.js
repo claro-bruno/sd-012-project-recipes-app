@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { Redirect } from 'react-router-dom';
 import Ingredients from '../../components/Ingredients';
 import Instructions from '../../components/Instructions';
@@ -53,7 +54,7 @@ class DetailsFood extends Component {
               strArea,
               strMealThumb,
             }, index) => (
-              <div key={ index }>
+              <div key={ uuidv4() }>
                 <div>
                   <img
                     className="img-details"

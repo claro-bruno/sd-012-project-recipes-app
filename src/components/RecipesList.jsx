@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import RecipeCard from './RecipeCard';
 import './style/categoryStyle.css';
 
@@ -25,7 +26,7 @@ class RecipesList extends Component {
         {
           recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (
             <RecipeCard
-              key={ index }
+              key={ uuidv4() }
               id={ idMeal }
               index={ index }
               name={ strMeal }
@@ -46,7 +47,7 @@ class RecipesList extends Component {
         {
           recipes.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
             <RecipeCard
-              key={ index }
+              key={ uuidv4() }
               id={ idDrink }
               index={ index }
               name={ strDrink }
