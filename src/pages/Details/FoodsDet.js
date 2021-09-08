@@ -13,9 +13,9 @@ function FoodDetails() {
   const [ingredients, measure] = IngredientsAndMeasuresFoodDetails();
 
   return (
-    <>
-      { recipesFood.map((item, index) => (
-        <div key={ index }>
+    <main>
+      { recipesFood ? recipesFood.map((item) => (
+        <div key={ item.strMeal }>
           <Image
             data-testid="recipe-photo"
             src={ item.strMealThumb }
@@ -60,8 +60,8 @@ function FoodDetails() {
           <FoodCarousel />
           <ButtonFood />
         </div>
-      )) }
-    </>
+      )) : <p>loading...</p> }
+    </main>
   );
 }
 

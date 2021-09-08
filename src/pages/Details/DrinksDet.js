@@ -13,9 +13,9 @@ function DrinksDetails() {
   const [ingredients, measure] = IngredientsAndMeasuresDrinkDetails();
 
   return (
-    <div>
-      { recipesDrink !== undefined ? recipesDrink.map((item, index) => (
-        <div key={ index }>
+    <main>
+      { recipesDrink ? recipesDrink.map((item) => (
+        <div key={ item.strDrink }>
           <Image
             data-testid="recipe-photo"
             src={ item.strDrinkThumb }
@@ -34,8 +34,6 @@ function DrinksDetails() {
               alcoholicOrNot: item.strAlcoholic,
               name: item.strDrink,
               image: item.strDrinkThumb,
-              // doneDate: '',
-              // tags: [],
             } }
           />
           <div>
@@ -56,8 +54,8 @@ function DrinksDetails() {
           <DrinkCarousel />
           <ButtonDrink />
         </div>
-      )) : <p>Loading...</p> }
-    </div>
+      )) : <p>loading...</p> }
+    </main>
   );
 }
 
