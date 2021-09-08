@@ -19,7 +19,7 @@ export default function FoodRecomendations() {
       dotListClass=""
       draggable
       focusOnSelect={ false }
-      infinite
+      infinite={ false }
       itemClass=""
       keyBoardControl
       minimumTouchDrag={ 80 }
@@ -54,39 +54,36 @@ export default function FoodRecomendations() {
       slidesToSlide={ 2 }
       swipeable
     >
-      {recomendations.map(({
-        idMeal,
-        strMealThumb,
-        strMeal,
-        strCategory,
-      }, index) => {
-        if (index < maxLength) {
-          return (
-            <Card className="border" key={ index }>
-              <Card.Img
-                src={ strMealThumb }
-                alt="Foto do drink"
-              />
-              <Card.Body
-                className="bg-color p-2"
-                key={ idMeal }
-                data-testid={ `${index}-recomendation-card` }
+      {
+        recomendations.slice(0, maxLength).map(({
+          idMeal,
+          strMealThumb,
+          strMeal,
+          strCategory,
+        }, index) => (
+          <Card className="border" key={ index }>
+            <Card.Img
+              src={ strMealThumb }
+              alt="Foto do drink"
+            />
+            <Card.Body
+              className="bg-color p-2"
+              key={ idMeal }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <Card.Title
+                className="m-0"
+                data-testid={ `${index}-recomendation-title` }
               >
-                <Card.Title
-                  className="m-0"
-                  data-testid={ `${index}-recomendation-title` }
-                >
-                  {strMeal}
-                </Card.Title>
-                <Card.Text>
-                  {strCategory}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          );
-        }
-        return null;
-      })}
+                {strMeal}
+              </Card.Title>
+              <Card.Text>
+                {strCategory}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        ))
+      }
     </Carousel>
   );
 }

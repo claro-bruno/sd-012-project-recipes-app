@@ -15,12 +15,11 @@ export default function DrinksRecomendations() {
       arrows
       autoPlaySpeed={ 3000 }
       centerMode={ false }
-      className=""
-      containerClass="pt-2"
+      containerClass="carousel-container pt-2"
       dotListClass=""
       draggable
       focusOnSelect={ false }
-      infinite
+      infinite={ false }
       itemClass=""
       keyBoardControl
       partialVisible={ false }
@@ -34,6 +33,7 @@ export default function DrinksRecomendations() {
             min: 1024,
           },
           items: 3,
+          partialVisibilityGutter: 0,
         },
         mobile: {
           breakpoint: {
@@ -41,6 +41,7 @@ export default function DrinksRecomendations() {
             min: 0,
           },
           items: 2,
+          partialVisibilityGutter: 0,
         },
         tablet: {
           breakpoint: {
@@ -48,6 +49,7 @@ export default function DrinksRecomendations() {
             min: 464,
           },
           items: 2,
+          partialVisibilityGutter: 0,
         },
       } }
       showDots={ false }
@@ -55,41 +57,38 @@ export default function DrinksRecomendations() {
       slidesToSlide={ 2 }
       swipeable
     >
-      {recomendations.map(({
-        idDrink,
-        strDrinkThumb,
-        strAlcoholic,
-        strDrink,
-      }, index) => {
-        if (index < maxLength) {
-          return (
-            <Card className="border" key={ index }>
-              <Card.Img
-                src={ strDrinkThumb }
-                alt="Foto do drink"
-              />
-              <Card.Body
-                className="bg-color p-2"
-                key={ idDrink }
-                data-testid={ `${index}-recomendation-card` }
+      {
+        recomendations.slice(0, maxLength).map(({
+          idDrink,
+          strDrinkThumb,
+          strAlcoholic,
+          strDrink,
+        }, index) => (
+          <Card className="border" key={ index }>
+            <Card.Img
+              src={ strDrinkThumb }
+              alt="Foto do drink"
+            />
+            <Card.Body
+              className="bg-color p-2"
+              key={ idDrink }
+              data-testid={ `${index}-recomendation-card` }
+            >
+              <Card.Title
+                className="m-0"
+                data-testid={ `${index}-recomendation-title` }
               >
-                <Card.Title
-                  className="m-0"
-                  data-testid={ `${index}-recomendation-title` }
-                >
-                  {strDrink}
-                </Card.Title>
-                <Card.Text
-                  className="m-0"
-                >
-                  {strAlcoholic}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          );
-        }
-        return null;
-      })}
+                {strDrink}
+              </Card.Title>
+              <Card.Text
+                className="m-0"
+              >
+                {strAlcoholic}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        ))
+      }
     </Carousel>
   );
 }
