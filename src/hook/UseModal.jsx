@@ -18,17 +18,17 @@ const UseModal = () => {
       border: '3px solid #393F47',
     },
   };
-
   function closeModal() {
-    // setIsOpen(false);
+    setIsOpen(false);
   }
-
   useEffect(() => {
+    let timeout;
     const timeToClose = () => {
       const TIME_TO_CLOSE = 2000;
-      setTimeout(() => closeModal(), TIME_TO_CLOSE);
+      timeout = setTimeout(() => closeModal(), TIME_TO_CLOSE);
     };
     timeToClose();
+    return () => clearTimeout(timeout);
   }, [modalIsOpen]);
 
   function openModal() {
