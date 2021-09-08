@@ -57,7 +57,7 @@ class Drinks extends Component {
     return (
       <div>
         <Header title="Bebidas" showSearchBottom />
-        {loading
+        {!loading
           ? (
             <CategoriesFilter
               categories={ drinksCategories }
@@ -66,7 +66,7 @@ class Drinks extends Component {
           )
           : <div>Loading...</div>}
         {
-          loading
+          !loading
             ? <RecipesList recipes={ drinks } type="drinks" />
             : <div>Loading...</div>
         }
