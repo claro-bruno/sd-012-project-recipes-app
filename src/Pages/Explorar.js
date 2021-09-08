@@ -7,7 +7,7 @@ export default function Explorar() {
   return (
     <>
       <section>
-        <Header title="Explorar" searchIcon />
+        <Header title="Explorar" />
       </section>
       <Link to="/explorar/comidas">
         <button
