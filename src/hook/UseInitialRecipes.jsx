@@ -21,7 +21,9 @@ const UseInitialRecipes = (type) => {
   }, [dispatch, type]);
 
   useEffect(() => {
-    fetchAPI();
+    let isMounted = true;
+    if (isMounted) fetchAPI();
+    return () => { isMounted = false; };
   }, [fetchAPI]);
 };
 
