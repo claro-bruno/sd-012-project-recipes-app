@@ -20,7 +20,7 @@ const UseModal = () => {
   };
 
   function closeModal() {
-    setIsOpen(false);
+    // setIsOpen(false);
   }
 
   useEffect(() => {
