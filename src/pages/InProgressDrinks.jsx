@@ -6,13 +6,15 @@ function InProgressDrinks({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchRecipe = async () => {
       const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const result = await response.json();
       const details = result.meals || result.drinks;
-      setRecipe(details);
+      if (isMounted) setRecipe(details);
     };
     fetchRecipe();
+    return () => { isMounted = false; };
   }, [id, setRecipe]);
 
   return (

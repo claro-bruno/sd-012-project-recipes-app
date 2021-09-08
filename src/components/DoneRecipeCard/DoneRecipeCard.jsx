@@ -16,7 +16,7 @@ function DoneRecipeCard({ recipe, cardIndex }) {
     closeModal,
     customStyles } = UseModal();
 
-  Modal.setAppElement('#root');
+  Modal.setAppElement('*');
 
   return (
     <DoneSectionCard>

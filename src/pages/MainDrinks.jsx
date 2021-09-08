@@ -13,7 +13,9 @@ function MainDrinks() {
   const filter = useSelector(({ meals }) => meals.filter);
 
   useEffect(() => {
-    dispatch(requestCategoryList('/bebidas'));
+    let isMounted = true;
+    if (isMounted) dispatch(requestCategoryList('/bebidas'));
+    return () => { isMounted = false; };
   }, [dispatch]);
 
   if (filter !== 'explore') {

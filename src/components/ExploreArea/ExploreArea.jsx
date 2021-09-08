@@ -15,12 +15,16 @@ function ExploreArea() {
   const areaList = useSelector(({ meals }) => meals.areas);
   const [area, setArea] = useState('All');
   useEffect(() => {
-    dispatch(requestAreaList());
-    if (area === 'All') {
-      dispatch(requestDefault('/comidas'));
-    } else {
-      dispatch(requestByArea(area));
+    let isMounted = true;
+    if (isMounted) {
+      dispatch(requestAreaList());
+      if (area === 'All') {
+        dispatch(requestDefault('/comidas'));
+      } else {
+        dispatch(requestByArea(area));
+      }
     }
+    return () => { isMounted = false; };
   }, [area, dispatch]);
 
   if (!areaList.meals) {
