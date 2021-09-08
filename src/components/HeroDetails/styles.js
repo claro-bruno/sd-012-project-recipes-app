@@ -39,3 +39,7 @@ export const BtnDiv = styled.div`
   align-items: flex-start;
   justify-content: center;
 `;
+
+export const HeartBtn = styled.button`
+    animation: popout 0.5s;
+`;

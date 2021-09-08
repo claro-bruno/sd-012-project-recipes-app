@@ -75,7 +75,7 @@ describe('10 - Verifica existencia do Header de acordo com protótipo', () => {
     hasNoHeader();
   });
 
-  it('Header com ícones corretos na de explorar', () => {
+  it('Header com ícones corretos na tela de explorar', () => {
     renderWithRouterAndRedux(<App />, { initialEntries: ['/explorar'] });
     hasHeader('Explorar', false);
   });

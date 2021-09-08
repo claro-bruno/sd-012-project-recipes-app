@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import propTypes from 'prop-types';
 import Modal from 'react-modal';
 import shareIconImg from '../../images/shareIcon.svg';
@@ -6,7 +6,7 @@ import UseFavorite from '../../hook/UseFavorite';
 import ModalCopy from '../ModalCopy/ModalCopy';
 import UseModal from '../../hook/UseModal';
 import { DetailImg, DetailBar, DetailName, DetailCategory,
-  DetailBarIcon, LeftHeroDiv, BtnDiv } from './styles';
+  DetailBarIcon, LeftHeroDiv, BtnDiv, HeartBtn } from './styles';
 
 function HeroDetails({ recipe, type }) {
   const { changeFavorite, heart } = UseFavorite(recipe);
@@ -15,7 +15,7 @@ function HeroDetails({ recipe, type }) {
     closeModal,
     customStyles } = UseModal();
 
-  Modal.setAppElement('#root');
+  useEffect(() => { Modal.setAppElement('*'); }, []);
 
   return (
     <section>
@@ -57,7 +57,7 @@ function HeroDetails({ recipe, type }) {
           >
             <ModalCopy />
           </Modal>
-          <button
+          <HeartBtn
             src={ heart }
             type="button"
             data-testid="favorite-btn"
@@ -69,7 +69,7 @@ function HeroDetails({ recipe, type }) {
               width="20px"
               height="20px"
             />
-          </button>
+          </HeartBtn>
         </BtnDiv>
       </DetailBar>
     </section>
