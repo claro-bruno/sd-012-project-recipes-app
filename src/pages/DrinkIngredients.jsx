@@ -9,7 +9,9 @@ function DrinkIngredients() {
   const dispatch = useDispatch();
   const path = useLocation().pathname;
   useEffect(() => {
-    dispatch(requestIngredientsList(path));
+    let isMounted = true;
+    if (isMounted) dispatch(requestIngredientsList(path));
+    return () => { isMounted = false; };
   }, [dispatch, path]);
   const ingredients = useSelector(({ meals }) => meals.ingredients);
   if (!ingredients.drinks) {

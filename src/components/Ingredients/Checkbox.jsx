@@ -8,7 +8,9 @@ function Checkbox({ recipe, type, allChecked }) {
     checkedOptions, handleClick } = UseCheckbox(recipe, type);
 
   useEffect(() => {
-    allChecked(ingredients, checkedOptions);
+    let isMounted = true;
+    if (isMounted) allChecked(ingredients, checkedOptions);
+    return () => { isMounted = false; };
   }, [allChecked, checkedOptions, ingredients]);
 
   return (

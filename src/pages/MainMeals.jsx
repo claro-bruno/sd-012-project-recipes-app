@@ -13,7 +13,9 @@ function MainMeals() {
   const { chooser } = UseRecipes();
 
   useEffect(() => {
-    dispatch(requestCategoryList('/comidas'));
+    let isMounted = true;
+    if (isMounted) dispatch(requestCategoryList('/comidas'));
+    return () => { isMounted = false; };
   }, [dispatch]);
 
   if (filter !== 'explore') {
