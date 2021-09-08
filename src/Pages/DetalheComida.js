@@ -27,6 +27,7 @@ export default function DetalheComida(props) {
   useEffect(() => {
     const getFood = async () => {
       const foodResult = await ComidasAPI.buscarComidaPeloID(id);
+      // console.log(foodResult[0]);
       setFood(foodResult[0]);
       const readyIngredients = getRecipeIngredients(foodResult);
       setFoodIngredients(readyIngredients);
@@ -176,6 +177,7 @@ export default function DetalheComida(props) {
         <h5>Video</h5>
         <iframe data-testid="video" title="food-video" src={ getEmbedURL(food) } />
       </div>
+      <h5>Recomended</h5>
       <div className="recomended-drink-section-infos">
         { randomDrinks.map((drink, index) => (
           <RecomendedCard
