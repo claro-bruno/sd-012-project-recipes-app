@@ -1,7 +1,7 @@
-const getDrink = async (api) => {
-  const endpoint = api;
+const getDrink = async (url) => {
+  const endpoint = url;
   const response = await fetch(endpoint);
-  if (!response.ok) return console.log('Falha na requisição de bebidas por ingrediente');
+  if (!response.ok) return [];
   const result = response.json();
   return result;
 };

@@ -21,7 +21,7 @@ function IngredientsAndMeasures({ recipe }) {
   );
 
   return (
-    <section>
+    <section className="ing-details">
       <h1>Ingredients</h1>
       <div>
         <ul>
