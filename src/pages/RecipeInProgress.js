@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import ShareAndFavBtn from '../components/ShareAndFaveBtn';
 import genericFetchAPI from '../services/genericFetchAPI';
 import './RecipeInProgress.css';
@@ -20,9 +21,10 @@ function getIngredientsAndMeasures(recipe, setIngredientsList, setMeasureList) {
   }
 }
 
-function isRecipeFinished() {
+function isRecipeFinished(setRecipeIsFinished) {
   const tags = document.getElementsByTagName('input');
-  return tags.every((tag) => tag.checked);
+  const isFinish = (Array.prototype.slice.call(tags)).every((tag) => tag.checked);
+  setRecipeIsFinished(isFinish);
 }
 
 function RecipeInProgress() {
@@ -30,21 +32,59 @@ function RecipeInProgress() {
   const [ingredientsList, setIngredientsList] = useState([]);
   const [measureList, setMeasureList] = useState([]);
   const { pathname } = useLocation();
-  const recipeInProgressSTG = JSON.parse(localStorage.getItem('inProgressRecipes'))
-  || { cocktails: {}, meals: {} };
+  const recipeId = pathname.split('/')[2];
+  const [recipeIsFinished, setRecipeIsFinished] = useState(false);
+  const [ingredientsDone, setIngredientsDone] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes'))
+      ? JSON.parse(localStorage.getItem('inProgressRecipes')).meals[recipeId]
+      || JSON.parse(localStorage.getItem('inProgressRecipes')).cocktails[recipeId]
+      || []
+      : [],
+  );
+
+  const handleIngredientsDone = (index) => {
+    if (!ingredientsDone.includes(index)) {
+      setIngredientsDone((old) => [...old, index]);
+    } else {
+      setIngredientsDone((old) => old.filter((num) => num !== index));
+    }
+  };
 
   useEffect(() => {
-    const mealOrCocktail = pathname.includes('comidas') ? 'meal' : 'cocktail';
-    const recipeId = pathname.split('/')[2];
-    genericFetchAPI(mealOrCocktail, 'lookup', 'i', recipeId)
-      .then((result) => {
-        setRecipe((result.meals || result.drinks)[0]);
-      });
-  }, [pathname]);
+    const recipeInProgressSTG = localStorage.getItem('inProgressRecipes')
+  || { cocktails: {}, meals: {} };
+    if (pathname.includes('comidas')) {
+      localStorage
+        .setItem('inProgressRecipes', JSON.stringify({
+          cocktails: { ...recipeInProgressSTG.cocktails },
+          meals: {
+            ...recipeInProgressSTG.meals,
+            [recipeId]: ingredientsDone,
+          },
+        }));
+    } else {
+      localStorage
+        .setItem('inProgressRecipes', JSON.stringify({
+          meals: { ...recipeInProgressSTG.meals },
+          cocktails: {
+            ...recipeInProgressSTG.cocktails,
+            [recipeId]: ingredientsDone,
+          },
+        }));
+    }
+  }, [ingredientsDone, pathname, recipeId]);
 
   useEffect(() => {
     getIngredientsAndMeasures(recipe, setIngredientsList, setMeasureList);
   }, [recipe]);
+
+  useEffect(() => {
+    const mealOrCocktail = pathname.includes('comidas') ? 'meal' : 'cocktail';
+    genericFetchAPI(mealOrCocktail, 'lookup', 'i', recipeId)
+      .then((result) => {
+        setRecipe((result.meals || result.drinks)[0]);
+      });
+  }, [pathname, recipeId]);
 
   return recipe ? (
     <section>
@@ -70,6 +110,11 @@ function RecipeInProgress() {
               <input
                 type="checkbox"
                 id={ `${index}-ingredient` }
+                checked={ ingredientsDone.includes(index) }
+                onChange={ () => {
+                  isRecipeFinished(setRecipeIsFinished);
+                  handleIngredientsDone(index);
+                } }
               />
               <label htmlFor={ `${index}-ingredient` }>
                 {`${ingredient} - ${measureList[index]}`}
@@ -82,9 +127,15 @@ function RecipeInProgress() {
         <h3>Instructions</h3>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
-      { isRecipeFinished
-        ? <button data-testid="finish-recipe-btn" type="button">Finish Recipe</button>
-        : null}
+      <Link to="/receitas-feitas">
+        <button
+          data-testid="finish-recipe-btn"
+          type="button"
+          disabled={ !recipeIsFinished }
+        >
+          Finish Recipe
+        </button>
+      </Link>
     </section>
   ) : <p>Loading</p>;
 }

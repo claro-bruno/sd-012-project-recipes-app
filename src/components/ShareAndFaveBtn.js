@@ -46,7 +46,7 @@ function ShareAndFavBtn({ recipe }) {
         src={ shareIcon }
         type="button"
         onClick={ () => {
-          copy(window.location.href);
+          copy(`http://localhost:3000/${pathname.split('/')[1]}/${pathname.split('/')[2]}`);
           setCopyOk(true);
         } }
       >
