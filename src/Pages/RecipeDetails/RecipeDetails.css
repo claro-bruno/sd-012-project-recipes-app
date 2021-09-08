@@ -1,8 +1,72 @@
-.carousel {
-  background-color: lightblue;
+.recipe-details {
+  color: white;
+  left: 5%;
+  position: absolute;
+  width: 90%;
+}
+
+.recipe-details .carousel {
+  background-color: rgb(37, 43, 50);
   display: flex;
   flex-direction: row;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   overflow-x: scroll;
   width: 100%;
+}
+
+.recipe-details .header {
+  display: flex;
+  margin: 15px 0;
+  position: relative;
+}
+
+.recipe-details h1 {
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.recipe-details img {
+  border-radius: 15px;
+  width: 100%;
+}
+
+.recipe-details p {
+  text-align: justify;
+}
+
+.recipe-details .buttons {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.recipe-details .buttons h2 {
+  margin: 0 auto;
+}
+
+.recipe-details button {
+  background-color: rgb(245, 71, 73);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  margin-left: 10px;
+  min-height: 34px;
+  min-width: 34px;
+  padding: 10px;
+}
+
+.recipe-details button span svg {
+  fill: white;
+}
+
+.recipe-details .video {
+  width: 100%;
+}
+
+.recipe-details .voltar {
+  position: fixed;
+  top: 0;
 }

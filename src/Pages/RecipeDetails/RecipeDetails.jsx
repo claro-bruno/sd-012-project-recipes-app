@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
 import { Share, Favorite as blackHeartIcon,
-  FavoriteBorder as whiteHeartIcon } from '@material-ui/icons';
+  FavoriteBorder as whiteHeartIcon, ArrowBack } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import IconButton from '../../Components/IconBtn';
@@ -16,6 +17,7 @@ import ModalHook from '../../Hooks/ModalHook';
 Modal.setAppElement('#root');
 
 function RecipeDetails({ match: { params } }) {
+  const history = useHistory();
   const { feedType, id } = params;
   const [carousel, setCarousel] = useState([]);
   const { handleCopy, closeModal, modal, modalStyles } = ModalHook();
@@ -57,6 +59,14 @@ function RecipeDetails({ match: { params } }) {
     variant: 'contained',
     onClick: handleCopy,
   };
+  const backBtn = {
+    name: 'back',
+    icon: ArrowBack,
+    alt: 'backIcon',
+    type: 'button',
+    variant: 'contained',
+    onClick: () => history.goBack(),
+  };
   const favBtn = {
     name: 'favorite',
     'data-testid': 'favorite-btn',
@@ -65,7 +75,7 @@ function RecipeDetails({ match: { params } }) {
     type: 'button',
     variant: 'contained',
     onClick: handleFav,
-    src: fav ? 'blackHeartIcon' : 'whiteHeartIcon',
+    src: fav ? 'whiteHeartIcon' : 'blackHeartIcon',
   };
   const categoryProps = {
     'data-testid': 'recipe-category',
@@ -75,6 +85,7 @@ function RecipeDetails({ match: { params } }) {
   };
   const vidProps = {
     'data-testid': 'video',
+    className: 'video',
     width: '360',
     height: '202',
     frameBorder: '0',
@@ -103,22 +114,30 @@ function RecipeDetails({ match: { params } }) {
     && singleRecipe[e] !== null && singleRecipe[e] !== '');
 
   return (
-    <>
-      <h1 { ...titleProps }>{singleRecipe.strMeal || singleRecipe.strDrink}</h1>
+    <div className="recipe-details">
+      <div className="header">
+        <IconButton { ...backBtn } />
+        <h1 { ...titleProps }>{singleRecipe.strMeal || singleRecipe.strDrink}</h1>
+      </div>
       <img alt="pgo" { ...imgProps } />
-      <IconButton { ...shareBtn } />
-      <IconButton { ...favBtn } />
-      <h2 { ...categoryProps }>
-        { singleRecipe.strAlcoholic
-          ? singleRecipe.strAlcoholic : singleRecipe.strCategory}
-      </h2>
+      <div className="buttons">
+        <h2 { ...categoryProps }>
+          { singleRecipe.strAlcoholic
+            ? singleRecipe.strAlcoholic : singleRecipe.strCategory}
+        </h2>
+        <IconButton { ...shareBtn } />
+        <IconButton { ...favBtn } />
+      </div>
+      <h3>Ingredientes</h3>
       {arr.map((e, i) => (<List
         primary={ `${singleRecipe[e]}: ${singleRecipe[`strMeasure${i + 1}`]}` }
         key={ i }
         testid={ `${i}-ingredient-name-and-measure` }
       />))}
+      <h3>Instruções</h3>
       <p { ...InstructionProps }>{singleRecipe.strInstructions}</p>
       <Vid { ...vidProps } />
+      <h3>Acompanhamentos</h3>
       <div className="carousel">
         <Food recipes={ carousel } maxRecipes={ 6 } />
       </div>
@@ -126,7 +145,7 @@ function RecipeDetails({ match: { params } }) {
         ? <Link to={ `/${feedType}/${id}/in-progress` }><Btn { ...btnProps } /></Link>
         : null}
       <Modal { ...modalProps }>Link copiado!</Modal>
-    </>
+    </div>
   );
 }
 

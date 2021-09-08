@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '../../Components/Header';
 import shareIcon from '../../images/shareIcon.svg';
 import Btn from '../../Components/Btn';
+import './index.css';
 
 function ReceitasFeitas() {
   const recipeStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -37,18 +38,14 @@ function ReceitasFeitas() {
   };
 
   return (
-    <div>
+    <div className="done-recipes">
       <Header
         title="Receitas Feitas"
         searchButton={ false }
       />
-      <div>
+      <div className="done-buttons">
         <Btn { ...allButtonProps } />
-      </div>
-      <div>
         <Btn { ...foodButtonProps } />
-      </div>
-      <div>
         <Btn { ...drinksButtonProps } />
       </div>
       <div>

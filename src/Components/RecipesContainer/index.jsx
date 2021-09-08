@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { ContextApp } from '../../Context/ContextApp';
 import RecipeCard from '../RecipeCard';
+import './style.css';
 
 function RecipesContainer({ category }) {
   const { recipes } = useContext(ContextApp);
@@ -10,7 +11,7 @@ function RecipesContainer({ category }) {
     return <h1>Getting Recipes</h1>;
   }
   return (
-    <div>
+    <div className="recipe-container">
       {recipes[category].slice(0, number).map((recipe, index) => (
         <RecipeCard
           key={ index }

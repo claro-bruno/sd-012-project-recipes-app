@@ -1,8 +1,19 @@
 .footer {
-  background-color: white;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  background-color: rgba(12, 16, 21, 0.9);
   bottom: 0;
   display: flex;
-  justify-content: space-between;
+  height: 50px;
+  justify-content: space-around;
   position: fixed;
   width: 100%;
+}
+
+.footer button span svg {
+  fill: white;
+}
+
+.footer .selected span svg {
+  fill: rgb(245, 71, 73);
 }

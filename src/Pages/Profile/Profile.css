@@ -1,11 +1,21 @@
-.page-explore {
+.profile-page {
   display: flex;
   flex-direction: column;
   height: 100vh;
   position: relative;
 }
 
-.page-explore .explore-buttons {
+.user-name {
+  align-items: center;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.profile-page .profile-buttons {
+  align-items: center;
   display: flex;
   flex-direction: column;
   left: 50%;
@@ -15,10 +25,16 @@
   width: 75%;
 }
 
-.explore-buttons button {
+.profile-buttons button {
   background-color: rgb(245, 71, 73);
   border-radius: 8px;
   color: white;
+  display: flex;
   font-weight: 600;
-  margin: 10px;
+  margin-top: 25px;
+  padding: 5px 25px;
+}
+
+.profile-buttons a {
+  text-decoration: none;
 }

@@ -1,4 +1,45 @@
 .header-top {
+  color: white;
+  position: relative;
+}
+
+.header-top button {
+  background-color: rgb(245, 71, 73);
+  border-radius: 8px;
+  min-height: 34px;
+  min-width: 34px;
+}
+
+.header-top button span svg {
+  fill: white;
+}
+
+.header-top h1 {
+  font-size: 1.1rem;
+  margin: 0;
+  width: fit-content;
+}
+
+.withoutSearch {
+  align-items: center;
   display: flex;
-  justify-content: space-between;
+  height: 55px;
+  justify-content: flex-start;
+}
+
+.withoutSearch h1 {
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.withoutSearch button {
+  margin-left: 2rem;
+}
+
+.withSearch {
+  align-items: center;
+  display: flex;
+  height: 55px;
+  justify-content: space-around;
 }

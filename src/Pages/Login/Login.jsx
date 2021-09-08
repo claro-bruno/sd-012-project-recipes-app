@@ -4,6 +4,10 @@ import Inp from '../../Components/Inp';
 import Btn from '../../Components/Btn';
 import UseLoginHook from '../../Hooks/UseUserHook';
 
+import cooking from '../../images/cooking.png';
+
+import './Login.css';
+
 function Login() {
   const { handleInput, disabled, handleClick, redirect } = UseLoginHook();
   const emailProps = {
@@ -12,7 +16,8 @@ function Login() {
       'data-testid': 'email-input',
     },
     label: 'Email',
-    variant: 'outlined',
+    className: 'email',
+    variant: 'standard',
     type: 'Email',
     onChange: handleInput,
   };
@@ -22,7 +27,8 @@ function Login() {
       'data-testid': 'password-input',
     },
     label: 'Password',
-    variant: 'outlined',
+    className: 'password',
+    variant: 'standard',
     type: 'Password',
     onChange: handleInput,
   };
@@ -30,6 +36,7 @@ function Login() {
     name: 'Login',
     'data-testid': 'login-submit-btn',
     type: 'button',
+    className: 'button',
     variant: 'contained',
     disabled,
     onClick: handleClick,
@@ -37,11 +44,17 @@ function Login() {
 
   if (redirect) return <Redirect to="/comidas" />;
   return (
-    <>
-      <Inp { ...emailProps } />
-      <Inp { ...passwordProps } />
-      <Btn { ...buttonProps } />
-    </>
+    <div className="page-login">
+      <div className="login-form">
+        <div className="title">
+          <img src={ cooking } alt="logo" />
+          <h2>Food Seeker</h2>
+        </div>
+        <Inp { ...emailProps } />
+        <Inp { ...passwordProps } />
+        <Btn { ...buttonProps } />
+      </div>
+    </div>
   );
 }
 

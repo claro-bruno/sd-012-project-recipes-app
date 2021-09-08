@@ -1,3 +1,73 @@
-body {
+.page-login {
+  align-items: center;
+  background-color: rgb(12, 16, 21);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  margin: auto;
   width: 100%;
+}
+
+.page-login .title {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page-login .title h2 {
+  margin: 0;
+  margin-top: 15px;
+}
+
+.page-login .title img {
+  width: 50px;
+}
+
+.page-login .login-form {
+  align-items: center;
+  background-color: rgb(20, 25, 33);
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+}
+
+.page-login .login-form input {
+  color: white;
+}
+
+.page-login .login-form .MuiInput-underline:after {
+  border-bottom: 2px solid rgb(245, 71, 73);
+}
+
+.page-login .login-form label {
+  color: rgb(82, 85, 91);
+}
+
+.page-login .login-form .email {
+  margin-top: 10px;
+}
+
+.page-login .login-form .password {
+  margin-top: 10px;
+}
+
+.page-login .login-form .button {
+  border-radius: 5px;
+  color: white;
+  margin: 20px 0 10px;
+  padding: 2px 25px;
+}
+
+.page-login .login-form .button:disabled {
+  background-color: rgb(29, 35, 45);
+}
+
+.page-login .login-form .button:enabled {
+  background: linear-gradient(to left, rgb(245, 71, 73), rgb(213, 57, 60));
 }

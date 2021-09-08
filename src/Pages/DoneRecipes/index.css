@@ -1,21 +1,17 @@
-.page-explore {
+.done-recipes {
   display: flex;
   flex-direction: column;
   height: 100vh;
   position: relative;
 }
 
-.page-explore .explore-buttons {
+.done-recipes .done-buttons {
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) translateX(-50%);
-  width: 75%;
+  justify-content: space-evenly;
 }
 
-.explore-buttons button {
+.done-buttons button {
   background-color: rgb(245, 71, 73);
   border-radius: 8px;
   color: white;
