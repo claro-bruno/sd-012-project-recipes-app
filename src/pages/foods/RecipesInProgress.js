@@ -109,7 +109,8 @@ class RecipesInProgress extends Component {
           Finalizar a receita
         </button>
         <Instructions />
-        { redirect ? <Redirect to="/receitas-feitas" /> : ''}
+        { redirect ? <Redirect to="/receitas-feitas" />
+          : console.log('não redirecionei')}
       </>
     );
   }
