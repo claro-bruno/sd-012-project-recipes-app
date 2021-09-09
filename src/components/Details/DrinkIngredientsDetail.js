@@ -3,6 +3,7 @@ import IngredientsAndMeasuresDrinkDetails from '../../hooks/ingredientsDrinkDeta
 
 function DrinkIngredientsDetail() {
   const [ingredients, measure] = IngredientsAndMeasuresDrinkDetails();
+  console.log(ingredients);
   return (
     <div>
       <h3>Ingredientes</h3>

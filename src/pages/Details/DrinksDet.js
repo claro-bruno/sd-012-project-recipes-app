@@ -13,8 +13,8 @@ function DrinksDetails() {
 
   return (
     <main>
-      { recipesDrink ? recipesDrink.map((item) => (
-        <div key={ item.idDrink }>
+      { recipesDrink ? recipesDrink.map((item, index) => (
+        <div key={ index }>
           <Image
             data-testid="recipe-photo"
             src={ item.strDrinkThumb }
