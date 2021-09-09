@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 
 class Video extends Component {
   render() {
-    const { key, src, title } = this.props;
+    const { src, title } = this.props;
     return (
       <section>
         <iframe
-          key={ key }
           src={ src }
           title={ title }
           data-testid="video"
