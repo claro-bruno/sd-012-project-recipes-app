@@ -24,7 +24,7 @@ FoodCard.propTypes = {
   meal: PropTypes.shape({
     strMealThumb: PropTypes.string.isRequired,
     strMeal: PropTypes.string.isRequired,
-    idMeal: PropTypes.number.isRequired,
+    idMeal: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
 };

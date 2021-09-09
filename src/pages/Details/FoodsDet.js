@@ -2,20 +2,19 @@ import React from 'react';
 import { Image } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import RecipesFoodDetail from '../../hooks/recipesFoodDetails';
-import IngredientsAndMeasuresFoodDetails from '../../hooks/ingredientsFoodDetail';
 import FoodCarousel from '../../components/Details/CarouselFoodDetail';
 import ButtonFood from '../../components/Details/StartButtonFood';
 import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
+import FoodIngredientsDetail from '../../components/Details/FoodIngredientsDetail';
 
 function FoodDetails() {
   const [recipesFood] = RecipesFoodDetail();
-  const [ingredients, measure] = IngredientsAndMeasuresFoodDetails();
 
   return (
     <main>
       { recipesFood ? recipesFood.map((item) => (
-        <div key={ item.strMeal }>
+        <div key={ item.idMeal }>
           <Image
             data-testid="recipe-photo"
             src={ item.strMealThumb }
@@ -36,19 +35,6 @@ function FoodDetails() {
               image: item.strMealThumb,
             } }
           />
-          <div>
-            <h3>Ingredientes</h3>
-            <ul>
-              { ingredients.map((ingredient, indx) => (
-                <li
-                  key={ indx }
-                  data-testid={ `${indx}-ingredient-name-and-measure` }
-                >
-                  { `${measure[indx]} ${ingredient}` }
-                </li>
-              )) }
-            </ul>
-          </div>
           <p data-testid="instructions">{ item.strInstructions }</p>
           <iframe
             title="food-video"
@@ -57,10 +43,11 @@ function FoodDetails() {
             height="10"
             src={ item.strYoutube }
           />
-          <FoodCarousel />
-          <ButtonFood />
         </div>
       )) : <p>loading...</p> }
+      <FoodIngredientsDetail />
+      <FoodCarousel />
+      <ButtonFood />
     </main>
   );
 }
