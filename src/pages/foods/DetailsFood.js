@@ -55,6 +55,7 @@ class DetailsFood extends Component {
                   strCategory,
                   strArea,
                   strMealThumb,
+                  strYoutube,
                 }, index) => (
                   <div key={ uuidv4() }>
                     <div>
@@ -98,6 +99,11 @@ class DetailsFood extends Component {
                     >
                       Iniciar Receita
                     </button>
+                    <Video
+                      key={ uuidv4() }
+                      src={ strYoutube.replace('watch?v', 'embed/') }
+                      title={ strMeal }
+                    />
                   </div>
                 ))
               ) : <div>Loading...</div>
@@ -106,7 +112,7 @@ class DetailsFood extends Component {
             red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null
           }
         </div>
-        <Video />
+
       </div>
     );
   }

@@ -110,7 +110,7 @@ class DetailsDrink extends Component {
                       Finalizar drink
                     </button>
                     { redirect ? <Redirect to="/receitas-feitas" />
-                      : console.log('não redirecionei')}
+                      : null }
                   </div>
                 ),
               )
