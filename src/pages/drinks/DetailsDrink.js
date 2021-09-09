@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import IngredientsDrink from '../../components/IngredientsDrink';
 import Instructions from '../../components/Instructions';
 import RecomendationsFoods from '../../components/RecomendationsFoods';
@@ -75,70 +76,73 @@ class DetailsDrink extends Component {
   }
 
   render() {
-    const { cocktail, match } = this.props;
+    const { cocktail, match, loading } = this.props;
     const { params: { id } } = match;
     const { red } = this.state;
     return (
       <div>
         <div>
           {
-            cocktail.map(
-              ({
-                idDrink,
-                strDrink,
-                strCategory,
-                strDrinkThumb,
-                strAlcoholic,
-              }, index) => (
-                <div key={ index }>
-                  <div>
-                    <img
-                      data-testid="recipe-photo"
-                      src={ strDrinkThumb }
-                      alt="foto"
-                    />
-                  </div>
+            !loading
+              ? (
+                cocktail.map(
+                  ({
+                    idDrink,
+                    strDrink,
+                    strCategory,
+                    strDrinkThumb,
+                    strAlcoholic,
+                  }, index) => (
+                    <div key={ uuidv4() }>
+                      <div>
+                        <img
+                          data-testid="recipe-photo"
+                          className="recipe-image"
+                          src={ strDrinkThumb }
+                          alt="foto"
+                        />
+                      </div>
 
-                  <ShareButton
-                    position={ index }
-                    id={ id }
-                    type="bebida"
-                  />
-                  <FavoriteButton
-                    id={ idDrink }
-                    type="bebida"
-                    category={ strCategory }
-                    alcoholicOrNot={ strAlcoholic }
-                    name={ strDrink }
-                    image={ strDrinkThumb }
-                    position={ index }
-                  />
+                      <ShareButton
+                        position={ index }
+                        id={ id }
+                        type="bebida"
+                      />
+                      <FavoriteButton
+                        id={ idDrink }
+                        type="bebida"
+                        category={ strCategory }
+                        alcoholicOrNot={ strAlcoholic }
+                        name={ strDrink }
+                        image={ strDrinkThumb }
+                        position={ index }
+                      />
 
-                  <div>
-                    <h1 data-testid="recipe-title">{ strDrink }</h1>
-                    <h2 data-testid="recipe-category">
-                      { strCategory }
-                      { strAlcoholic }
-                    </h2>
-                  </div>
-                  <IngredientsDrink />
-                  <Instructions />
-                  <RecomendationsFoods />
-
-                  <button
-                    className="start-recipe-button"
-                    type="button"
-                    data-testid="start-recipe-btn"
-                    onClick={ () => this.setRedirect() }
-                  >
-                    Iniciar Receita
-                  </button>
-                </div>
-              ),
-            )
+                      <div>
+                        <h1 data-testid="recipe-title">{ strDrink }</h1>
+                        <h2 data-testid="recipe-category">
+                          { strCategory }
+                          { strAlcoholic }
+                        </h2>
+                      </div>
+                      <IngredientsDrink />
+                      <Instructions />
+                      <RecomendationsFoods />
+                      <button
+                        className="start-recipe-button"
+                        type="button"
+                        data-testid="start-recipe-btn"
+                        onClick={ () => this.setRedirect() }
+                      >
+                        Iniciar Receita
+                      </button>
+                    </div>
+                  ),
+                )
+              ) : <div>loading...</div>
           }
           {
-            red ? <Redirect to={ `/bebidas/${id}/in-progress` } /> : console.log('chamou')
+            red ? <Redirect to={ `/bebidas/${id}/in-progress` } /> : null
           }
         </div>
       </div>
@@ -155,6 +159,7 @@ DetailsDrink.propTypes = {
 const mapStateToProps = (state) => ({
   cocktail: state.drinks.cocktails,
   meals: state.foods.meals,
+  loading: state.drinks.loading,
 });
 
 const mapDispatchToProps = (dispach) => ({

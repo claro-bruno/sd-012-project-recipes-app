@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -32,7 +33,7 @@ class RecomendationsFoods extends Component {
       <Slider { ...settings }>
         {
           meals.map(({ strMealThumb, strMeal }, index) => (
-            <div key={ index }>
+            <div key={ uuidv4() }>
               <h3
                 data-testid={ `${index}-recomendation-title` }
               >

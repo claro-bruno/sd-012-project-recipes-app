@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
 class IngredientsDrink extends Component {
@@ -40,7 +41,7 @@ class IngredientsDrink extends Component {
         {
           ingredients.map((ingredient, index) => (
             <li
-              key={ index }
+              key={ uuidv4() }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               {

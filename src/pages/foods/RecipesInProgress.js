@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import FavoriteButton from '../../components/FavoriteButton';
-import Instructions from '../../components/Instructions';
+// import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
-import IngredientsCheckedList from '../../components/IngredientsCheckedList';
+// import IngredientsCheckedList from '../../components/IngredientsCheckedList';
 import './style.css';
 
 class RecipesInProgress extends Component {
@@ -48,65 +49,59 @@ class RecipesInProgress extends Component {
   }
 
   render() {
-    const { recipe, match: { params: { id } } } = this.props;
+    const { loading, recipe, match: { params: { id } } } = this.props;
     const { disabled, redirect } = this.state;
     return (
       <>
         {
-          recipe.map(({ strMeal, strCategory, strMealThumb, idMeal, strArea }, index) => (
-            <div key={ index }>
-              <div className="d-flex">
-                <img
-                  data-testid="recipe-photo"
-                  src={ strMealThumb }
-                  alt="foto da receita"
-                  className="img-details"
-                />
-
-                <ShareButton
-                  position={ index }
-                  id={ id }
-                  type="comida"
-                />
-                <FavoriteButton
-                  id={ idMeal }
-                  type="comida"
-                  area={ strArea }
-                  category={ strCategory }
-                  alcoholicOrNot=""
-                  name={ strMeal }
-                  image={ strMealThumb }
-                  position={ index }
-                />
-              </div>
-
-              <div>
-                <h2 data-testid="recipe-title">{strMeal}</h2>
-                <h2 data-testid="recipe-category">{ strCategory }</h2>
-                <p>{' '}</p>
-              </div>
-
-              <IngredientsCheckedList
-                type="comida"
-                id={ id }
-              />
-              <Instructions />
-
-              <button
-                className="btn btn-warning"
-                type="button"
-                data-testid="finish-recipe-btn"
-                onClick={ this.redirecPage }
-                disabled={ disabled }
-              >
-                Finalizar a receita
-              </button>
-            </div>
-          ))
+          !loading
+            ? (
+              recipe.map(({
+                strMeal,
+                strCategory,
+                strMealThumb,
+                idMeal,
+                strArea,
+              }, index) => (
+                <div key={ uuidv4() }>
+                  <div>
+                    <img
+                      data-testid="recipe-photo"
+                      src={ strMealThumb }
+                      alt="foto da receita"
+                      className="img-details"
+                    />
+                  </div>
+                  <ShareButton
+                    position={ index }
+                    id={ id }
+                    type="comida"
+                  />
+                  <FavoriteButton
+                    id={ idMeal }
+                    type="comida"
+                    area={ strArea }
+                    category={ strCategory }
+                    alcoholicOrNot=""
+                    name={ strMeal }
+                    image={ strMealThumb }
+                    position={ index }
+                  />
+                  <div>
+                    <h2 data-testid="recipe-title">{strMeal}</h2>
+                    <h2 data-testid="recipe-category">{ strCategory }</h2>
+                    <p>{' '}</p>
+                  </div>
+                  <div>
+                    <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
+                  </div>
+                </div>
+              ))
+            ) : <div>Loading...</div>
         }
 
         { redirect ? <Redirect to="/receitas-feitas" />
-          : console.log('não redirecionei')}
+          : null}
       </>
     );
   }
@@ -118,6 +113,7 @@ const mapDispatchToProps = (dispach) => ({
 
 const mapStateToProps = (state) => ({
   recipe: state.foods.recipes,
+  loading: state.foods.loading,
 });
 
 RecipesInProgress.propTypes = {
