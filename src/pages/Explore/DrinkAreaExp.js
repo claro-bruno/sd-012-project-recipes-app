@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../../components/Header';
 
-function FoodAreaExp() {
+function DrinkAreaExp() {
   return (
     <Header name="Explorar Ingredientes" search />
   );
 }
 
-export default FoodAreaExp;
+export default DrinkAreaExp;
