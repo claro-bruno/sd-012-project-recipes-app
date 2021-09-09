@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { objectOf, string } from 'prop-types';
 import createIngredientsAndMesure from '../helper/redoRecipe';
 
-function IngredientsAndMeasures({ recipe }) {
+function IngredientsCard({ recipe }) {
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
 
@@ -12,27 +12,30 @@ function IngredientsAndMeasures({ recipe }) {
   }, [recipe]);
 
   const createRecipe = (item, key) => (
-    <li
+    <label
+      type="checkbox"
+      htmlFor={ `${key}-ingredients` }
       key={ key }
-      data-testid={ `${key}-ingredient-name-and-measure` }
     >
+      <input
+        type="checkbox"
+        id={ `${key}-ingredients` }
+        data-testid={ `${key}-ingredient-step` }
+      />
       {`${item} - ${measures[key]}`}
-    </li>
+    </label>
   );
 
   return (
-    <section className="ing-details">
-      <h1>Ingredients</h1>
-      <div>
-        <ul>
-          {ingredients.map((item, key) => createRecipe(item, key))}
-        </ul>
-      </div>
-    </section>
+    <div>
+      <h1 data-testid="recipe-category">Ingredients</h1>
+      {ingredients.map((item, key) => createRecipe(item, key))}
+    </div>
   );
 }
-IngredientsAndMeasures.propTypes = {
+
+IngredientsCard.propTypes = {
   recipe: objectOf(string).isRequired,
 };
 
-export default IngredientsAndMeasures;
+export default IngredientsCard;

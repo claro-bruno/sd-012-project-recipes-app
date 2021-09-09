@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import AreaHeader from '../Components/AreaHeader';
+import Footer from '../Components/Footer';
 
 function FoodPlaceExplore() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('American');
   const [dataFilter, setDataFilter] = useState([]);
-
 
   useEffect(() => {
     const getArea = async () => {
@@ -43,6 +43,7 @@ function FoodPlaceExplore() {
 
   return (
     <div>
+      <AreaHeader title="Explorar Origem" />
       <select
         data-testid="explore-by-area-dropdown"
         value={ filter }
@@ -96,6 +97,7 @@ function FoodPlaceExplore() {
             </Link>
           ))
       }
+      <Footer />
     </div>
   );
 }
