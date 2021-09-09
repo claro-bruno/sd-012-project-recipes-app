@@ -13,33 +13,19 @@ function IngredientsCard({ recipe }) {
   }, [recipe]);
 
   const createRecipe = (item, key) => (
-<<<<<<< HEAD
-    <label
-      htmlFor="ingredients"
-      key={ key }
-    >
-      {`${item} - ${measures[key]}`}
-      <input
-        id="ingredients"
-        type="checkbox"
-        data-testid={ `${key}-ingredient-step` }
-      />
-    </label>
-=======
-    <li>
+    <div>
       <label
-        htmlFor="ingredients"
+        htmlFor={ `${key}-ingredients` }
         key={ key }
       >
-        {`${item} - ${measures[key]}`}
         <input
-          id="ingredients"
+          id={ `${key}-ingredients` }
           type="checkbox"
           data-testid={ `${key}-ingredient-step` }
         />
+        {`${item} - ${measures[key]}`}
       </label>
-    </li>
->>>>>>> 2831a69057f5c975ab99b8a5281210290c5639a1
+    </div>
   );
 
   return (
