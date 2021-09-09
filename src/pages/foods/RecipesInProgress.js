@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import FavoriteButton from '../../components/FavoriteButton';
 import Instructions from '../../components/Instructions';
@@ -63,7 +63,7 @@ class RecipesInProgress extends Component {
                 idMeal,
                 strArea,
               }, index) => (
-                <div key={ index }>
+                <div key={ uuidv4() }>
                   <div>
                     <img
                       data-testid="recipe-photo"
