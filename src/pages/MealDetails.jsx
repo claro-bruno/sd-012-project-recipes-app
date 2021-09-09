@@ -7,7 +7,7 @@ import { DatailsMain } from '../UI globalStyles';
 
 function MealDetails({ match: { params: { id } } }) {
   const dispatch = useDispatch();
-  const [recipe, setRecipe] = useState([]);
+  const [recipe, setRecipe] = useState(undefined);
   const recomendation = UseRecomendationRecipes('drinks');
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function MealDetails({ match: { params: { id } } }) {
       const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const result = await response.json();
       const details = result.meals || result.drinks;
-      if (isMounted) setRecipe(details);
+      if (isMounted) setRecipe(details[0]);
     };
     dispatch({ type: 'CLEAR' });
     fetchRecipe();
@@ -25,8 +25,7 @@ function MealDetails({ match: { params: { id } } }) {
 
   return (
     <DatailsMain>
-      { recipe.map((oneRecipe) => (
-        <RecipeDetails key="0" recipe={ oneRecipe } type="Meal" />)) }
+      { recipe && <RecipeDetails key={ recipe.idMeal } recipe={ recipe } type="Meal" />}
       <section className="horizontal-slider">
         {recomendation}
       </section>

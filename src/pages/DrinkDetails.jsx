@@ -7,7 +7,7 @@ import UseRecomendationRecipes from '../hook/UseRecomendationRecipes';
 
 function DrinkDetails({ match: { params: { id } } }) {
   const dispatch = useDispatch();
-  const [recipe, setRecipe] = useState([]);
+  const [recipe, setRecipe] = useState(undefined);
   const recomendation = UseRecomendationRecipes('meals');
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function DrinkDetails({ match: { params: { id } } }) {
       const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const result = await response.json();
       const details = result.meals || result.drinks;
-      if (isMounted) setRecipe(details);
+      if (isMounted) setRecipe(details[0]);
     };
     dispatch({ type: 'CLEAR' });
     fetchRecipe();
@@ -25,8 +25,7 @@ function DrinkDetails({ match: { params: { id } } }) {
 
   return (
     <DatailsMain>
-      { recipe.map((oneRecipe) => (
-        <RecipeDetails key="0" recipe={ oneRecipe } type="Drink" />)) }
+      { recipe && <RecipeDetails key={ recipe.idDrink } recipe={ recipe } type="Drink" />}
       <section className="horizontal-slider">
         {recomendation}
       </section>

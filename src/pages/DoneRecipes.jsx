@@ -35,7 +35,7 @@ function DoneRecipes() {
       </ButtonFilterDiv>
       <DoneRecipeList>
         {filteredRecipes.map((recipe, index) => (
-          <DoneRecipeCard key={ index } recipe={ recipe } cardIndex={ index } />))}
+          <DoneRecipeCard key={ recipe.id } recipe={ recipe } cardIndex={ index } />))}
       </DoneRecipeList>
     </DoneMain>
   );

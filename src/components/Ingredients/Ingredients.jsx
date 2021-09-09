@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 import { IngredintSection, IngredientH3, IngredintLi, Div } from './styles';
 
 function Ingredients({ recipe }) {
@@ -26,7 +27,7 @@ function Ingredients({ recipe }) {
         <ul>
           {ingredients.map((ingredient, index) => (
             <IngredintLi
-              key={ index }
+              key={ uniqueId() }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               {`${ingredient} - ${measures[index]}`}
