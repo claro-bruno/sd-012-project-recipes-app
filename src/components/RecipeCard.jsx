@@ -24,7 +24,6 @@ class RecipeCard extends Component {
           </div>
         </div>
       </Link>
-
     );
   }
 

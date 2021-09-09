@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import Ingredients from '../../components/Ingredients';
 import Instructions from '../../components/Instructions';
 import Video from '../../components/Video';
-import RecomendationsDrinks from '../../components/RecomendationsDrinks';
+import RecomendationsFoods from '../../components/RecomendationsFoods';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
@@ -45,73 +45,72 @@ class DetailsFood extends Component {
 
     return (
       <div>
-        <div>
-          {
-            !loading
-              ? (
-                recipe.map(({
-                  idMeal,
-                  strMeal,
-                  strCategory,
-                  strArea,
-                  strMealThumb,
-                  strYoutube,
-                }, index) => (
-                  <div key={ uuidv4() }>
-                    <div>
-                      <img
-                        className="img-details"
-                        data-testid="recipe-photo"
-                        src={ strMealThumb }
-                        alt="foto"
-                      />
-                    </div>
-
-                    <ShareButton
-                      position={ index }
-                      id={ id }
-                      type="comida"
-                    />
-                    <FavoriteButton
-                      id={ idMeal }
-                      type="comida"
-                      area={ strArea }
-                      category={ strCategory }
-                      alcoholicOrNot=""
-                      name={ strMeal }
-                      image={ strMealThumb }
-                      position={ index }
-                    />
-
-                    <div>
-                      <h1 data-testid="recipe-title">{ strMeal }</h1>
-                      <h2 data-testid="recipe-category">{ strCategory }</h2>
-                    </div>
-                    <Ingredients />
-                    <Instructions />
-                    <RecomendationsDrinks />
-
-                    <button
-                      className="start-recipe-button"
-                      type="button"
-                      data-testid="start-recipe-btn"
-                      onClick={ () => this.setRedirect() }
-                    >
-                      Iniciar Receita
-                    </button>
-                    <Video
-                      src={ strYoutube.replace('watch?v', 'embed/') }
-                      title={ strMeal }
+        {
+          !loading
+            ? (
+              recipe.map(({
+                idMeal,
+                strMeal,
+                strCategory,
+                strArea,
+                strMealThumb,
+                strYoutube,
+              }, index) => (
+                <div key={ uuidv4() }>
+                  <div>
+                    <img
+                      className="img-details"
+                      data-testid="recipe-photo"
+                      src={ strMealThumb }
+                      alt="foto"
                     />
                   </div>
-                ))
-              ) : <div>Loading...</div>
-          }
-          {
-            red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null
-          }
-        </div>
 
+                  <ShareButton
+                    position={ index }
+                    id={ id }
+                    type="comida"
+                  />
+                  <FavoriteButton
+                    id={ idMeal }
+                    type="comida"
+                    area={ strArea }
+                    category={ strCategory }
+                    alcoholicOrNot=""
+                    name={ strMeal }
+                    image={ strMealThumb }
+                    position={ index }
+                  />
+
+                  <div>
+                    <h1 data-testid="recipe-title">{ strMeal }</h1>
+                    <h2 data-testid="recipe-category">{ strCategory }</h2>
+                  </div>
+
+                  <Ingredients />
+                  <Instructions />
+
+                  <Video
+                    src={ strYoutube.replace('watch?v', 'embed/') }
+                    title={ strMeal }
+                  />
+
+                  <RecomendationsFoods />
+
+                  <button
+                    className="start-recipe-button"
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    onClick={ () => this.setRedirect() }
+                  >
+                    Iniciar Receita
+                  </button>
+                </div>
+              ))
+            ) : <div>Loading...</div>
+        }
+
+        { red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null }
       </div>
     );
   }

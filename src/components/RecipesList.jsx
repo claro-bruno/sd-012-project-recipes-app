@@ -25,14 +25,15 @@ class RecipesList extends Component {
       <div className="row row-cols-3 row-cols-md-3 g-4 ">
         {
           recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (
-            <RecipeCard
-              key={ uuidv4() }
-              id={ idMeal }
-              index={ index }
-              name={ strMeal }
-              thumb={ strMealThumb }
-              type="food"
-            />
+            <div key={ uuidv4() }>
+              <RecipeCard
+                id={ idMeal }
+                index={ index }
+                name={ strMeal }
+                thumb={ strMealThumb }
+                type="food"
+              />
+            </div>
           ))
         }
       </div>

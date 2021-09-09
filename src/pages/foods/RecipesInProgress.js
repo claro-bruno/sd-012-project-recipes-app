@@ -8,6 +8,7 @@ import FavoriteButton from '../../components/FavoriteButton';
 // import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
 // import IngredientsCheckedList from '../../components/IngredientsCheckedList';
+import FoodsCheckIngredients from '../../components/FoodsCheckIngredients';
 import './style.css';
 
 class RecipesInProgress extends Component {
@@ -95,13 +96,22 @@ class RecipesInProgress extends Component {
                   <div>
                     <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
                   </div>
+
+                  <button
+                    className="btn btn-warning"
+                    type="button"
+                    data-testid="finish-recipe-btn"
+                    onClick={ this.redirecPage }
+                    disabled={ disabled }
+                  >
+                    Finalizar drink
+                  </button>
                 </div>
               ))
             ) : <div>Loading...</div>
         }
 
-        { redirect ? <Redirect to="/receitas-feitas" />
-          : null}
+        { redirect ? <Redirect to="/receitas-feitas" /> : null }
       </>
     );
   }
