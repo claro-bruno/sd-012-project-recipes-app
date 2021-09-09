@@ -128,7 +128,6 @@ class DetailsDrink extends Component {
                       <IngredientsDrink />
                       <Instructions />
                       <RecomendationsFoods />
-
                       <button
                         className="start-recipe-button"
                         type="button"
