@@ -1,0 +1,20 @@
+.profile-div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.button {
+  background-color: #fa9500;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Roboto , sans-serif;
+  margin: 3px;
+  padding: 5px 15px;
+}

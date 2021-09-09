@@ -1,0 +1,15 @@
+.in-progress-div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredient-step {
+  display: flex;
+}
