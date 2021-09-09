@@ -13,7 +13,6 @@ class Video extends Component {
           title={ title }
           data-testid="video"
         />
-        ))
       </section>
     );
   }
