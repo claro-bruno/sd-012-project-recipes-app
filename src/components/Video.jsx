@@ -8,11 +8,11 @@ class Video extends Component {
     return (
       <section>
         {
-          recipe.map(({ strYoutube }, index) => (
+          recipe.map(({ strYoutube, strMeal }, index) => (
             <iframe
               key={ index }
-              src={ strYoutube }
-              title="recipe video"
+              src={ strYoutube.replace('watch?v', 'embed/') }
+              title={ strMeal }
               data-testid="video"
             />
           ))
