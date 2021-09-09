@@ -100,7 +100,6 @@ class DetailsFood extends Component {
                       Iniciar Receita
                     </button>
                     <Video
-                      key={ uuidv4() }
                       src={ strYoutube.replace('watch?v', 'embed/') }
                       title={ strMeal }
                     />
