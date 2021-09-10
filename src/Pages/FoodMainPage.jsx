@@ -41,8 +41,7 @@ function FoodMainPage() {
 
   if (mealsBar === null) {
     return (
-      // eslint-disable-next-line no-alert
-      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'));
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'));
   }
 
   if (mealsBar.length === 1) {

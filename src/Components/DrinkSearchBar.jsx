@@ -22,8 +22,7 @@ function FoodSearchBar() {
     <section className="search-bar">
 
       {
-      // eslint-disable-next-line no-alert
-        showAlert ? window.alert('Sua busca deve conter somente 1 (um) caracter') : null
+        showAlert ? global.alert('Sua busca deve conter somente 1 (um) caracter') : null
       }
       <input
         type="text"

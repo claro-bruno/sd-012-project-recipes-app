@@ -39,8 +39,7 @@ function DrinkMainPage() {
 
   if (drinksBar === null) {
     return (
-      // eslint-disable-next-line no-alert
-      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'));
+      global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'));
   }
 
   if (drinksBar.length === 1) {
