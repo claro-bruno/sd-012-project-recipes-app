@@ -5,7 +5,7 @@ import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import IngredientsCheckedItem from './IngredientsCheckedItem';
 import fetchStorage from '../../Redux/actions/storage/getStorage';
 import { initialInProgressStorage } from '../../webStorage/storages';
-import '../pages/foods/style.css';
+import '../../pages/foods/style.css';
 
 class IngredientsCheckedList extends Component {
   constructor(props) {
