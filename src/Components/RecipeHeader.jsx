@@ -14,6 +14,7 @@ function RecipeHeader({ thumb, title, category, recipe, type, id }) {
       <h1 data-testid="recipe-title">{ title }</h1>
       <h2 data-testid="recipe-category">{ category }</h2>
       <ShareAndFavorite recipe={ recipe } type={ type } id={ id } />
+      <ShareAndFavorite recipe={ recipe } type={ type } />
     </header>
   );
 }

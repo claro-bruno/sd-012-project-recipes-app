@@ -6,6 +6,9 @@ import IngredientsCard from './IngredientsCard';
 
 function CurrentDrink() {
   const { id } = useParams();
+
+function CurrentDrink() {
+  const { id } = useParams();
   const [currentDrink, setCurrentDrink] = useState([]);
   const dispatch = useDispatch();
   const { push } = useHistory();
@@ -21,9 +24,9 @@ function CurrentDrink() {
     getCurrentRecipe();
   }, [dispatch, id]);
 
+
   return (
     <div>
-      <div>
         <RecipeHeader
           thumb={ currentDrink.strDrinkThumb }
           title={ currentDrink.strDrink }

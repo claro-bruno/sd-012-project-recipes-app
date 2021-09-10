@@ -68,6 +68,11 @@ function FoodDetails() {
         />
       </div>
       <div>
+        <RenderRecommendations
+          recommendation={ recommendation }
+        />
+      </div>
+      <div>
         {!doneRecipe && (
           <button
             type="button"

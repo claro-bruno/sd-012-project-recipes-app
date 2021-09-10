@@ -24,6 +24,19 @@ function IngredientsCard({ recipe }) {
       />
       {`${item} - ${measures[key]}`}
     </label>
+    <div>
+      <label
+        htmlFor={ `${key}-ingredients` }
+        key={ key }
+      >
+        <input
+          id={ `${key}-ingredients` }
+          type="checkbox"
+          data-testid={ `${key}-ingredient-step` }
+        />
+        {`${item} - ${measures[key]}`}
+      </label>
+    </div>
   );
 
   return (
