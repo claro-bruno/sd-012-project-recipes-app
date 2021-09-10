@@ -9,7 +9,7 @@ import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
 import FoodsCheckIngredients from '../../components/FoodsCheckIngredients';
 import './style.css';
-import { getLocalStorage } from '../../webStorage/recipeDoneHelper';
+// import { getLocalStorage } from '../../webStorage/recipeDoneHelper';
 
 class RecipesInProgress extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class RecipesInProgress extends Component {
   }
 
   redirecPage() {
-    const { recipe } = this.props;
+    /* const { recipe } = this.props;
     const date = new Date();
     const formDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     const recipeDone = [];
@@ -54,7 +54,7 @@ class RecipesInProgress extends Component {
     });
     console.log(recipeDone);
     getLocalStorage();
-    addLocalStorage('doneRecipes', recipeDone);
+    addLocalStorage('doneRecipes', recipeDone); */
     this.setState({ redirect: true });
   }
 
