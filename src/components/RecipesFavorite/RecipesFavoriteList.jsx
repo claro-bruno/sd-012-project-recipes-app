@@ -10,7 +10,7 @@ class RecipesFavoriteList extends Component {
 
     return (
       <div>
-        { favoriteRecipes 
+        {favoriteRecipes
           ? (favoriteRecipes.map(({
             id,
             image,
@@ -37,8 +37,7 @@ class RecipesFavoriteList extends Component {
               />
             </div>
           )))
-          : null
-        }
+          : null}
       </div>
     );
   }
