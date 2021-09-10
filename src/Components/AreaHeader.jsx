@@ -23,7 +23,7 @@ function AreaHeader({ title }) {
     return (
       <section className="fixing">
         <header className="header-container">
-          <button type="button" onClick={ <Redirect to="/perfil" /> }>
+          <button type="button" onClick={ () => <Redirect to="/perfil" /> }>
             <img
               data-testid="profile-top-btn"
               src={ profileIcon }

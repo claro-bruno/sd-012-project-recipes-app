@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { objectOf, string } from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import createIngredientsAndMesure from '../helper/redoRecipe';
 
 function IngredientsAndMeasures({ recipe }) {
@@ -13,7 +14,7 @@ function IngredientsAndMeasures({ recipe }) {
 
   const createRecipe = (item, key) => (
     <li
-      key={ key }
+      key={ uuidv4() }
       data-testid={ `${key}-ingredient-name-and-measure` }
     >
       {`${item} - ${measures[key]}`}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { objectOf, string } from 'prop-types';
 import createIngredientsAndMesure from '../helper/redoRecipe';
 
@@ -27,7 +28,7 @@ function IngredientsCard({ recipe }) {
     <div>
       <label
         htmlFor={ `${key}-ingredients` }
-        key={ key }
+        key={ uuidv4() }
       >
         <input
           id={ `${key}-ingredients` }

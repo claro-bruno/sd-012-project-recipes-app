@@ -57,7 +57,6 @@ function DrinkDetails() {
       <div>
         <RenderRecommendations
           recommendation={ recommendation }
-          key
         />
       </div>
       <div className="footer">
@@ -67,7 +66,7 @@ function DrinkDetails() {
             data-testid="start-recipe-btn"
             onClick={ () => push(`/bebidas/${id}/in-progress`) }
           >
-            { progressRecipe ? 'Continuar Receita' : 'Iniciar Receita' }
+            {progressRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
           </button>
         )}
       </div>

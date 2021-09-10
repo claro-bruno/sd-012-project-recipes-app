@@ -33,7 +33,7 @@ function DrinkHeader({ title }) {
               alt="profile"
             />
           </Link>
-          <h2 data-testid="page-title">{ title }</h2>
+          <h2 data-testid="page-title">{title}</h2>
           <button
             src={ searchIcon }
             className="header-button"
@@ -59,7 +59,7 @@ function DrinkHeader({ title }) {
             alt="profile"
           />
         </Link>
-        <h2 data-testid="page-title">{ title }</h2>
+        <h2 data-testid="page-title">{title}</h2>
         <button
           src={ searchIcon }
           className="header-button"

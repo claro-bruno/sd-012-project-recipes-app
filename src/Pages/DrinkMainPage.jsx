@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
@@ -21,9 +22,9 @@ function DrinkMainPage() {
       <div className="container">
         <DrinkHeader title="Bebidas" />
         <session className="cards">
-          { drinks.map(({ idDrink, strDrinkThumb, strDrink }, key) => (
+          {drinks.map(({ idDrink, strDrinkThumb, strDrink }, key) => (
             <RecipeCard
-              key={ idDrink }
+              key={ uuidv4() }
               id={ idDrink }
               thumbnail={ strDrinkThumb }
               title={ strDrink }
@@ -38,6 +39,7 @@ function DrinkMainPage() {
 
   if (drinksBar === null) {
     return (
+      // eslint-disable-next-line no-alert
       window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'));
   }
 
@@ -50,9 +52,9 @@ function DrinkMainPage() {
     <div className="container">
       <DrinkHeader title="Bebidas" />
       <section className="cards">
-        { drinksBar.map(({ idDrink, strDrinkThumb, strDrink }, key) => (
+        {drinksBar.map(({ strDrinkThumb, strDrink }, key) => (
           <RecipeCard
-            key={ idDrink }
+            key={ uuidv4() }
             id={ key }
             thumbnail={ strDrinkThumb }
             title={ strDrink }

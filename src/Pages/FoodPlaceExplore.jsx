@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import AreaHeader from '../Components/AreaHeader';
 import Footer from '../Components/Footer';
@@ -57,9 +58,9 @@ function FoodPlaceExplore() {
         </option>
         {
           data
-            .map(({ strArea }, index) => (
+            .map(({ strArea }) => (
               <option
-                key={ index }
+                key={ uuidv4() }
                 value={ strArea }
                 data-testid={ `${strArea}-option` }
               >
@@ -76,7 +77,7 @@ function FoodPlaceExplore() {
         dataFilter
           .slice(0, MNumber)
           .map(({ strMeal, strMealThumb, idMeal }, index) => (
-            <Link key={ idMeal } to={ path(idMeal) }>
+            <Link key={ uuidv4() } to={ path(idMeal) }>
               <div
                 id={ idMeal }
                 data-testid={ `${index}-recipe-card` }
