@@ -9,7 +9,6 @@ import RecomendationsDrinks from '../../components/RecomendationsDrinks';
 import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
-import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import './style.css';
 
 class DetailsDrink extends Component {
@@ -17,7 +16,7 @@ class DetailsDrink extends Component {
     super(props);
 
     this.state = {
-      red: false,
+      redirect: false,
       // recipes: [],
     };
     // this.setRecipes = this.setRecipes.bind(this);
@@ -25,13 +24,12 @@ class DetailsDrink extends Component {
   }
 
   componentDidMount() {
-    const { setCocktail, match, setMeals } = this.props;
+    const { setCocktail, match } = this.props;
     const { params: { id } } = match;
     // const startButton = document.querySelector('start-recipe-button');
     // console.log(startButton);
     // startButton.style.visibility = 'visible';
     setCocktail(id);
-    setMeals();
     // this.setRecipes();
   }
 
@@ -67,9 +65,9 @@ class DetailsDrink extends Component {
   // }
 
   setRedirect() {
-    const { red } = this.state;
+    const { redirect } = this.state;
     this.setState({
-      red: !red,
+      redirect: !redirect,
     });
     // const startButton = document.querySelector('start-recipe-button');
     // startButton.style.visibility = 'hidden';
@@ -78,7 +76,7 @@ class DetailsDrink extends Component {
   render() {
     const { cocktail, match, loading } = this.props;
     const { params: { id } } = match;
-    const { red } = this.state;
+    const { redirect } = this.state;
     return (
       <div>
         {
@@ -131,7 +129,7 @@ class DetailsDrink extends Component {
                       className="start-recipe-button"
                       type="button"
                       data-testid="start-recipe-btn"
-                      onClick={ () => this.setRedirect() }
+                      onClick={ this.setRedirect }
                     >
                       Iniciar Receita
                     </button>
@@ -141,7 +139,7 @@ class DetailsDrink extends Component {
             ) : <div>loading...</div>
         }
 
-        { red ? <Redirect to={ `/bebidas/${id}/in-progress` } /> : null }
+        { redirect ? <Redirect to={ `/bebidas/${id}/in-progress` } /> : null }
       </div>
     );
   }
@@ -155,13 +153,11 @@ DetailsDrink.propTypes = {
 
 const mapStateToProps = (state) => ({
   cocktail: state.drinks.cocktails,
-  meals: state.foods.meals,
   loading: state.drinks.loading,
 });
 
 const mapDispatchToProps = (dispach) => ({
   setCocktail: (id) => dispach(fetchCocktail(id)),
-  setMeals: () => dispach(fetchMeals()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsDrink);

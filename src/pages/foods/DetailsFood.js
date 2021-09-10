@@ -10,7 +10,6 @@ import RecomendationsFoods from '../../components/RecomendationsFoods';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
-import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import './style.css';
 
 class DetailsFood extends Component {
@@ -18,30 +17,29 @@ class DetailsFood extends Component {
     super(props);
 
     this.state = {
-      red: false,
+      redirect: false,
     };
 
     this.setRedirect = this.setRedirect.bind(this);
   }
 
   componentDidMount() {
-    const { fetchRecipe, match, setDrinks } = this.props;
+    const { match, setMeal } = this.props;
     const { params: { id } } = match;
-    fetchRecipe(id);
-    setDrinks();
+    setMeal(id);
   }
 
   setRedirect() {
-    const { red } = this.state;
+    const { redirect } = this.state;
     this.setState({
-      red: !red,
+      redirect: !redirect,
     });
   }
 
   render() {
     const { loading, recipe, match } = this.props;
     const { params: { id } } = match;
-    const { red } = this.state;
+    const { redirect } = this.state;
 
     return (
       <div>
@@ -101,7 +99,7 @@ class DetailsFood extends Component {
                     className="start-recipe-button"
                     type="button"
                     data-testid="start-recipe-btn"
-                    onClick={ () => this.setRedirect() }
+                    onClick={ this.setRedirect }
                   >
                     Iniciar Receita
                   </button>
@@ -110,7 +108,7 @@ class DetailsFood extends Component {
             ) : <div>Loading...</div>
         }
 
-        { red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null }
+        { redirect ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null }
       </div>
     );
   }
@@ -124,13 +122,11 @@ DetailsFood.propTypes = {
 
 const mapStateToProps = (state) => ({
   recipe: state.foods.recipes,
-  drinks: state.drinks.drinks,
   loading: state.foods.loading,
 });
 
 const mapDispatchToProps = (dispach) => ({
-  fetchRecipe: (id) => dispach(fetchRecipes(id)),
-  setDrinks: () => dispach(fetchDrinks()),
+  setMeal: (id) => dispach(fetchRecipes(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsFood);

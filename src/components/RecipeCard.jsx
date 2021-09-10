@@ -4,11 +4,21 @@ import { Link } from 'react-router-dom';
 import './style/categoryStyle.css';
 
 class RecipeCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      redirect: false,
+    };
+
+    this.renderFoodCard = this.renderFoodCard.bind(this);
+    this.renderDrinkCard = this.renderDrinkCard.bind(this);
+  }
+
   renderFoodCard() {
     const { id, name, thumb, index } = this.props;
 
     return (
-
       <Link className="remove-line" to={ `/comidas/${id}` }>
         <div className="row">
           <div
@@ -31,12 +41,10 @@ class RecipeCard extends Component {
     const { id, name, thumb, index } = this.props;
 
     return (
-      <Link to={ `/bebidas/${id}` }>
-        <div
-          className="col"
-        >
+      <Link className="remove-line" to={ `/bebidas/${id}` }>
+        <div className="row">
           <div
-            className="card"
+            className="card card-list-food"
             data-testid={ `${index}-recipe-card` }
           >
             <img

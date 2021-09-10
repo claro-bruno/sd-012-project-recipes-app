@@ -24,8 +24,8 @@ class Drinks extends Component {
   componentDidMount() {
     const { setDrinks, setDrinksCategories } = this.props;
 
-    setDrinks();
     setDrinksCategories();
+    setDrinks();
   }
 
   setDrinkCategory(filteredCategory) {
