@@ -15,7 +15,7 @@ function FavoriteRecipies() {
     if (type === 'all') {
       setFavoriteRecipes(local);
     } else {
-      const filteredFood = favoriteRecipes.filter((item) => item.type === type);
+      const filteredFood = local.filter((item) => item.type === type);
       setFavoriteRecipes(filteredFood);
     }
   };

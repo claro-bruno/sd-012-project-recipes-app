@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { bool } from 'prop-types';
 import getFavorite from '../services/getFavorite';
 import urlApiHandle, { DataManeger } from '../services/urlApiHandle';
 import wIcon from '../images/whiteHeartIcon.svg';
@@ -42,7 +42,7 @@ const FavoriteChanger = (itFavoriteOrNot, Recipe, id, type) => {
 };
 
 function FavoriteButton(props) {
-  const { id, recipe, type, datatestid } = props;
+  const { id, recipe, type, datatestid, isClicked } = props;
   const initialfavorite = getFavorite(id);
   const [favorbutton, setfavorite] = useState(initialfavorite ? bIcon : wIcon);
   const [favorrecipe, setrecipe] = useState(null);
@@ -68,6 +68,7 @@ function FavoriteButton(props) {
     <button
       type="button"
       onClick={ () => {
+        if (isClicked) window.location.reload();
         setfavorite(FavoriteChanger(getFavorite(id), Recipe, id, type));
       } }
     >
@@ -91,6 +92,7 @@ FavoriteButton.propTypes = {
     measures: string.isRequired,
   }).isRequired,
   datatestid: string.isRequired,
+  isClicked: bool.isRequired,
 
 };
 

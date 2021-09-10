@@ -16,7 +16,7 @@ function CookedRecipies() {
   };
 
   const filterType = (type) => {
-    const filteredFood = doneRecipes.filter((item) => item.type === type);
+    const filteredFood = local.filter((item) => item.type === type);
     setDoneRecipes(filteredFood);
   };
 

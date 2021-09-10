@@ -47,6 +47,7 @@ export default function FavoriteRecipesCard({
             type={ `${type}s` }
           />
           <FavoriteButton
+            isClicked
             id={ id }
             type={ type }
             datatestid={ `${index}-horizontal-favorite-btn` }
