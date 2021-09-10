@@ -9,6 +9,7 @@ import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
 import FoodsCheckIngredients from '../../components/FoodsCheckIngredients';
 import './style.css';
+import { getLocalStorage } from '../../webStorage/recipeDoneHelper';
 
 class RecipesInProgress extends Component {
   constructor(props) {
@@ -52,7 +53,8 @@ class RecipesInProgress extends Component {
       });
     });
     console.log(recipeDone);
-    localStorage.setItem('doneRecipes', JSON.stringify(recipeDone));
+    getLocalStorage();
+    addLocalStorage('doneRecipes', recipeDone);
     this.setState({ redirect: true });
   }
 
