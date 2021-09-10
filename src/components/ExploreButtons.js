@@ -17,26 +17,20 @@ function ExploreButtons({ type }) {
   const [surprise, setSurprise] = useState(false);
   const typeFood = () => type === 'foods';
   const isLoading = foodLoading && drinkLoading;
-  const redirectButtonArea = () => {
-    if (typeFood()) {
-      history.push('comidas/area');
-    }
-  };
+
+  const redirectButtonArea = () => (typeFood() ? history.push('comidas/area') : '');
 
   useEffect(() => {
     const drinkOrMeal = [type === 'foods' ? 'meals' : type];
     if (list[drinkOrMeal] !== undefined) {
       const id = list[drinkOrMeal][0][`id${type === 'foods' ? 'Meal' : 'Drink'}`];
-      history.push(`/${type === 'foods' ? 'comidas' : 'bebidas'}/${id}`);
+      return history.push(`/${type === 'foods' ? 'comidas' : 'bebidas'}/${id}`);
     }
   }, [list, type, history]);
 
-  const redirectButtonIngredient = () => {
-    if (typeFood()) {
-      return history.push('comidas/ingredientes');
-    }
-    history.push('bebidas/ingredientes');
-  };
+  const redirectButtonIngredient = () => (typeFood()
+    ? history.push('comidas/ingredientes')
+    : history.push('bebidas/ingredientes'));
 
   const showAreaButton = () => {
     if (typeFood()) {
