@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import profileIcon from '../images/profileIcon.svg';
@@ -23,13 +23,15 @@ function AreaHeader({ title }) {
     return (
       <section className="fixing">
         <header className="header-container">
-          <button type="button" onClick={ () => <Redirect to="/perfil" /> }>
-            <img
-              data-testid="profile-top-btn"
-              src={ profileIcon }
-              alt="profile"
-            />
-          </button>
+          <Link to="/perfil">
+            <button type="button">
+              <img
+                data-testid="profile-top-btn"
+                src={ profileIcon }
+                alt="profile"
+              />
+            </button>
+          </Link>
           <h2 data-testid="page-title">{ title }</h2>
           <button
             src={ searchIcon }
@@ -48,13 +50,15 @@ function AreaHeader({ title }) {
   return (
     <section className="fixing">
       <header className="header-container">
-        <button type="button" onClick={ <Redirect to="/perfil" /> }>
-          <img
-            data-testid="profile-top-btn"
-            src={ profileIcon }
-            alt="profile"
-          />
-        </button>
+        <Link to="/perfil">
+          <button type="button">
+            <img
+              data-testid="profile-top-btn"
+              src={ profileIcon }
+              alt="profile"
+            />
+          </button>
+        </Link>
         <h2 data-testid="page-title">{ title }</h2>
         <button
           src={ searchIcon }
