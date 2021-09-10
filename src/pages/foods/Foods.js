@@ -57,21 +57,18 @@ class Foods extends Component {
     return (
       <div>
         <Header title="Comidas" showSearchBottom />
-        {
-          !loading
-            ? (
-              <CategoriesFilter
-                categories={ mealCategories }
-                handleClick={ this.filterMealsByCategory }
-              />
-            )
-            : <div>Loading...</div>
-        }
-        {
-          !loading
-            ? <RecipesList recipes={ meals } type="foods" />
-            : <div>Loading...</div>
-        }
+        {!loading
+          ? (
+            <CategoriesFilter
+              categories={ mealCategories }
+              handleClick={ this.filterMealsByCategory }
+            />
+          )
+          : <div>Loading...</div>}
+
+        {!loading ? <RecipesList recipes={ meals } type="foods" />
+          : <div>Loading...</div>}
+
         <MenuFooter />
       </div>
     );

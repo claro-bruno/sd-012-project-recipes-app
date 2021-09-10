@@ -65,11 +65,11 @@ class Drinks extends Component {
             />
           )
           : <div>Loading...</div>}
-        {
-          !loading
-            ? <RecipesList recipes={ drinks } type="drinks" />
-            : <div>Loading...</div>
-        }
+
+        {!loading
+          ? <RecipesList recipes={ drinks } type="drinks" />
+          : <div>Loading...</div>}
+
         <MenuFooter />
       </div>
     );
