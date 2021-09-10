@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FilterRecipesMade from '../components/FilterRecipesMade';
 import Header from '../components/Header';
 import RecipesMadeList from '../components/RecipesMadeList';
+import { getLocalStorage } from '../webStorage/recipeDoneHelper';
 
 class RecipesMade extends Component {
   constructor(props) {
@@ -20,7 +21,9 @@ class RecipesMade extends Component {
   }
 
   setDoneRecipes() {
-    const recipes = [
+    const storage = getLocalStorage();
+    console.log(storage);
+    /* const recipes = [
       {
         id: '52771',
         type: 'comida',
@@ -44,8 +47,8 @@ class RecipesMade extends Component {
         tags: [],
       },
     ];
-
-    this.setState({ doneRecipes: recipes });
+*/
+    this.setState({ doneRecipes: storage });
   }
 
   filterRecipesDone({ target }) {

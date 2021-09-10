@@ -44,7 +44,7 @@ class DetailsDrink extends Component {
       strAlcoholic,
       strDrink,
       strDrinkThumb,
-      strTags,
+      // strTags,
     }) => {
       recipeDone.push({
         id: idDrink,
@@ -55,7 +55,7 @@ class DetailsDrink extends Component {
         name: strDrink,
         image: strDrinkThumb,
         doneDate: formDate,
-        tags: strTags,
+        tags: [],
       });
     });
     const storage = getLocalStorage();

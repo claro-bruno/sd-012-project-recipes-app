@@ -53,10 +53,11 @@ class RecipesInProgress extends Component {
         name: strMeal,
         image: strMealThumb,
         doneDate: formDate,
-        tags: strTags,
+        tags: [strTags.split(',')],
       });
     });
     const storage = getLocalStorage();
+    console.log(recipeDone);
     const newstorage = addItem(storage, recipeDone);
     addLocalStorage('doneRecipes', newstorage);
     this.setState({ redirect: true });
