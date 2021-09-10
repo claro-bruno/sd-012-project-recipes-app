@@ -46,6 +46,7 @@ function FoodDetails() {
         category={ recipe.strCategory }
         recipe={ recipe }
         type="comida"
+        id={ id }
       />
       <IngredientsAndMeasures
         recipe={ recipe }
@@ -55,7 +56,16 @@ function FoodDetails() {
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
       <div>
-        <ReactPlayer url={ recipe.strYoutube } controls data-testid="video" />
+        <ReactPlayer
+          url={ recipe.strYoutube.replace('watch?v', 'embed/') }
+          controls
+          data-testid="video"
+        />
+      </div>
+      <div>
+        <RenderRecommendations
+          recommendation={ recommendation }
+        />
       </div>
       <div>
         <RenderRecommendations

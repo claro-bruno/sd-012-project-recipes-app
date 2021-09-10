@@ -7,7 +7,9 @@ import shareIcon from '../images/shareIcon.svg';
 import favoriteRecipes from '../helper/setLocalStorage';
 import { verificationIsFavorite } from '../helper/requiredDetails';
 
-function ShareAndFavorite({ recipe, type }) {
+
+function ShareAndFavorite({ recipe, type, id }) {
+
   const [isFavorite, setIsFavorite] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -30,7 +32,11 @@ function ShareAndFavorite({ recipe, type }) {
 
   const handleShare = async () => {
     const time = 2000;
-    navigator.clipboard.writeText(window.location.href);
+    if (type === 'comida') {
+      navigator.clipboard.writeText(`http://localhost:3000/comidas/${id}`);
+    } else {
+      navigator.clipboard.writeText(`http://localhost:3000/bebidas/${id}`);
+    }
     setShow(true);
     await setTimeout(() => setShow(false), time);
   };
@@ -61,6 +67,7 @@ function ShareAndFavorite({ recipe, type }) {
 ShareAndFavorite.propTypes = {
   recipe: objectOf(string).isRequired,
   type: string.isRequired,
+  id: string.isRequired,
 };
 
 export default ShareAndFavorite;

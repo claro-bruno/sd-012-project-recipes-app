@@ -45,6 +45,7 @@ function DrinkDetails() {
         category={ recipe.strAlcoholic }
         recipe={ recipe }
         type="bebida"
+        id={ id }
       />
       <IngredientsAndMeasures
         recipe={ recipe }

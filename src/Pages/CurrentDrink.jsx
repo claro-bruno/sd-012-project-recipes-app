@@ -3,11 +3,12 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import RecipeHeader from '../Components/RecipeHeader';
 import IngredientsCard from './IngredientsCard';
-// import { setMealDetails } from '../Redux/actions/actionSetRecipeDetails';
 
 function CurrentDrink() {
   const { id } = useParams();
-  // const [loading, setLoading] = useState(true);
+
+function CurrentDrink() {
+  const { id } = useParams();
   const [currentDrink, setCurrentDrink] = useState([]);
   const dispatch = useDispatch();
   const { push } = useHistory();
@@ -19,25 +20,20 @@ function CurrentDrink() {
       const drink = await response.json();
       console.log(drink);
       setCurrentDrink(drink.drinks[0]);
-      // setLoading(false);
-      // dispatch(setMealDetails(drink));
     };
     getCurrentRecipe();
   }, [dispatch, id]);
 
-  // if (!loading) {
-  //   return <h1>loading...</h1>;
-  // }
+
   return (
     <div>
-      {console.log(currentDrink)}
-      <div>
         <RecipeHeader
           thumb={ currentDrink.strDrinkThumb }
           title={ currentDrink.strDrink }
           category={ currentDrink.strAlcoholic }
           recipe={ currentDrink }
           type="bebida"
+          id={ id }
         />
         <ul>
           <IngredientsCard recipe={ currentDrink } />

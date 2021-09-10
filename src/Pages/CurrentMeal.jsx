@@ -33,6 +33,7 @@ function CurrentMeal() {
             category={ currentRecipe.strCategory }
             recipe={ currentRecipe }
             type="comida"
+            id={ id }
           />
           <ul>
             <IngredientsCard recipe={ currentRecipe } />

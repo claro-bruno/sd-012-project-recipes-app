@@ -7,12 +7,23 @@ function IngredientsCard({ recipe }) {
   const [measures, setMeasures] = useState([]);
 
   useEffect(() => {
-    console.log(recipe);
     setIngredients(createIngredientsAndMesure(recipe, 'ingredients'));
     setMeasures(createIngredientsAndMesure(recipe, 'mesure'));
   }, [recipe]);
 
   const createRecipe = (item, key) => (
+    <label
+      type="checkbox"
+      htmlFor={ `${key}-ingredients` }
+      key={ key }
+    >
+      <input
+        type="checkbox"
+        id={ `${key}-ingredients` }
+        data-testid={ `${key}-ingredient-step` }
+      />
+      {`${item} - ${measures[key]}`}
+    </label>
     <div>
       <label
         htmlFor={ `${key}-ingredients` }

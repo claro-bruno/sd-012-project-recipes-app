@@ -2,7 +2,7 @@ import React from 'react';
 import { string, objectOf } from 'prop-types';
 import ShareAndFavorite from './ShareAndFavorite';
 
-function RecipeHeader({ thumb, title, category, recipe, type }) {
+function RecipeHeader({ thumb, title, category, recipe, type, id }) {
   return (
     <header className="header-detail">
       <img
@@ -13,6 +13,7 @@ function RecipeHeader({ thumb, title, category, recipe, type }) {
       />
       <h1 data-testid="recipe-title">{ title }</h1>
       <h2 data-testid="recipe-category">{ category }</h2>
+      <ShareAndFavorite recipe={ recipe } type={ type } id={ id } />
       <ShareAndFavorite recipe={ recipe } type={ type } />
     </header>
   );
@@ -24,6 +25,7 @@ RecipeHeader.propTypes = {
   category: string.isRequired,
   recipe: objectOf(string).isRequired,
   type: string.isRequired,
+  id: string.isRequired,
 };
 
 export default RecipeHeader;
