@@ -24,7 +24,6 @@ class DrinkscheckIngredients extends Component {
     const { id } = this.props;
     if (localProgress) {
       const nodeList = document.querySelectorAll('.itenLits');
-      console.log(nodeList);
       const drinkId = localProgress.cocktails[id] || [];
       nodeList.forEach((element, index) => {
         if (element.firstElementChild.value === drinkId[index]) {

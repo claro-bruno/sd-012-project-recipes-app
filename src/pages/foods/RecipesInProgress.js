@@ -27,6 +27,32 @@ class RecipesInProgress extends Component {
   }
 
   redirecPage() {
+    const { recipe } = this.props;
+    const date = new Date();
+    const formDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    const recipeDone = [];
+    recipe.forEach(({
+      idMeal,
+      strArea,
+      strCategory,
+      strMeal,
+      strMealThumb,
+      strTags,
+    }) => {
+      recipeDone.push({
+        id: idMeal,
+        type: 'comida',
+        area: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+        doneDate: formDate,
+        tags: strTags,
+      });
+    });
+    console.log(recipeDone);
+    localStorage.setItem('doneRecipes', JSON.stringify(recipeDone));
     this.setState({ redirect: true });
   }
 
@@ -110,7 +136,7 @@ class RecipesInProgress extends Component {
         </button>
         <Instructions />
         { redirect ? <Redirect to="/receitas-feitas" />
-          : console.log('não redirecionei')}
+          : null }
       </>
     );
   }

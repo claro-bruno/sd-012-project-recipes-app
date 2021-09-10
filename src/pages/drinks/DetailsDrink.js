@@ -142,7 +142,7 @@ class DetailsDrink extends Component {
               ) : <div>loading...</div>
           }
           {
-            red ? <Redirect to={ `/bebidas/${id}/in-progress` } /> : console.log('chamou')
+            red ? <Redirect to={ `/bebidas/${id}/in-progress` } /> : null
           }
         </div>
       </div>
