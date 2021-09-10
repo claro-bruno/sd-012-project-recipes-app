@@ -10,7 +10,7 @@ class Video extends Component {
         {
           recipe.map(({ strYoutube, strMeal }, index) => (
             <iframe
-              key={ index }
+              key={ uuidv4() }
               src={ strYoutube.replace('watch?v', 'embed/') }
               title={ strMeal }
               data-testid="video"

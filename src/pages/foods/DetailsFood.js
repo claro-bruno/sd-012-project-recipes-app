@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Redirect } from 'react-router-dom';
 import Ingredients from '../../components/Ingredients';
 import Instructions from '../../components/Instructions';
-import Video from '../../components/Video';
+// import Video from '../../components/Video';
 import RecomendationsDrinks from '../../components/RecomendationsDrinks';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
@@ -106,7 +106,7 @@ class DetailsFood extends Component {
             red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null
           }
         </div>
-        <Video />
+        {/* <Video /> */}
       </div>
     );
   }
