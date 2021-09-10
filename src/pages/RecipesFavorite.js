@@ -28,9 +28,7 @@ class RecipesFavorite extends Component {
       // favoritedRecipes: state.favoritedRecipes.filter(({ type }) => type === 'comida'),
     case 'Drinks':
       // this.setFavoriteRecipes();
-      return this.setState((state) => ({
-        favoritedRecipes: state.favoritedRecipes.filter(({ type }) => type === 'bebida'),
-      }));
+      return filterRecipes(favoriteStorage.filter(({ type }) => type === 'bebida'));
     default:
       return filterRecipes(favoriteStorage);
     }
@@ -42,8 +40,6 @@ class RecipesFavorite extends Component {
       { strCategory: 'drink', strName: 'Drinks' },
     ];
 
-    const { favoriteStorage } = this.props;
-
     return (
       <div>
         <Header title="Receitas Favoritas" showSearchBottom={ false } />
@@ -53,7 +49,7 @@ class RecipesFavorite extends Component {
           handleClick={ this.filterRecipesFavorite }
         />
 
-        <RecipesFavoriteList recipes={ favoriteStorage } />
+        <RecipesFavoriteList />
       </div>
     );
   }

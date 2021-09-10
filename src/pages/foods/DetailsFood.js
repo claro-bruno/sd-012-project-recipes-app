@@ -10,9 +10,9 @@ import Recomendations from '../../components/Recomendations';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
-import './style.css';
 import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
+import './style.css';
 
 class DetailsFood extends Component {
   constructor(props) {
@@ -26,9 +26,9 @@ class DetailsFood extends Component {
   }
 
   componentDidMount() {
-    const { match, setMeal, setDrinks, setMeals } = this.props;
+    const { match, setRecipe, setDrinks, setMeals } = this.props;
     const { params: { id } } = match;
-    setMeal(id);
+    setRecipe(id);
     setDrinks();
     setMeals();
   }
@@ -130,7 +130,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setMeal: (id) => dispatch(fetchRecipes(id)),
+  setRecipe: (id) => dispatch(fetchRecipes(id)),
   setDrinks: () => dispatch(fetchDrinks()),
   setMeals: () => dispatch(fetchMeals()),
 });
