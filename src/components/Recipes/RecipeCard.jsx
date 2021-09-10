@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import './style/categoryStyle.css';
+import '../style/categoryStyle.css';
 
 class RecipeCard extends Component {
   constructor(props) {

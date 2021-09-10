@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './style/categoryStyle.css';
+import '../style/categoryStyle.css';
 
 class FilterRecipesMade extends Component {
   render() {

@@ -8,7 +8,7 @@ import FavoriteButton from '../../components/FavoriteButton';
 // import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
 // import IngredientsCheckedList from '../../components/IngredientsCheckedList';
-import FoodsCheckIngredients from '../../components/FoodsCheckIngredients';
+import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
 import './style.css';
 
 class RecipesInProgress extends Component {

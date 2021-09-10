@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import IngredientsDrink from '../../components/IngredientsDrink';
+import IngredientsDrink from '../../components/Ingredients/IngredientsDrink';
 import Instructions from '../../components/Instructions';
-import RecomendationsDrinks from '../../components/RecomendationsDrinks';
+import Recomendations from '../../components/Recomendations';
 import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
 import './style.css';
+import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
+import { fetchMeals } from '../../Redux/actions/fetchMeals';
 
 class DetailsDrink extends Component {
   constructor(props) {
@@ -24,45 +26,12 @@ class DetailsDrink extends Component {
   }
 
   componentDidMount() {
-    const { setCocktail, match } = this.props;
+    const { setCocktail, setDrinks, setMeals, match } = this.props;
     const { params: { id } } = match;
-    // const startButton = document.querySelector('start-recipe-button');
-    // console.log(startButton);
-    // startButton.style.visibility = 'visible';
     setCocktail(id);
-    // this.setRecipes();
+    setDrinks();
+    setMeals();
   }
-
-  // setRecipes() {
-  //   const recipesMock = [
-  //     {
-  //       id: '52771',
-  //       type: 'comida',
-  //       area: 'Italian',
-  //       category: 'Vegetarian',
-  //       alcoholicOrNot: '',
-  //       name: 'Spicy Arrabiata Penne',
-  //       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-  //       doneDate: '23/06/2020',
-  //       tags: ['Pasta', 'Curry'],
-  //     },
-  //     {
-  //       id: '178319',
-  //       type: 'bebida',
-  //       area: '',
-  //       category: 'Cocktail',
-  //       alcoholicOrNot: 'Alcoholic',
-  //       name: 'Aquamarine',
-  //       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-  //       doneDate: '23/06/2020',
-  //       tags: [],
-  //     },
-  //   ];
-  //   localStorage.setItem('recipesMock', JSON.stringify(recipesMock));
-  //   const savedRecipes = JSON.parse(localStorage.getItem('recipesMock'));
-
-  //   this.setState({ recipesMock: recipes });
-  // }
 
   setRedirect() {
     const { redirect } = this.state;
@@ -125,7 +94,7 @@ class DetailsDrink extends Component {
 
                     <IngredientsDrink />
                     <Instructions />
-                    <RecomendationsDrinks />
+                    <Recomendations type="bebida" />
 
                     <button
                       type="button"
@@ -158,8 +127,10 @@ const mapStateToProps = (state) => ({
   loading: state.drinks.loading,
 });
 
-const mapDispatchToProps = (dispach) => ({
-  setCocktail: (id) => dispach(fetchCocktail(id)),
+const mapDispatchToProps = (dispatch) => ({
+  setCocktail: (id) => dispatch(fetchCocktail(id)),
+  setDrinks: () => dispatch(fetchDrinks()),
+  setMeals: () => dispatch(fetchMeals()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsDrink);

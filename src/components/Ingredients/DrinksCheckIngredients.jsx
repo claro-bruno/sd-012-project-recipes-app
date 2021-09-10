@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
-import fetchCocktail from '../Redux/actions/fetchCocktail';
+import fetchCocktail from '../../Redux/actions/fetchCocktail';
 // import initialStorage from '../webStorage/helper';
-import '../pages/drinks/style.css';
+import '../../pages/drinks/style.css';
 
 class DrinkscheckIngredients extends Component {
   constructor(props) {

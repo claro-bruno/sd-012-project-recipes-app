@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { Redirect } from 'react-router-dom';
-import Ingredients from '../../components/Ingredients';
+import Ingredients from '../../components/Ingredients/Ingredients';
 import Instructions from '../../components/Instructions';
 import Video from '../../components/Video';
-import RecomendationsFoods from '../../components/RecomendationsFoods';
+import Recomendations from '../../components/Recomendations';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import './style.css';
+import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
+import { fetchMeals } from '../../Redux/actions/fetchMeals';
 
 class DetailsFood extends Component {
   constructor(props) {
@@ -24,9 +26,11 @@ class DetailsFood extends Component {
   }
 
   componentDidMount() {
-    const { match, setMeal } = this.props;
+    const { match, setMeal, setDrinks, setMeals } = this.props;
     const { params: { id } } = match;
     setMeal(id);
+    setDrinks();
+    setMeals();
   }
 
   setRedirect() {
@@ -93,7 +97,7 @@ class DetailsFood extends Component {
                     title={ strMeal }
                   />
 
-                  <RecomendationsFoods />
+                  <Recomendations type="comida" />
 
                   <button
                     className="start-recipe-button"
@@ -125,8 +129,10 @@ const mapStateToProps = (state) => ({
   loading: state.foods.loading,
 });
 
-const mapDispatchToProps = (dispach) => ({
-  setMeal: (id) => dispach(fetchRecipes(id)),
+const mapDispatchToProps = (dispatch) => ({
+  setMeal: (id) => dispatch(fetchRecipes(id)),
+  setDrinks: () => dispatch(fetchDrinks()),
+  setMeals: () => dispatch(fetchMeals()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsFood);

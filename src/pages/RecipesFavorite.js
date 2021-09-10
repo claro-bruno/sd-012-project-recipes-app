@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FilterRecipesMade from '../components/FilterRecipesMade';
+import FilterRecipesMade from '../components/RecipesMade/FilterRecipesMade';
 import Header from '../components/Header';
-import RecipesFavoriteList from '../components/RecipesFavoriteList';
+import RecipesFavoriteList from '../components/RecipesFavorite/RecipesFavoriteList';
 import { getLocalStorage } from '../webStorage/favoritesHelpers';
 
 class RecipesFavorite extends Component {

@@ -5,7 +5,7 @@ import fetchMealsByCategory from '../../Redux/actions/fetchMealsByCategory';
 import fetchMealsCategories from '../../Redux/actions/fetchMealsCategories';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import CategoriesFilter from '../../components/CategoriesFilter';
-import RecipesList from '../../components/RecipesList';
+import RecipesList from '../../components/Recipes/RecipesList';
 import Header from '../../components/Header';
 import MenuFooter from '../../components/MenuFooter';
 

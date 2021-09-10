@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FilterRecipesMade from '../components/FilterRecipesMade';
 import Header from '../components/Header';
-import RecipesMadeList from '../components/RecipesMadeList';
+import FilterRecipesMade from '../components/RecipesMade/FilterRecipesMade';
+import RecipesMadeList from '../components/RecipesMade/RecipesMadeList';
 
 class RecipesMade extends Component {
   constructor(props) {
