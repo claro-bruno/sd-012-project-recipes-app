@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import * as ReactBootstrap from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import {
   getCategoriesDrink,
   getAllDrinksThunk,
   getDrinksThunk,
-  selectDrinks } from '../Redux/actions/categoriesDrinksAction';
+  selectDrinks,
+} from '../Redux/actions/categoriesDrinksAction';
 
 function CategoryDrinkButtons() {
   const { drinksReducer: {
@@ -31,20 +33,20 @@ function CategoryDrinkButtons() {
   if (!isLoading) {
     return (
       <section className="btn-session">
-        { drinksCategories.map((category) => (
+        {drinksCategories.map((category) => (
           <button
             type="button"
-            key={ category.key }
+            key={ uuidv4() }
             onClick={ () => { dispatch(selectDrinks(category.strCategory)); } }
             name={ category.strCategory }
             data-testid={ `${category.strCategory}-category-filter` }
           >
-            { category.strCategory }
+            {category.strCategory}
           </button>
         ))}
         <button
           type="button"
-          key="6"
+          key={ uuidv4() }
           onClick={ () => { dispatch(selectDrinks('All')); } }
           name="All"
           data-testid="All-category-filter"

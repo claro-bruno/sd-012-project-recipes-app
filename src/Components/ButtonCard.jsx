@@ -22,7 +22,7 @@ function ButtonCard({ buttonText, onClick, testId, page, disabled }) {
 ButtonCard.defaultProps = {
   testId: '',
   onClick: () => {},
-  disabled: () => {},
+  disabled: false,
 };
 
 ButtonCard.propTypes = {

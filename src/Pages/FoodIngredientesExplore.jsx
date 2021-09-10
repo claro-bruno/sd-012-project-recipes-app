@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import { getFoodsApi, changeShowBar } from '../Redux/actions/apiActions';
@@ -33,7 +34,7 @@ function FoodIngredientesExplore() {
             <Link
               className="recipe-cards"
               to="/comidas"
-              key={ idIngredient }
+              key={ uuidv4() }
               id={ idIngredient }
               data-testid={ `${index}-ingredient-card` }
               onClick={ () => {
@@ -51,7 +52,7 @@ function FoodIngredientesExplore() {
                 <h4
                   data-testid={ `${index}-card-name` }
                 >
-                  { strIngredient }
+                  {strIngredient}
                 </h4>
               </div>
             </Link>

@@ -1,29 +1,30 @@
 import React from 'react';
-import { string, bool, arrayOf } from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 import Carousel from 'react-bootstrap/Carousel';
 
-function RenderRecommendations({ recommendation, key }) {
+function RenderRecommendations({ recommendation }) {
   return (
     <Carousel>
       {recommendation && recommendation.map((item, index) => (
         <Carousel.Item
           interval={ 1000 }
           className="recipe-cards"
-          key={ key ? item.idMeal : item.idDrink }
+          key={ uuidv4() }
           data-testid={ `${index}-recomendation-card` }
         >
           <img
-            src={ key ? item.strMealThumb : item.strDrinkThumb }
+            src={ uuidv4() ? item.strMealThumb : item.strDrinkThumb }
             data-testid={ `${index}-card-img` }
-            alt={ key ? item.strMeal : item.strDrink }
+            alt={ uuidv4() ? item.strMeal : item.strDrink }
           />
           <Carousel.Caption>
             <div>
               <span data-testid={ `${index}-card-name` }>
-                { key ? item.strMeal : item.strDrink }
+                { uuidv4() ? item.strMeal : item.strDrink }
               </span>
               <span>
-                { key ? item.strCategory : item.strAlcoholic }
+                { uuidv4() ? item.strCategory : item.strAlcoholic }
               </span>
             </div>
           </Carousel.Caption>
@@ -33,13 +34,10 @@ function RenderRecommendations({ recommendation, key }) {
   );
 }
 
-RenderRecommendations.defaultProps = {
-  key: null,
-};
-
 RenderRecommendations.propTypes = {
-  key: bool,
-  recommendation: arrayOf(string).isRequired,
+  recommendation: PropTypes
+    .arrayOf(PropTypes
+      .oneOfType([PropTypes.func, PropTypes.string, PropTypes.object])).isRequired,
 };
 
 export default RenderRecommendations;

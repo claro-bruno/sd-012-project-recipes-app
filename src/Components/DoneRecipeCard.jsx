@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Alert from 'react-bootstrap/Alert';
@@ -46,19 +47,19 @@ function DoneRecipesCard(props) {
       <p
         data-testid={ IDtopText }
       >
-        { titleTopText }
+        {titleTopText}
       </p>
       <Link to={ `/bebidas/${id}` }>
         <h2
           data-testid={ IDnameRecipe }
         >
-          { titleNameRecipe }
+          {titleNameRecipe}
         </h2>
       </Link>
       <p
         data-testid={ IDdoneDate }
       >
-        { titleDoneDate }
+        {titleDoneDate}
       </p>
       {show ? <Alert>Link copiado!</Alert> : null}
       <button
@@ -71,36 +72,38 @@ function DoneRecipesCard(props) {
           alt={ titleShareBtn }
         />
       </button>
-      { IDtag.map((tag) => (
+      {IDtag.map((tag) => (
         <span
-          key={ index }
+          key={ uuidv4() }
           data-testid={ `${index}-${tag}-horizontal-tag` }
         >
-          { tag }
+          {tag}
         </span>
       ))}
     </div>
   );
 }
-
-const { string } = PropTypes;
+DoneRecipesCard.defaultProps = {
+  titleShareBtn: '',
+};
+const { string, number } = PropTypes;
 
 DoneRecipesCard.propTypes = {
-  index: string.isRequired,
+  index: number.isRequired,
   id: string.isRequired,
   IDimg: string.isRequired,
   IDtopText: string.isRequired,
   IDnameRecipe: string.isRequired,
   IDdoneDate: string.isRequired,
   IDshareBtn: string.isRequired,
-  IDtag: string.isRequired,
+  IDtag: PropTypes.instanceOf(Object).isRequired,
   thumbnail: string.isRequired,
   thumbnailIcon: string.isRequired,
   titleImg: string.isRequired,
   titleTopText: string.isRequired,
   titleNameRecipe: string.isRequired,
   titleDoneDate: string.isRequired,
-  titleShareBtn: string.isRequired,
+  titleShareBtn: string,
 };
 
 export default DoneRecipesCard;

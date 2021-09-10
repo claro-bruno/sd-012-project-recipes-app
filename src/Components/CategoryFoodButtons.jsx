@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import * as ReactBootstrap from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import {
   getAllFoodsThunk,
   getCategoriesFood,
   getMealsThunk,
-  selectButton } from '../Redux/actions/categorieButtonsAct';
+  selectButton,
+} from '../Redux/actions/categorieButtonsAct';
 
 function CategoryFoodButtons() {
   const { foodcategories: {
@@ -31,20 +33,20 @@ function CategoryFoodButtons() {
   if (!isLoading) {
     return (
       <section className="btn-session">
-        { foodCategories.map((category) => (
+        {foodCategories.map((category) => (
           <button
             type="button"
-            key={ category.key }
+            key={ uuidv4() }
             onClick={ () => { dispatch(selectButton(category.strCategory)); } }
             name={ category.strCategory }
             data-testid={ `${category.strCategory}-category-filter` }
           >
-            { category.strCategory }
+            {category.strCategory}
           </button>
         ))}
         <button
           type="button"
-          key="6"
+          key={ uuidv4() }
           onClick={ () => { dispatch(selectButton('All')); } }
           name="All"
           data-testid="All-category-filter"

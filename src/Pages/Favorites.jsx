@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import DoneRecipesCard from '../Components/DoneRecipeCard';
 import shareIcon from '../images/shareIcon.svg';
 import Header from '../Components/Header';
@@ -58,7 +59,7 @@ function FavoritRecipes() {
         filterFood.map((recipe, index) => (
           <DoneRecipesCard
             index={ index }
-            key={ recipe.id }
+            key={ uuidv4() }
             id={ recipe.id }
             IDimg={ `${index}-horizontal-image` }
             IDtopText={ `${index}-horizontal-top-text` }
