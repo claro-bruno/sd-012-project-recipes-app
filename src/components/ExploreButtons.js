@@ -24,8 +24,7 @@ function ExploreButtons({ type }) {
     const drinkOrMeal = [type === 'foods' ? 'meals' : type];
     if (list[drinkOrMeal] !== undefined) {
       const id = list[drinkOrMeal][0][`id${type === 'foods' ? 'Meal' : 'Drink'}`];
-      history.push(`/${type === 'foods' ? 'comidas' : 'bebidas'}/${id}`);
-      return 'oi';
+      return history.push(`/${type === 'foods' ? 'comidas' : 'bebidas'}/${id}`);
     }
   }, [list, type, history]);
 
