@@ -2,29 +2,12 @@ import React, { Component } from 'react';
 import FilterRecipesMade from '../components/RecipesMade/FilterRecipesMade';
 import Header from '../components/Header';
 import RecipesFavoriteList from '../components/RecipesFavorite/RecipesFavoriteList';
-import { getLocalStorage } from '../webStorage/favoritesHelpers';
 
 class RecipesFavorite extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      favoritedRecipes: [],
-    };
-
-    this.setFavoriteRecipes = this.setFavoriteRecipes.bind(this);
     this.filterRecipesFavorite = this.filterRecipesFavorite.bind(this);
-  }
-
-  componentDidMount() {
-    this.setFavoriteRecipes();
-  }
-
-  setFavoriteRecipes() {
-    const favoriteStorage = getLocalStorage();
-    const { favoriteRecipes } = favoriteStorage;
-
-    this.setState({ favoritedRecipes: favoriteRecipes });
   }
 
   filterRecipesFavorite({ target }) {
@@ -54,16 +37,14 @@ class RecipesFavorite extends Component {
       { strCategory: 'drink', strName: 'Drinks' },
     ];
 
-    const { favoritedRecipes } = this.state;
-
     return (
       <div>
-        <Header title="Receitas Favoritas" />
+        <Header title="Receitas Favoritas" showSearchBottom={ false } />
         <FilterRecipesMade
           categories={ categories }
           handleClick={ this.filterRecipesFavorite }
         />
-        <RecipesFavoriteList recipes={ favoritedRecipes } />
+        <RecipesFavoriteList />
       </div>
     );
   }

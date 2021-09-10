@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import PropTypes from 'prop-types';
 import RecipesFavoriteCard from './RecipesFavoriteCard';
+import { getLocalStorage } from '../../webStorage/favoritesHelpers';
 
 class RecipesFavoriteList extends Component {
   render() {
-    const { recipes } = this.props;
+    const favoriteStorage = getLocalStorage();
+    const { favoriteRecipes } = favoriteStorage;
 
     return (
       <div>
-        {
-          recipes.map(({
+        { favoriteRecipes 
+          ? (favoriteRecipes.map(({
             id,
             image,
             category,
@@ -35,7 +36,8 @@ class RecipesFavoriteList extends Component {
                 area={ area }
               />
             </div>
-          ))
+          )))
+          : null
         }
       </div>
     );
@@ -43,7 +45,3 @@ class RecipesFavoriteList extends Component {
 }
 
 export default RecipesFavoriteList;
-
-RecipesFavoriteList.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.object),
-}.isRequired;
