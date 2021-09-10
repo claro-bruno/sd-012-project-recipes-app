@@ -6,19 +6,31 @@ import { getDataFromLocalStorage } from '../helpers/saveOnLocalStorage';
 
 export default function DoneRecipes() {
   const recipes = getDataFromLocalStorage('doneRecipes');
-  const [data, setData] = useState(recipes);
-  // const [filteredData, setFilteredData] = useState(data);
   const [filter, setFilter] = useState('All');
+  const [data, setData] = useState([]);
+  const [doneRecipes] = useState(recipes);
 
   useEffect(() => {
     if (filter === 'All') {
-      setData(recipes);
-    } else if (filter === 'Food') {
-      setData(recipes.filter((recipe) => recipe.type === 'comida'));
+      setData(doneRecipes);
+    } else if (filter === 'Foods') {
+      setData(doneRecipes.filter((recipe) => recipe.type === 'comida'));
     } else {
-      setData(recipes.filter((recipe) => recipe.type === 'bebida'));
+      setData(doneRecipes.filter((recipe) => recipe.type === 'bebida'));
     }
-  }, [filter]);
+  }, [filter, doneRecipes]);
+
+  const handleAllFilter = () => {
+    setFilter('All');
+  };
+
+  const handleFoodFilter = () => {
+    setFilter('Foods');
+  };
+
+  const handleDrinkFilter = () => {
+    setFilter('Drinks');
+  };
 
   return (
     <div className="body">
@@ -29,7 +41,7 @@ export default function DoneRecipes() {
             style={ { height: '60px' } }
             className="border bg-color w-25"
             data-testid="filter-by-all-btn"
-            onClick={ () => setFilter('All') }
+            onClick={ handleAllFilter }
           >
             All
           </Button>
@@ -37,7 +49,7 @@ export default function DoneRecipes() {
             style={ { height: '60px' } }
             className="border bg-color w-25"
             data-testid="filter-by-food-btn"
-            onClick={ () => setFilter('Food') }
+            onClick={ handleFoodFilter }
           >
             Food
           </Button>
@@ -45,7 +57,7 @@ export default function DoneRecipes() {
             style={ { height: '60px' } }
             className="border bg-color w-25"
             data-testid="filter-by-drink-btn"
-            onClick={ () => setFilter('Drinks') }
+            onClick={ handleDrinkFilter }
           >
             Drinks
           </Button>

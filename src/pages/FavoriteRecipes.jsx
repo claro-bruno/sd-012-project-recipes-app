@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import Header from '../components/Header';
 import FavoriteCard from '../components/FavoriteCard';
@@ -8,25 +8,37 @@ import {
 } from '../helpers/saveOnLocalStorage';
 
 export default function FavoriteRecipes() {
-  const favoriteRecipes = getDataFromLocalStorage('favoriteRecipes');
-  const [favRecipes, setFavRecipes] = useState(favoriteRecipes);
+  const recipes = getDataFromLocalStorage('favoriteRecipes');
+  const [filter, setFilter] = useState('All');
+  const [data, setData] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState(recipes);
 
-  const handleDelete = (favId) => {
-    const filtered = favRecipes.filter((item) => item.id !== favId);
-    saveOnLocalStorage('favoriteRecipes', filtered);
-    setFavRecipes(favRecipes.filter((item) => item.id !== favId));
-  };
+  useEffect(() => {
+    if (filter === 'All') {
+      setData(favoriteRecipes);
+    } else if (filter === 'Foods') {
+      setData(favoriteRecipes.filter((recipe) => recipe.type === 'comida'));
+    } else {
+      setData(favoriteRecipes.filter((recipe) => recipe.type === 'bebida'));
+    }
+  }, [filter, favoriteRecipes]);
 
-  const clearFilter = () => {
-    setFavRecipes(favoriteRecipes);
+  const handleAllFilter = () => {
+    setFilter('All');
   };
 
   const handleFoodFilter = () => {
-    setFavRecipes(favRecipes.filter((data) => data.type === 'comida'));
+    setFilter('Foods');
   };
 
   const handleDrinkFilter = () => {
-    setFavRecipes(favRecipes.filter((data) => data.type === 'bebida'));
+    setFilter('Drinks');
+  };
+
+  const handleDelete = (favId) => {
+    const filtered = favoriteRecipes.filter((item) => item.id !== favId);
+    saveOnLocalStorage('favoriteRecipes', filtered);
+    setFavoriteRecipes(filtered);
   };
 
   return (
@@ -41,7 +53,7 @@ export default function FavoriteRecipes() {
           <Button
             style={ { height: '60px' } }
             className="border bg-color w-25"
-            onClick={ clearFilter }
+            onClick={ handleAllFilter }
             data-testid="filter-by-all-btn"
             type="button"
           >
@@ -66,7 +78,7 @@ export default function FavoriteRecipes() {
             Drinks
           </Button>
         </div>
-        {favRecipes.map((recipe, index) => (
+        {data.map((recipe, index) => (
           <FavoriteCard
             key={ recipe.id }
             category={ `${recipe.area || recipe.alcoholicOrNot} - ${recipe.category}` }

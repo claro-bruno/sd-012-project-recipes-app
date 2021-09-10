@@ -36,9 +36,9 @@ export default function ProgressRecipes() {
     let type;
 
     if (currentPage.includes('comidas')) {
-      type = 'comidas';
+      type = 'comida';
     } else {
-      type = 'bebidas';
+      type = 'bebida';
     }
 
     const recipe = saveNewDoneRecipe(recipes, type);
