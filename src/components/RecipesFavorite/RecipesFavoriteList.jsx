@@ -1,39 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import RecipesFavoriteCard from './RecipesFavoriteCard';
-import { getLocalStorage } from '../../webStorage/favoritesHelpers';
 
 class RecipesFavoriteList extends Component {
   render() {
-    const favoriteStorage = getLocalStorage();
-    const { favoriteRecipes } = favoriteStorage;
+    const { recipes } = this.props;
 
     return (
       <div>
-        {favoriteRecipes
-          ? (favoriteRecipes.map(({
-            id,
-            image,
-            category,
-            name,
-            tags,
-            doneDate,
-            type,
-            alcoholicOrNot,
-            area,
-          }, i) => (
+        {recipes
+          ? (recipes.map((recipe, i) => (
             <div key={ uuidv4() }>
               <RecipesFavoriteCard
-                id={ id }
+                recipe={ recipe }
                 index={ i }
-                image={ image }
-                category={ category }
-                name={ name }
-                tags={ tags }
-                doneDate={ doneDate }
-                type={ type }
-                alcoholicOrNot={ alcoholicOrNot }
-                area={ area }
               />
             </div>
           )))
@@ -44,3 +25,7 @@ class RecipesFavoriteList extends Component {
 }
 
 export default RecipesFavoriteList;
+
+RecipesFavoriteList.propTypes = {
+  recipes: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ShareButton from '../ShareButton';
 import FavoriteButton from '../FavoriteButton';
@@ -10,17 +10,10 @@ class RecipesFavoriteCard extends Component {
 
     this.renderFoodCard = this.renderFoodCard.bind(this);
     this.renderDrinkCard = this.renderDrinkCard.bind(this);
-    this.redirectToDetails = this.redirectToDetails.bind(this);
-  }
-
-  redirectToDetails() {
-    const { id, type } = this.props;
-    const path = `http://localhost:3000/${type}s/${id}`;
-
-    return <Redirect to={ path } />;
   }
 
   renderFoodCard() {
+    const { recipe, index } = this.props;
     const {
       id,
       image,
@@ -28,8 +21,7 @@ class RecipesFavoriteCard extends Component {
       name,
       area,
       type,
-      index,
-    } = this.props;
+    } = recipe;
 
     return (
       <div className="row">
@@ -76,14 +68,14 @@ class RecipesFavoriteCard extends Component {
   }
 
   renderDrinkCard() {
+    const { recipe, index } = this.props;
     const {
       id,
       type,
       image,
       alcoholicOrNot,
       name,
-      index,
-    } = this.props;
+    } = recipe;
 
     return (
       <div className="row">
@@ -106,7 +98,7 @@ class RecipesFavoriteCard extends Component {
             <FavoriteButton
               id={ id }
               type={ type }
-              alcoholicOrNot=""
+              alcoholicOrNot={ alcoholicOrNot }
               name={ name }
               image={ image }
               position={ index }
@@ -125,7 +117,7 @@ class RecipesFavoriteCard extends Component {
   }
 
   render() {
-    const { type } = this.props;
+    const { recipe: { type } } = this.props;
 
     return (
       type === 'comida'
@@ -138,5 +130,5 @@ class RecipesFavoriteCard extends Component {
 export default RecipesFavoriteCard;
 
 RecipesFavoriteCard.propTypes = {
-  image: PropTypes.string,
+  recipe: PropTypes.object,
 }.isRequired;

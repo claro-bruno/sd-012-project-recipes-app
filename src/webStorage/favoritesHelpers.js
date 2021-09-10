@@ -20,15 +20,9 @@ export const addLocalStorage = (storageKey, storageObject) => (
 );
 
 export const addItem = (storageArray, favoriteObject) => {
-  if (storageArray.length === 0) {
-    const newFavorites = {
-      favoriteRecipes: [...storageArray, favoriteObject],
-    };
-
-    return newFavorites;
+  if (storageArray.length === 0 || []) {
+    return [...storageArray, favoriteObject];
   }
-
-  storageArray.push(favoriteObject);
 
   const filteredFavorites = storageArray.filter((recipe, i) => {
     const recipeStr = JSON.stringify(recipe);
@@ -38,18 +32,14 @@ export const addItem = (storageArray, favoriteObject) => {
     ));
   });
 
-  const newFavorites = {
-    favoriteRecipes: filteredFavorites,
-  };
+  const newFavorites = filteredFavorites;
 
   return newFavorites;
 };
 
 export const removeItem = (favoriteRecipes, recipeId) => {
   const cleanRecipes = favoriteRecipes.filter(({ id }) => id !== recipeId);
-  const newFavorites = {
-    favoriteRecipes: cleanRecipes,
-  };
+  const newFavorites = cleanRecipes;
 
   addLocalStorage('favoriteRecipes', newFavorites);
 };

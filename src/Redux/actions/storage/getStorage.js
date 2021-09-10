@@ -2,6 +2,9 @@ import {
   GET_STORAGE,
   GET_STORAGE_SUCCESS,
   GET_STORAGE_ERROR,
+  FILTER_FAVORITES_FOOD,
+  ADD_FAVORITE_ITEM,
+  REMOVE_FAVORITE_ITEM,
 } from '../actionTypes';
 
 const getStorage = () => ({
@@ -18,7 +21,22 @@ const getStorageError = (error) => ({
   payload: error,
 });
 
-const fetchStorage = (storageKey, initialStorage) => async (dispatch) => {
+export const filterFavorite = (favorites) => ({
+  type: FILTER_FAVORITES_FOOD,
+  payload: favorites,
+});
+
+export const addFavoriteItem = (item) => ({
+  type: ADD_FAVORITE_ITEM,
+  payload: item,
+});
+
+export const removeFavoriteItem = (id) => ({
+  type: REMOVE_FAVORITE_ITEM,
+  payload: id,
+});
+
+export const fetchStorage = (storageKey, initialStorage) => async (dispatch) => {
   dispatch(getStorage);
 
   let storage = await JSON.parse(localStorage.getItem(storageKey));
@@ -35,5 +53,3 @@ const fetchStorage = (storageKey, initialStorage) => async (dispatch) => {
     dispatch(getStorageError(error));
   }
 };
-
-export default fetchStorage;

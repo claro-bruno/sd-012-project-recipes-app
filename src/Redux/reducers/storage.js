@@ -2,11 +2,14 @@ import {
   GET_STORAGE,
   GET_STORAGE_SUCCESS,
   GET_STORAGE_ERROR,
+  FILTER_FAVORITES_FOOD,
+  ADD_FAVORITE_ITEM,
+  // REMOVE_FAVORITE_ITEM,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   loading: false,
-  inProgress: {},
+  favorites: [],
   error: null,
 };
 
@@ -15,9 +18,16 @@ const storage = (state = INITIAL_STATE, action) => {
   case GET_STORAGE:
     return { ...state, loading: true };
   case GET_STORAGE_SUCCESS:
-    return { ...state, inProgress: action.payload, loading: false };
+    return { ...state, favorites: action.payload, loading: false };
   case GET_STORAGE_ERROR:
     return { ...state, error: action.payload, loading: false };
+  case FILTER_FAVORITES_FOOD:
+    return { ...state };
+  case ADD_FAVORITE_ITEM:
+    return { ...state, favorites: [...state.favorites, action.payload] };
+  // case REMOVE_FAVORITE_ITEM:
+  //   const newFavorites = state.favorites.filter(({ id }) => id !== action.payload);
+  //   return { ...state, favorites: [] };
   default:
     return state;
   }
