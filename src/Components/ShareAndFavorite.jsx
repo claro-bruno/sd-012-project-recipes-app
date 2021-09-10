@@ -7,9 +7,7 @@ import shareIcon from '../images/shareIcon.svg';
 import favoriteRecipes from '../helper/setLocalStorage';
 import { verificationIsFavorite } from '../helper/requiredDetails';
 
-
 function ShareAndFavorite({ recipe, type, id }) {
-
   const [isFavorite, setIsFavorite] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -63,11 +61,13 @@ function ShareAndFavorite({ recipe, type, id }) {
     </>
   );
 }
-
+ShareAndFavorite.defaultProps = {
+  id: '',
+};
 ShareAndFavorite.propTypes = {
   recipe: objectOf(string).isRequired,
   type: string.isRequired,
-  id: string.isRequired,
+  id: string,
 };
 
 export default ShareAndFavorite;
