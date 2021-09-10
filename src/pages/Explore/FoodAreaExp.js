@@ -29,13 +29,12 @@ export default function FoodAreaExp() {
         const response = await requestFoodByName('');
         setFoods(response);
         setLoading(false);
-        setAreaLoading(false);
-      } else {
-        const response = await requestFoodByAreas(selectedArea);
-        setFoods(response);
-        setLoading(false);
-        setAreaLoading(false);
+        return setAreaLoading(false);
       }
+      const response = await requestFoodByAreas(selectedArea);
+      setFoods(response);
+      setLoading(false);
+      return setAreaLoading(false);
     };
     filterSwitch();
   }, [selectedArea]);
