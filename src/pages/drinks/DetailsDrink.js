@@ -122,14 +122,16 @@ class DetailsDrink extends Component {
                         { strAlcoholic }
                       </h2>
                     </div>
+
                     <IngredientsDrink />
                     <Instructions />
                     <RecomendationsDrinks />
+
                     <button
-                      className="start-recipe-button"
                       type="button"
-                      data-testid="start-recipe-btn"
                       onClick={ this.setRedirect }
+                      data-testid="start-recipe-btn"
+                      className="start-recipe-button"
                     >
                       Iniciar Receita
                     </button>

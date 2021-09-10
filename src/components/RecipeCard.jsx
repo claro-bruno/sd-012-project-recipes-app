@@ -7,10 +7,6 @@ class RecipeCard extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      redirect: false,
-    };
-
     this.renderFoodCard = this.renderFoodCard.bind(this);
     this.renderDrinkCard = this.renderDrinkCard.bind(this);
   }
