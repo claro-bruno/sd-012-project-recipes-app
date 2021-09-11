@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
 import {
-  getLocalStorage,
   addLocalStorage,
   removeItem,
   addItem,
 } from '../webStorage/favoritesHelpers';
+import {
+  addFavoriteItem,
+  fetchStorage,
+  removeFavoriteItem,
+} from '../Redux/actions/storage/getStorage';
+import { initialFavoriteStorage } from '../webStorage/storages';
 
 class FavoriteButton extends Component {
   constructor(props) {
@@ -22,38 +28,42 @@ class FavoriteButton extends Component {
     this.makeStorageObject = this.makeStorageObject.bind(this);
   }
 
-  componentDidMount() {
-    const { id } = this.props;
+  async componentDidMount() {
+    const { id, setStorage } = this.props;
+
+    await setStorage('favoriteRecipes', initialFavoriteStorage);
     this.setFavorite(id);
   }
 
   handleClick() {
     const favoriteObject = this.makeStorageObject();
     const { favorito } = this.state;
-    const { id } = this.props;
-
-    const favoriteStorage = getLocalStorage();
-    const { favoriteRecipes } = favoriteStorage;
+    const {
+      id,
+      favoriteStorage,
+      addFavorite,
+      removeFavorite,
+    } = this.props;
 
     if (favorito) {
-      removeItem(favoriteRecipes, id);
+      removeItem(favoriteStorage, id);
+      removeFavorite(id);
       this.setState({ favorito: false });
     }
 
     if (!favorito) {
-      const newFavorites = addItem(favoriteRecipes, favoriteObject);
-
+      const newFavorites = addItem(favoriteStorage, favoriteObject);
       addLocalStorage('favoriteRecipes', newFavorites);
-
+      addFavorite(favoriteObject);
       this.setState({ favorito: true });
     }
   }
 
   setFavorite(recipeId) {
-    const favoriteStorage = getLocalStorage();
-    const { favoriteRecipes } = favoriteStorage;
+    const { favoriteStorage } = this.props;
+
     const checkFavorite = () => (
-      favoriteRecipes.some(({ id }) => id === recipeId)
+      favoriteStorage.some(({ id }) => id === recipeId)
     );
 
     this.setState({ favorito: checkFavorite() });
@@ -102,7 +112,17 @@ class FavoriteButton extends Component {
   }
 }
 
-export default FavoriteButton;
+const mapStateToProps = (state) => ({
+  favoriteStorage: state.storage.favorites,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setStorage: (key, obj) => dispatch(fetchStorage(key, obj)),
+  addFavorite: (obj) => dispatch(addFavoriteItem(obj)),
+  removeFavorite: (id) => dispatch(removeFavoriteItem(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavoriteButton);
 
 FavoriteButton.propTypes = {
   index: PropTypes.number,

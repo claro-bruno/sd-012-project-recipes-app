@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import RecipeCard from './RecipeCard';
-import './style/categoryStyle.css';
+import '../style/categoryStyle.css';
 
 class RecipesList extends Component {
   constructor(props) {
@@ -19,20 +19,21 @@ class RecipesList extends Component {
   }
 
   renderFoods() {
-    const recipes = this.filterTwelveRecipes();
+    const filteredRecipes = this.filterTwelveRecipes();
 
     return (
       <div className="row row-cols-3 row-cols-md-3 g-4 ">
         {
-          recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (
-            <RecipeCard
-              key={ uuidv4() }
-              id={ idMeal }
-              index={ index }
-              name={ strMeal }
-              thumb={ strMealThumb }
-              type="food"
-            />
+          filteredRecipes.map(({ idMeal, strMeal, strMealThumb }, index) => (
+            <div key={ uuidv4() }>
+              <RecipeCard
+                id={ idMeal }
+                index={ index }
+                name={ strMeal }
+                thumb={ strMealThumb }
+                type="food"
+              />
+            </div>
           ))
         }
       </div>
@@ -40,20 +41,21 @@ class RecipesList extends Component {
   }
 
   renderDrinks() {
-    const recipes = this.filterTwelveRecipes();
+    const filteredRecipes = this.filterTwelveRecipes();
 
     return (
       <div className="row row-cols-3 row-cols-md-3 g-4">
         {
-          recipes.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-            <RecipeCard
-              key={ uuidv4() }
-              id={ idDrink }
-              index={ index }
-              name={ strDrink }
-              thumb={ strDrinkThumb }
-              type="drink"
-            />
+          filteredRecipes.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
+            <div key={ uuidv4() }>
+              <RecipeCard
+                id={ idDrink }
+                index={ index }
+                name={ strDrink }
+                thumb={ strDrinkThumb }
+                type="drink"
+              />
+            </div>
           ))
         }
       </div>

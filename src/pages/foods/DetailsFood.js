@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { Redirect } from 'react-router-dom';
-import Ingredients from '../../components/Ingredients';
+import Ingredients from '../../components/Ingredients/Ingredients';
 import Instructions from '../../components/Instructions';
-// import Video from '../../components/Video';
-import RecomendationsDrinks from '../../components/RecomendationsDrinks';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
+import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import './style.css';
 
 class DetailsFood extends Component {
@@ -18,30 +17,31 @@ class DetailsFood extends Component {
     super(props);
 
     this.state = {
-      red: false,
+      redirect: false,
     };
 
     this.setRedirect = this.setRedirect.bind(this);
   }
 
   componentDidMount() {
-    const { fetchRecipe, match, setDrinks } = this.props;
+    const { match, setRecipe, setDrinks, setMeals } = this.props;
     const { params: { id } } = match;
-    fetchRecipe(id);
+    setRecipe(id);
     setDrinks();
+    setMeals();
   }
 
   setRedirect() {
-    const { red } = this.state;
+    const { redirect } = this.state;
     this.setState({
-      red: !red,
+      redirect: !redirect,
     });
   }
 
   render() {
     const { loading, recipe, match } = this.props;
     const { params: { id } } = match;
-    const { red } = this.state;
+    const { redirect } = this.state;
 
     return (
       <div>
@@ -57,6 +57,7 @@ class DetailsFood extends Component {
                   strMealThumb,
                   // strYoutube,
                 }, index) => (
+
                   <div key={ uuidv4() }>
                     <div>
                       <img
@@ -72,6 +73,7 @@ class DetailsFood extends Component {
                       id={ id }
                       type="comida"
                     />
+
                     <FavoriteButton
                       id={ idMeal }
                       type="comida"
@@ -87,14 +89,11 @@ class DetailsFood extends Component {
                       <h1 data-testid="recipe-title">{ strMeal }</h1>
                       <h2 data-testid="recipe-category">{ strCategory }</h2>
                     </div>
+
                     <Ingredients />
                     <Instructions />
-                    <RecomendationsDrinks />
+                    {/* <RecomendationsDrinks /> */}
 
-                    { /* <Video
-                      src={ strYoutube.replace('watch?v', 'embed/') }
-                      title={ strMeal }
-                   /> */}
                     <button
                       className="start-recipe-button"
                       type="button"
@@ -104,12 +103,9 @@ class DetailsFood extends Component {
                       Iniciar Receita
                     </button>
                   </div>
-                ))
-              ) : <div>Loading...</div>
+                ))) : <div>Loading...</div>
           }
-          {
-            red ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null
-          }
+          {redirect ? <Redirect to={ `/comidas/${id}/in-progress` } /> : null}
         </div>
       </div>
     );
@@ -124,13 +120,13 @@ DetailsFood.propTypes = {
 
 const mapStateToProps = (state) => ({
   recipe: state.foods.recipes,
-  drinks: state.drinks.drinks,
   loading: state.foods.loading,
 });
 
-const mapDispatchToProps = (dispach) => ({
-  fetchRecipe: (id) => dispach(fetchRecipes(id)),
-  setDrinks: () => dispach(fetchDrinks()),
+const mapDispatchToProps = (dispatch) => ({
+  setRecipe: (id) => dispatch(fetchRecipes(id)),
+  setDrinks: () => dispatch(fetchDrinks()),
+  setMeals: () => dispatch(fetchMeals()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsFood);

@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import FavoriteButton from '../../components/FavoriteButton';
-import Instructions from '../../components/Instructions';
+// import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
-import FoodsCheckIngredients from '../../components/FoodsCheckIngredients';
+// import IngredientsCheckedList from '../../components/IngredientsCheckedList';
+import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
 import './style.css';
 import {
   getLocalStorage,
@@ -128,6 +129,16 @@ class RecipesInProgress extends Component {
                   <div>
                     <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
                   </div>
+
+                  <button
+                    className="btn btn-warning"
+                    type="button"
+                    data-testid="finish-recipe-btn"
+                    onClick={ this.redirecPage }
+                    disabled={ disabled }
+                  >
+                    Finalizar drink
+                  </button>
                 </div>
               ))
             ) : <div>Loading...</div>

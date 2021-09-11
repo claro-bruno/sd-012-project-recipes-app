@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './style/categoryStyle.css';
 import { v4 as uuidv4 } from 'uuid';
+import '../style/categoryStyle.css';
 
 class FilterRecipesMade extends Component {
   render() {

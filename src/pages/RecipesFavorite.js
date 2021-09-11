@@ -1,50 +1,40 @@
 import React, { Component } from 'react';
-import FilterRecipesMade from '../components/FilterRecipesMade';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import RecipesFavoriteList from '../components/RecipesFavoriteList';
-import { getLocalStorage } from '../webStorage/favoritesHelpers';
+import FilterRecipesMade from '../components/RecipesMade/FilterRecipesMade';
+import RecipesFavoriteList from '../components/RecipesFavorite/RecipesFavoriteList';
+// import { getLocalStorage } from '../webStorage/favoritesHelpers';
+import { fetchStorage, filterFavorite } from '../Redux/actions/storage/getStorage';
+import { initialFavoriteStorage } from '../webStorage/storages';
+// import { initialFavoriteStorage } from '../webStorage/storages';
 
 class RecipesFavorite extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      favoritedRecipes: [],
-    };
-
-    this.setFavoriteRecipes = this.setFavoriteRecipes.bind(this);
     this.filterRecipesFavorite = this.filterRecipesFavorite.bind(this);
   }
 
-  componentDidMount() {
-    this.setFavoriteRecipes();
-  }
+  async componentDidMount() {
+    const { setStorage } = this.props;
 
-  setFavoriteRecipes() {
-    const favoriteStorage = getLocalStorage();
-    const { favoriteRecipes } = favoriteStorage;
-
-    this.setState({ favoritedRecipes: favoriteRecipes });
+    await setStorage('favoriteRecipes', initialFavoriteStorage);
   }
 
   filterRecipesFavorite({ target }) {
+    const { favoriteStorage, filterRecipes } = this.props;
     const filterType = target.innerText;
 
     switch (filterType) {
     case 'All':
-      return this.setFavoriteRecipes();
+      return filterRecipes(favoriteStorage);
     case 'Foods':
-      this.setFavoriteRecipes();
-      return this.setState((state) => ({
-        favoritedRecipes: state.favoritedRecipes.filter(({ type }) => type === 'comida'),
-      }));
+      return filterRecipes(favoriteStorage.filter(({ type }) => type === 'comida'));
     case 'Drinks':
-      this.setFavoriteRecipes();
-      return this.setState((state) => ({
-        favoritedRecipes: state.favoritedRecipes.filter(({ type }) => type === 'bebida'),
-      }));
+      return filterRecipes(favoriteStorage.filter(({ type }) => type === 'bebida'));
     default:
-      return this.setFavoriteRecipes();
+      return filterRecipes(favoriteStorage);
     }
   }
 
@@ -54,19 +44,37 @@ class RecipesFavorite extends Component {
       { strCategory: 'drink', strName: 'Drinks' },
     ];
 
-    const { favoritedRecipes } = this.state;
+    const { loading } = this.props;
 
     return (
       <div>
-        <Header title="Receitas Favoritas" />
+        <Header title="Receitas Favoritas" showSearchBottom={ false } />
+
         <FilterRecipesMade
           categories={ categories }
           handleClick={ this.filterRecipesFavorite }
         />
-        <RecipesFavoriteList recipes={ favoritedRecipes } />
+
+        { !loading ? <RecipesFavoriteList /> : null }
       </div>
     );
   }
 }
 
-export default RecipesFavorite;
+const mapStateToProps = (state) => ({
+  favoriteStorage: state.storage.favorites,
+  loading: state.storage.loading,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setStorage: (key, obj) => dispatch(fetchStorage(key, obj)),
+  filter: (arr) => dispatch(filterFavorite(arr)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipesFavorite);
+
+RecipesFavorite.propTypes = {
+  favoriteStorage: PropTypes.arrayOf(PropTypes.object),
+  setStorage: PropTypes.func,
+  filter: PropTypes.func,
+}.isRequired;

@@ -4,10 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Instructions from '../../components/Instructions';
-import Recomendations from '../../components/RecomendationsDrinks';
 import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
-import DrinkscheckIngredients from '../../components/DrinksCheckIngredients';
+import DrinkscheckIngredients from '../../components/Ingredients/DrinksCheckIngredients';
 import ShareButton from '../../components/ShareButton';
 import './style.css';
 import {
@@ -131,7 +130,7 @@ class DetailsDrink extends Component {
                     </div>
                     <DrinkscheckIngredients id={ id } handleClick={ this.finishStatus } />
                     <Instructions />
-                    <Recomendations />
+
                     <button
                       className="btn btn-warning"
                       type="button"
