@@ -12,7 +12,8 @@ import fetchCocktail from '../../Redux/actions/fetchCocktail';
 import './style.css';
 import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
-import { getLocalStorage } from '../../webStorage/donesHelpers';
+import { getDoneLocalStorage } from '../../webStorage/donesHelpers';
+import getInProgressLocalStorage from '../../webStorage/inProgressHelpers';
 
 class DetailsDrink extends Component {
   constructor(props) {
@@ -21,9 +22,11 @@ class DetailsDrink extends Component {
     this.state = {
       redirect: false,
       hiddenBtn: false,
+      continueBtn: 'Iniciar Receita',
     };
 
     this.hideButton = this.hideButton.bind(this);
+    this.continueButton = this.continueButton.bind(this);
     this.setRedirect = this.setRedirect.bind(this);
   }
 
@@ -32,6 +35,7 @@ class DetailsDrink extends Component {
     const { params: { id } } = match;
 
     this.hideButton();
+    this.continueButton();
 
     setCocktail(id);
     setDrinks();
@@ -47,17 +51,32 @@ class DetailsDrink extends Component {
 
   hideButton() {
     const { match: { params: { id } } } = this.props;
-    const doneStorage = getLocalStorage();
+    const doneStorage = getDoneLocalStorage();
 
     const isDone = doneStorage.some((recipe) => recipe.id === id);
 
     this.setState({ hiddenBtn: isDone });
   }
 
+  continueButton() {
+    const { match: { params: { id } } } = this.props;
+    const inProgressStorage = getInProgressLocalStorage().cocktails;
+    const inProgressKeys = Object.keys(inProgressStorage);
+
+    const isBeingDone = inProgressKeys.some((recipeId) => recipeId === id);
+
+    if (isBeingDone) {
+      this.setState({
+        hiddenBtn: false,
+        continueBtn: 'Continuar Receita',
+      });
+    }
+  }
+
   render() {
     const { cocktail, match, loading } = this.props;
     const { params: { id } } = match;
-    const { redirect, hiddenBtn } = this.state;
+    const { redirect, hiddenBtn, continueBtn } = this.state;
 
     return (
       <div>
@@ -116,7 +135,7 @@ class DetailsDrink extends Component {
                       data-testid="start-recipe-btn"
                       className="start-recipe-button"
                     >
-                      Iniciar Receita
+                      { continueBtn }
                     </button>
                   </div>
                 ),

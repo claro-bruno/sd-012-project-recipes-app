@@ -10,15 +10,21 @@ import ShareButton from '../../components/ShareButton';
 // import IngredientsCheckedList from '../../components/IngredientsCheckedList';
 import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
 import './style.css';
-import { addItem, addLocalStorage, getLocalStorage } from '../../webStorage/donesHelpers';
+import {
+  addDoneItem,
+  addDoneLocalStorage,
+  getDoneLocalStorage,
+} from '../../webStorage/donesHelpers';
 
 class RecipesInProgress extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       disabled: true,
       redirect: false,
     };
+
     this.finishStatus = this.finishStatus.bind(this);
     this.redirecPage = this.redirecPage.bind(this);
   }
@@ -33,6 +39,7 @@ class RecipesInProgress extends Component {
     const date = new Date();
     const formDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     const recipeDone = [];
+
     recipe.forEach(({
       idMeal,
       strArea,
@@ -54,9 +61,10 @@ class RecipesInProgress extends Component {
       });
     });
 
-    const storage = getLocalStorage();
-    const newstorage = addItem(storage, recipeDone);
-    addLocalStorage('doneRecipes', newstorage);
+    const storage = getDoneLocalStorage();
+    const newstorage = addDoneItem(storage, recipeDone);
+
+    addDoneLocalStorage('doneRecipes', newstorage);
     this.setState({ redirect: true });
   }
 

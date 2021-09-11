@@ -13,7 +13,8 @@ import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import './style.css';
-import { getLocalStorage } from '../../webStorage/donesHelpers';
+import { getDoneLocalStorage } from '../../webStorage/donesHelpers';
+import getInProgressLocalStorage from '../../webStorage/inProgressHelpers';
 
 class DetailsFood extends Component {
   constructor(props) {
@@ -22,9 +23,11 @@ class DetailsFood extends Component {
     this.state = {
       redirect: false,
       hiddenBtn: false,
+      continueBtn: 'Iniciar Receita',
     };
 
     this.hideButton = this.hideButton.bind(this);
+    this.continueButton = this.continueButton.bind(this);
     this.setRedirect = this.setRedirect.bind(this);
   }
 
@@ -33,6 +36,7 @@ class DetailsFood extends Component {
     const { params: { id } } = match;
 
     this.hideButton();
+    this.continueButton();
 
     setRecipe(id);
     setDrinks();
@@ -48,17 +52,32 @@ class DetailsFood extends Component {
 
   hideButton() {
     const { match: { params: { id } } } = this.props;
-    const doneStorage = getLocalStorage();
+    const doneStorage = getDoneLocalStorage();
 
     const isDone = doneStorage.some((recipe) => recipe.id === id);
 
     this.setState({ hiddenBtn: isDone });
   }
 
+  continueButton() {
+    const { match: { params: { id } } } = this.props;
+    const inProgressStorage = getInProgressLocalStorage().meals;
+    const inProgressKeys = Object.keys(inProgressStorage);
+
+    const isBeingDone = inProgressKeys.some((recipeId) => recipeId === id);
+
+    if (isBeingDone) {
+      this.setState({
+        hiddenBtn: false,
+        continueBtn: 'Continuar Receita',
+      });
+    }
+  }
+
   render() {
     const { loading, recipe, match } = this.props;
     const { params: { id } } = match;
-    const { redirect, hiddenBtn } = this.state;
+    const { redirect, hiddenBtn, continueBtn } = this.state;
 
     return (
       <div>
@@ -121,7 +140,7 @@ class DetailsFood extends Component {
                     data-testid="start-recipe-btn"
                     onClick={ this.setRedirect }
                   >
-                    Iniciar Receita
+                    { continueBtn }
                   </button>
                 </div>
               ))

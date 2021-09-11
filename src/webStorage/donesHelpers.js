@@ -1,6 +1,6 @@
 import { initialDoneStorage } from './storages';
 
-export const getLocalStorage = () => {
+export const getDoneLocalStorage = () => {
   let storage = JSON.parse(localStorage.getItem('doneRecipes'));
 
   if (storage === null) {
@@ -15,11 +15,11 @@ export const getLocalStorage = () => {
   return storage;
 };
 
-export const addLocalStorage = (storageKey, storageArrayObject) => (
+export const addDoneLocalStorage = (storageKey, storageArrayObject) => (
   localStorage.setItem(storageKey, JSON.stringify(storageArrayObject))
 );
 
-export const addItem = (storageArray, finishRecipe) => {
+export const addDoneItem = (storageArray, finishRecipe) => {
   if (storageArray.length === 0 || []) {
     const newfinishRecipes = [...storageArray, ...finishRecipe];
 

@@ -9,7 +9,11 @@ import fetchCocktail from '../../Redux/actions/fetchCocktail';
 import DrinkscheckIngredients from '../../components/Ingredients/DrinksCheckIngredients';
 import ShareButton from '../../components/ShareButton';
 import './style.css';
-import { addItem, addLocalStorage, getLocalStorage } from '../../webStorage/donesHelpers';
+import {
+  addDoneItem,
+  addDoneLocalStorage,
+  getDoneLocalStorage,
+} from '../../webStorage/donesHelpers';
 
 class DetailsDrink extends Component {
   constructor(props) {
@@ -33,6 +37,7 @@ class DetailsDrink extends Component {
     const date = new Date();
     const formDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     const recipeDone = [];
+
     cocktail.forEach(({
       idDrink,
       strCategory,
@@ -53,9 +58,11 @@ class DetailsDrink extends Component {
         tags: strTags,
       });
     });
-    const storage = getLocalStorage();
-    const newstorage = addItem(storage, recipeDone);
-    addLocalStorage('doneRecipes', newstorage);
+
+    const storage = getDoneLocalStorage();
+    const newstorage = addDoneItem(storage, recipeDone);
+
+    addDoneLocalStorage('doneRecipes', newstorage);
     this.setState({ redirect: true });
   }
 
