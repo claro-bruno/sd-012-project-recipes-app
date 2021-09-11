@@ -9,6 +9,7 @@ import fetchCocktail from '../../Redux/actions/fetchCocktail';
 import DrinkscheckIngredients from '../../components/Ingredients/DrinksCheckIngredients';
 import ShareButton from '../../components/ShareButton';
 import './style.css';
+import { addItem, addLocalStorage, getLocalStorage } from '../../webStorage/donesHelpers';
 
 class DetailsDrink extends Component {
   constructor(props) {
@@ -28,6 +29,33 @@ class DetailsDrink extends Component {
   }
 
   redirecPage() {
+    const { cocktail } = this.props;
+    const date = new Date();
+    const formDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    const recipeDone = [];
+    cocktail.forEach(({
+      idDrink,
+      strCategory,
+      strAlcoholic,
+      strDrink,
+      strDrinkThumb,
+      strTags,
+    }) => {
+      recipeDone.push({
+        id: idDrink,
+        type: 'bebida',
+        area: '',
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strDrink,
+        image: strDrinkThumb,
+        doneDate: formDate,
+        tags: strTags,
+      });
+    });
+    const storage = getLocalStorage();
+    const newstorage = addItem(storage, recipeDone);
+    addLocalStorage('doneRecipes', newstorage);
     this.setState({ redirect: true });
   }
 

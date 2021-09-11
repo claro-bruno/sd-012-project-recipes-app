@@ -9,6 +9,7 @@ import '../../pages/drinks/style.css';
 class DrinkscheckIngredients extends Component {
   constructor(props) {
     super(props);
+
     this.getprogress = this.getprogress.bind(this);
     this.setLocalStorage = this.setLocalStorage.bind(this);
     this.taskItem = this.taskItem.bind(this);
@@ -24,7 +25,7 @@ class DrinkscheckIngredients extends Component {
     const { id } = this.props;
     if (localProgress) {
       const nodeList = document.querySelectorAll('.itenLits');
-      console.log(nodeList);
+
       const drinkId = localProgress.cocktails[id] || [];
       nodeList.forEach((element, index) => {
         if (element.firstElementChild.value === drinkId[index]) {

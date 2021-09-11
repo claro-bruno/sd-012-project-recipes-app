@@ -10,6 +10,7 @@ import ShareButton from '../../components/ShareButton';
 // import IngredientsCheckedList from '../../components/IngredientsCheckedList';
 import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
 import './style.css';
+import { addItem, addLocalStorage, getLocalStorage } from '../../webStorage/donesHelpers';
 
 class RecipesInProgress extends Component {
   constructor(props) {
@@ -28,6 +29,34 @@ class RecipesInProgress extends Component {
   }
 
   redirecPage() {
+    const { recipe } = this.props;
+    const date = new Date();
+    const formDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    const recipeDone = [];
+    recipe.forEach(({
+      idMeal,
+      strArea,
+      strCategory,
+      strMeal,
+      strMealThumb,
+      strTags,
+    }) => {
+      recipeDone.push({
+        id: idMeal,
+        type: 'comida',
+        area: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+        doneDate: formDate,
+        tags: strTags,
+      });
+    });
+
+    const storage = getLocalStorage();
+    const newstorage = addItem(storage, recipeDone);
+    addLocalStorage('doneRecipes', newstorage);
     this.setState({ redirect: true });
   }
 

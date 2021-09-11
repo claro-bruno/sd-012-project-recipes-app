@@ -1,5 +1,7 @@
 export const initialFavoriteStorage = [];
 
+export const initialDoneStorage = [];
+
 export const initialInProgressStorage = {
   cocktails: {
     13501: [

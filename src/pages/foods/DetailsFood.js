@@ -13,6 +13,7 @@ import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import './style.css';
+import { getLocalStorage } from '../../webStorage/donesHelpers';
 
 class DetailsFood extends Component {
   constructor(props) {
@@ -20,14 +21,19 @@ class DetailsFood extends Component {
 
     this.state = {
       redirect: false,
+      hiddenBtn: false,
     };
 
+    this.hideButton = this.hideButton.bind(this);
     this.setRedirect = this.setRedirect.bind(this);
   }
 
   componentDidMount() {
     const { match, setRecipe, setDrinks, setMeals } = this.props;
     const { params: { id } } = match;
+
+    this.hideButton();
+
     setRecipe(id);
     setDrinks();
     setMeals();
@@ -40,10 +46,19 @@ class DetailsFood extends Component {
     });
   }
 
+  hideButton() {
+    const { match: { params: { id } } } = this.props;
+    const doneStorage = getLocalStorage();
+
+    const isDone = doneStorage.some((recipe) => recipe.id === id);
+
+    this.setState({ hiddenBtn: isDone });
+  }
+
   render() {
     const { loading, recipe, match } = this.props;
     const { params: { id } } = match;
-    const { redirect } = this.state;
+    const { redirect, hiddenBtn } = this.state;
 
     return (
       <div>
@@ -100,8 +115,9 @@ class DetailsFood extends Component {
                   <Recomendations type="comida" />
 
                   <button
-                    className="start-recipe-button"
                     type="button"
+                    hidden={ hiddenBtn }
+                    className="start-recipe-button"
                     data-testid="start-recipe-btn"
                     onClick={ this.setRedirect }
                   >

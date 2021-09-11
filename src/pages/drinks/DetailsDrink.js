@@ -12,6 +12,7 @@ import fetchCocktail from '../../Redux/actions/fetchCocktail';
 import './style.css';
 import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
+import { getLocalStorage } from '../../webStorage/donesHelpers';
 
 class DetailsDrink extends Component {
   constructor(props) {
@@ -19,15 +20,19 @@ class DetailsDrink extends Component {
 
     this.state = {
       redirect: false,
-      // recipes: [],
+      hiddenBtn: false,
     };
-    // this.setRecipes = this.setRecipes.bind(this);
+
+    this.hideButton = this.hideButton.bind(this);
     this.setRedirect = this.setRedirect.bind(this);
   }
 
   componentDidMount() {
     const { setCocktail, setDrinks, setMeals, match } = this.props;
     const { params: { id } } = match;
+
+    this.hideButton();
+
     setCocktail(id);
     setDrinks();
     setMeals();
@@ -38,14 +43,22 @@ class DetailsDrink extends Component {
     this.setState({
       redirect: !redirect,
     });
-    // const startButton = document.querySelector('start-recipe-button');
-    // startButton.style.visibility = 'hidden';
+  }
+
+  hideButton() {
+    const { match: { params: { id } } } = this.props;
+    const doneStorage = getLocalStorage();
+
+    const isDone = doneStorage.some((recipe) => recipe.id === id);
+
+    this.setState({ hiddenBtn: isDone });
   }
 
   render() {
     const { cocktail, match, loading } = this.props;
     const { params: { id } } = match;
-    const { redirect } = this.state;
+    const { redirect, hiddenBtn } = this.state;
+
     return (
       <div>
         {
@@ -98,6 +111,7 @@ class DetailsDrink extends Component {
 
                     <button
                       type="button"
+                      hidden={ hiddenBtn }
                       onClick={ this.setRedirect }
                       data-testid="start-recipe-btn"
                       className="start-recipe-button"
