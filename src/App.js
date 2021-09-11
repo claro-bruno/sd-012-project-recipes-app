@@ -7,13 +7,19 @@ import FoodDetails from './Pages/FoodDetails';
 import DrinkDetails from './Pages/DrinkDetails';
 import NotFound from './Pages/NotFound';
 import Profile from './Pages/Profile';
+import Explore from './Pages/Explore';
+import FoodExplore from './Pages/FoodExplore';
+import DrinksExplore from './Pages/DrinksExplore';
 
 function App() {
   return (
     <Switch>
+      <Route exact path="/explorar/comidas" component={ FoodExplore } />
+      <Route exact path="/explorar/bebidas" component={ DrinksExplore } />
       <Route exact path="/comidas/:id" component={ FoodDetails } />
       <Route exact path="/bebidas/:id" component={ DrinkDetails } />
       <Route exact path="/comidas" component={ FoodMainPage } />
+      <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/bebidas" component={ DrinkMainPage } />
       <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/" component={ Login } />
