@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Redirect } from 'react-router-dom';
 import Ingredients from '../../components/Ingredients/Ingredients';
 import Instructions from '../../components/Instructions';
-import Video from '../../components/Video';
+// import Video from '../../components/Video';
 import Recomendations from '../../components/Recomendations';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
@@ -56,7 +56,7 @@ class DetailsFood extends Component {
                 strCategory,
                 strArea,
                 strMealThumb,
-                strYoutube,
+                // strYoutube,
               }, index) => (
                 <div key={ uuidv4() }>
                   <div>
@@ -92,10 +92,10 @@ class DetailsFood extends Component {
                   <Ingredients />
                   <Instructions />
 
-                  <Video
+                  {/* <Video
                     src={ strYoutube.replace('watch?v', 'embed/') }
                     title={ strMeal }
-                  />
+                  /> */}
 
                   <Recomendations type="comida" />
 
