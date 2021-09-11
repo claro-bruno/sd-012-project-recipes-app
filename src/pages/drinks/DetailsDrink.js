@@ -114,6 +114,7 @@ class DetailsDrink extends Component {
                       name={ strDrink }
                       image={ strDrinkThumb }
                       position={ index }
+                      tag="recipe-detail"
                     />
 
                     <div>

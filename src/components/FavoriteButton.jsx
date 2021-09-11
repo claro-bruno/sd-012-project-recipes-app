@@ -93,11 +93,10 @@ class FavoriteButton extends Component {
 
   render() {
     const { favorito } = this.state;
-    const { position } = this.props;
+    const { position, tag } = this.props;
 
     return (
       <button
-        data-testid="favorite-btn"
         type="button"
         className="share-fill"
         onClick={ this.handleClick }
@@ -105,7 +104,11 @@ class FavoriteButton extends Component {
         <img
           src={ favorito ? BlackHeartIcon : WhiteHeartIcon }
           alt="favorite button"
-          data-testid={ `${position}-horizontal-favorite-btn` }
+          data-testid={
+            tag === 'recipe-detail'
+              ? 'favorite-btn'
+              : `${position}-horizontal-favorite-btn`
+          }
         />
       </button>
     );

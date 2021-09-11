@@ -116,6 +116,7 @@ class DetailsFood extends Component {
                     name={ strMeal }
                     image={ strMealThumb }
                     position={ index }
+                    tag="recipe-detail"
                   />
 
                   <div>
