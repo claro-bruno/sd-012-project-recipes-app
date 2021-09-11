@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import FavoriteButton from '../../components/FavoriteButton';
-// import Instructions from '../../components/Instructions';
+import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
 // import IngredientsCheckedList from '../../components/IngredientsCheckedList';
 import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
@@ -124,6 +124,7 @@ class RecipesInProgress extends Component {
                     name={ strMeal }
                     image={ strMealThumb }
                     position={ index }
+                    tag="recipe-detail"
                   />
                   <div>
                     <h2 data-testid="recipe-title">{strMeal}</h2>
@@ -133,6 +134,8 @@ class RecipesInProgress extends Component {
                   <div>
                     <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
                   </div>
+
+                  <Instructions />
 
                   <button
                     className="btn btn-warning"

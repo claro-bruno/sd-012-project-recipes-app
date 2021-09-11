@@ -122,7 +122,7 @@ class DetailsDrink extends Component {
                       name={ strDrink }
                       image={ strDrinkThumb }
                       position={ index }
-                      cardType="/in-progress"
+                      tag="recipe-detail"
                     />
                     <div>
                       <h1 data-testid="recipe-title">{ strDrink }</h1>
