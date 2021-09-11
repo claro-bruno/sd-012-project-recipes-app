@@ -4,7 +4,7 @@ import {
   GET_STORAGE_ERROR,
   FILTER_FAVORITES_FOOD,
   ADD_FAVORITE_ITEM,
-  // REMOVE_FAVORITE_ITEM,
+  REMOVE_FAVORITE_ITEM,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -25,9 +25,11 @@ const storage = (state = INITIAL_STATE, action) => {
     return { ...state };
   case ADD_FAVORITE_ITEM:
     return { ...state, favorites: [...state.favorites, action.payload] };
-  // case REMOVE_FAVORITE_ITEM:
-  //   const newFavorites = state.favorites.filter(({ id }) => id !== action.payload);
-  //   return { ...state, favorites: [] };
+  case REMOVE_FAVORITE_ITEM:
+    return {
+      ...state,
+      favorites: state.favorites.filter(({ id }) => id !== action.payload),
+    };
   default:
     return state;
   }

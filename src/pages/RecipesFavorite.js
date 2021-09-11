@@ -6,6 +6,7 @@ import FilterRecipesMade from '../components/RecipesMade/FilterRecipesMade';
 import RecipesFavoriteList from '../components/RecipesFavorite/RecipesFavoriteList';
 // import { getLocalStorage } from '../webStorage/favoritesHelpers';
 import { fetchStorage, filterFavorite } from '../Redux/actions/storage/getStorage';
+import { initialFavoriteStorage } from '../webStorage/storages';
 // import { initialFavoriteStorage } from '../webStorage/storages';
 
 class RecipesFavorite extends Component {
@@ -13,6 +14,12 @@ class RecipesFavorite extends Component {
     super(props);
 
     this.filterRecipesFavorite = this.filterRecipesFavorite.bind(this);
+  }
+
+  async componentDidMount() {
+    const { setStorage } = this.props;
+
+    await setStorage('favoriteRecipes', initialFavoriteStorage);
   }
 
   filterRecipesFavorite({ target }) {
@@ -23,11 +30,8 @@ class RecipesFavorite extends Component {
     case 'All':
       return filterRecipes(favoriteStorage);
     case 'Foods':
-      // this.setFavoriteRecipes();
       return filterRecipes(favoriteStorage.filter(({ type }) => type === 'comida'));
-      // favoritedRecipes: state.favoritedRecipes.filter(({ type }) => type === 'comida'),
     case 'Drinks':
-      // this.setFavoriteRecipes();
       return filterRecipes(favoriteStorage.filter(({ type }) => type === 'bebida'));
     default:
       return filterRecipes(favoriteStorage);
@@ -40,6 +44,8 @@ class RecipesFavorite extends Component {
       { strCategory: 'drink', strName: 'Drinks' },
     ];
 
+    const { loading } = this.props;
+
     return (
       <div>
         <Header title="Receitas Favoritas" showSearchBottom={ false } />
@@ -49,7 +55,7 @@ class RecipesFavorite extends Component {
           handleClick={ this.filterRecipesFavorite }
         />
 
-        <RecipesFavoriteList />
+        { !loading ? <RecipesFavoriteList /> : null }
       </div>
     );
   }
@@ -57,6 +63,7 @@ class RecipesFavorite extends Component {
 
 const mapStateToProps = (state) => ({
   favoriteStorage: state.storage.favorites,
+  loading: state.storage.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

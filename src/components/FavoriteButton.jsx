@@ -8,7 +8,11 @@ import {
   removeItem,
   addItem,
 } from '../webStorage/favoritesHelpers';
-import { fetchStorage } from '../Redux/actions/storage/getStorage';
+import {
+  addFavoriteItem,
+  fetchStorage,
+  removeFavoriteItem,
+} from '../Redux/actions/storage/getStorage';
 import { initialFavoriteStorage } from '../webStorage/storages';
 
 class FavoriteButton extends Component {
@@ -28,7 +32,7 @@ class FavoriteButton extends Component {
     const { id, setStorage } = this.props;
 
     await setStorage('favoriteRecipes', initialFavoriteStorage);
-    await this.setFavorite(id);
+    this.setFavorite(id);
   }
 
   handleClick() {
@@ -37,20 +41,20 @@ class FavoriteButton extends Component {
     const {
       id,
       favoriteStorage,
-      // addFavoriteItem,
-      // removeFavoriteItem,
+      addFavorite,
+      removeFavorite,
     } = this.props;
 
     if (favorito) {
       removeItem(favoriteStorage, id);
-      // removeFavoriteItem(id);
+      removeFavorite(id);
       this.setState({ favorito: false });
     }
 
     if (!favorito) {
       const newFavorites = addItem(favoriteStorage, favoriteObject);
       addLocalStorage('favoriteRecipes', newFavorites);
-      // addFavoriteItem(favoriteObject);
+      addFavorite(favoriteObject);
       this.setState({ favorito: true });
     }
   }
@@ -114,8 +118,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setStorage: (key, obj) => dispatch(fetchStorage(key, obj)),
-  // addFavoriteItem: (obj) => dispatch(addFavoriteItem(obj)),
-  // removeFavoriteItem: (id) => dispatch(removeFavoriteItem(id)),
+  addFavorite: (obj) => dispatch(addFavoriteItem(obj)),
+  removeFavorite: (id) => dispatch(removeFavoriteItem(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteButton);
