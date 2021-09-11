@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import InputCard from '../Components/InputCard';
 import { loginValidator } from '../helper';
 import ButtonCard from '../Components/ButtonCard';
+<<<<<<< HEAD
+=======
+import '../styles/Login.css';
+>>>>>>> a32cac50d16e7aab0db342f54ed69d715b66878e
 
 function Login() {
   const [email, setEmail] = useState('');
