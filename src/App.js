@@ -10,10 +10,22 @@ import Profile from './Pages/Profile';
 import Explore from './Pages/Explore';
 import FoodExplore from './Pages/FoodExplore';
 import DrinksExplore from './Pages/DrinksExplore';
+import DrinkIngredientesExplore from './Pages/DrinksIngredientExplore';
+import FoodIngredientesExplore from './Pages/FoodIngredientesExplore';
 
 function App() {
   return (
     <Switch>
+      <Route
+        exact
+        path="/explorar/comidas/ingredientes"
+        component={ FoodIngredientesExplore }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/ingredientes"
+        component={ DrinkIngredientesExplore }
+      />
       <Route exact path="/explorar/comidas" component={ FoodExplore } />
       <Route exact path="/explorar/bebidas" component={ DrinksExplore } />
       <Route exact path="/comidas/:id" component={ FoodDetails } />
