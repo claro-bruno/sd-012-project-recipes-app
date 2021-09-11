@@ -20,8 +20,6 @@ function CategoryFoodButtons() {
     dispatch(getCategoriesFood());
   }, [dispatch]);
 
-  console.log(foodCategories);
-
   useEffect(() => {
     if (selectedButton !== 'All' && selectedButton !== 'none') {
       dispatch(getMealsThunk(selectedButton));

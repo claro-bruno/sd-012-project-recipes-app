@@ -31,7 +31,6 @@ const drinksReducer = (state = INITIAL_STATE, action) => {
     };
 
   case GET_DRINKS_BY_CATEGORY:
-    console.log(payload);
     return {
       ...state,
       drinks: payload.drinks.slice(0, DOZE),
