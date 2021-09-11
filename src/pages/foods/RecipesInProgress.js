@@ -114,6 +114,7 @@ class RecipesInProgress extends Component {
                     position={ index }
                     id={ id }
                     type="comida"
+                    tag="recipe-detail"
                   />
                   <FavoriteButton
                     id={ idMeal }

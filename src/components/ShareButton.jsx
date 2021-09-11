@@ -39,19 +39,23 @@ class ShareButton extends Component {
 
   render() {
     const { index, copied } = this.state;
+    const { tag } = this.props;
 
     return (
       <div>
         <button
           type="button"
           className="share-fill"
-          data-testid="share-btn"
           onClick={ this.copyHandle }
         >
           <img
             src={ ShareIcon }
             alt="share button"
-            data-testid={ `${index}-horizontal-share-btn` }
+            data-testid={
+              tag === 'recipe-detail'
+                ? 'share-btn'
+                : `${index}-horizontal-share-btn`
+            }
           />
         </button>
 

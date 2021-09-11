@@ -113,6 +113,7 @@ class DetailsDrink extends Component {
                       position={ index }
                       id={ id }
                       type="bebida"
+                      tag="recipe-detail"
                     />
                     <FavoriteButton
                       id={ idDrink }
