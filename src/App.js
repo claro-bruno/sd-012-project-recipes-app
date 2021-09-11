@@ -12,10 +12,16 @@ import FoodExplore from './Pages/FoodExplore';
 import DrinksExplore from './Pages/DrinksExplore';
 import DrinkIngredientesExplore from './Pages/DrinksIngredientExplore';
 import FoodIngredientesExplore from './Pages/FoodIngredientesExplore';
+import FoodPlaceExplore from './Pages/FoodPlaceExplore';
 
 function App() {
   return (
     <Switch>
+      <Route
+        exact
+        path="/explorar/comidas/area"
+        component={ FoodPlaceExplore }
+      />
       <Route
         exact
         path="/explorar/comidas/ingredientes"
