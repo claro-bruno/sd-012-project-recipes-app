@@ -103,12 +103,12 @@ class DrinkscheckIngredients extends Component {
           ingredients.map((ingredient, index) => (
             <h3
               id="check"
-              key={ uuidv4() }
+              key={ index }
               data-testid={ `${index}-ingredient-step` }
               className="itenLits"
             >
               <input
-                key={ uuidv4() }
+                key={ index }
                 index={ index }
                 type="checkbox"
                 value={ `${Object.keys(ingredient)[0]}` }
