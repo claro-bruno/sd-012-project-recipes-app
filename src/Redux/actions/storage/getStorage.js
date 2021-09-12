@@ -5,6 +5,7 @@ import {
   FILTER_FAVORITES_FOOD,
   ADD_FAVORITE_ITEM,
   REMOVE_FAVORITE_ITEM,
+  ENABLE_BUTTON,
 } from '../actionTypes';
 
 const getStorage = () => ({
@@ -53,3 +54,8 @@ export const fetchStorage = (storageKey, initialStorage) => async (dispatch) => 
     dispatch(getStorageError(error));
   }
 };
+
+export const checkEnableButton = (bool) => ({
+  type: ENABLE_BUTTON,
+  payload: bool,
+});

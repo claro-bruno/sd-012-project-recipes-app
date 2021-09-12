@@ -7,7 +7,6 @@ import Instructions from '../../components/Instructions';
 import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
 import IngredientsCheckedList from '../../components/Ingredients/IngredientsCheckedList';
-// import DrinkscheckIngredients from '../../components/Ingredients/DrinksCheckIngredients';
 import ShareButton from '../../components/ShareButton';
 import './style.css';
 import {
@@ -19,11 +18,10 @@ import {
 class DetailsDrink extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      disabled: true,
       redirect: false,
     };
-    this.finishStatus = this.finishStatus.bind(this);
     this.redirecPage = this.redirecPage.bind(this);
   }
 
@@ -67,27 +65,10 @@ class DetailsDrink extends Component {
     this.setState({ redirect: true });
   }
 
-  finishStatus() {
-    const colectionHTML = document.querySelectorAll('.checkedbox');
-    const arrayboolean = [];
-    colectionHTML.forEach((element) => {
-      arrayboolean.push(element.parentNode.className === 'complete');
-    });
-    if (arrayboolean.every((element) => element === true)) {
-      this.setState({
-        disabled: false,
-      });
-    }
-    if (arrayboolean.some((element) => element === false)) {
-      this.setState({
-        disabled: true,
-      });
-    }
-  }
-
   render() {
-    const { loading, cocktail, match: { params: { id } } } = this.props;
-    const { disabled, redirect } = this.state;
+    const { disabled, loading, cocktail, match: { params: { id } } } = this.props;
+    const { redirect } = this.state;
+
     return (
       <div>
         {
@@ -169,6 +150,7 @@ DetailsDrink.propTypes = {
 const mapStateToProps = (state) => ({
   cocktail: state.drinks.cocktails,
   loading: state.drinks.loading,
+  disabled: state.storage.disableButton,
 });
 
 const mapDispatchToProps = (dispach) => ({

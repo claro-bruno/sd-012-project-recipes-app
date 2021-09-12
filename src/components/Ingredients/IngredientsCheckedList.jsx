@@ -29,7 +29,7 @@ class IngredientsCheckedList extends Component {
     ));
 
     const measurementsKeys = keys.filter((item, index) => (
-      item.includes('strMeasure') && values[index] !== ' '
+      item.includes('strMeasure') && values[index] !== ''
     ));
 
     return ingredientsKeys.reduce((acc, curr, index) => (
@@ -58,6 +58,7 @@ class IngredientsCheckedList extends Component {
                 index={ index }
                 storage={ inProgressStorage }
                 ingredient={ ingredient }
+                ingredients={ ingredients }
               />
             </div>
           ))

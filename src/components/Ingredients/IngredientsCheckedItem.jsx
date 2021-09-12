@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { checkEnableButton } from '../../Redux/actions/storage/getStorage';
 import {
   addInProgressItem,
+  getInProgressLocalStorage,
   removeInProgressItem,
 } from '../../webStorage/inProgressHelpers';
+import { enableButton } from '../../services/inProgressService';
 
 class IngredientsCheckedList extends Component {
   constructor(props) {
@@ -25,7 +29,7 @@ class IngredientsCheckedList extends Component {
   }
 
   handleClick() {
-    const { id, ingredient, type } = this.props;
+    const { id, ingredient, ingredients, type, setEnableBtn } = this.props;
     const { checked } = this.state;
 
     if (checked) {
@@ -43,6 +47,19 @@ class IngredientsCheckedList extends Component {
         id,
         Object.keys(ingredient),
       );
+
+      const inProgressStorage = getInProgressLocalStorage();
+
+      if (inProgressStorage) {
+        const ingredientsList = ingredients.map((element) => Object.keys(element)[0]);
+        const ingredientsChecked = inProgressStorage[
+          type === 'comida' ? 'meals' : 'cocktails'
+        ][id];
+
+        const isDisabled = enableButton(ingredientsList, ingredientsChecked);
+
+        setEnableBtn(isDisabled);
+      }
     }
   }
 
@@ -101,7 +118,11 @@ class IngredientsCheckedList extends Component {
   }
 }
 
-export default IngredientsCheckedList;
+const mapDispatchToProps = (dispatch) => ({
+  setEnableBtn: (bool) => dispatch(checkEnableButton(bool)),
+});
+
+export default connect(null, mapDispatchToProps)(IngredientsCheckedList);
 
 IngredientsCheckedList.propTypes = {
   index: PropTypes.number,

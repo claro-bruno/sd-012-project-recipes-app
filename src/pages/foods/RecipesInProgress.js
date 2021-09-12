@@ -8,7 +8,6 @@ import FavoriteButton from '../../components/FavoriteButton';
 import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
 import IngredientsCheckedList from '../../components/Ingredients/IngredientsCheckedList';
-// import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
 import './style.css';
 import {
   addDoneItem,
@@ -21,11 +20,9 @@ class RecipesInProgress extends Component {
     super(props);
 
     this.state = {
-      disabled: true,
       redirect: false,
     };
 
-    this.finishStatus = this.finishStatus.bind(this);
     this.redirecPage = this.redirecPage.bind(this);
   }
 
@@ -68,27 +65,10 @@ class RecipesInProgress extends Component {
     this.setState({ redirect: true });
   }
 
-  finishStatus() {
-    const colectionHTML = document.querySelectorAll('.checkedbox');
-    const arrayboolean = [];
-    colectionHTML.forEach((element) => {
-      arrayboolean.push(element.parentNode.className === 'complete');
-    });
-    if (arrayboolean.every((element) => element === true)) {
-      this.setState({
-        disabled: false,
-      });
-    }
-    if (arrayboolean.some((element) => element === false)) {
-      this.setState({
-        disabled: true,
-      });
-    }
-  }
-
   render() {
-    const { loading, recipe, match: { params: { id } } } = this.props;
-    const { disabled, redirect } = this.state;
+    const { disabled, loading, recipe, match: { params: { id } } } = this.props;
+    const { redirect } = this.state;
+
     return (
       <>
         {
@@ -163,6 +143,7 @@ const mapDispatchToProps = (dispach) => ({
 const mapStateToProps = (state) => ({
   recipe: state.foods.recipes,
   loading: state.foods.loading,
+  disabled: state.storage.disableButton,
 });
 
 RecipesInProgress.propTypes = {
