@@ -10,7 +10,7 @@ class FilterRecipesMade extends Component {
       <div className="categoryStyle">
         <button
           type="button"
-          onClick={ handleClick }
+          onClick={ (e) => handleClick(e) }
           className="btn btn-warning"
           data-testid="filter-by-all-btn"
         >

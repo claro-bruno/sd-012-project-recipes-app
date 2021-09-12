@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import FilterRecipesMade from '../components/RecipesMade/FilterRecipesMade';
 import RecipesFavoriteList from '../components/RecipesFavorite/RecipesFavoriteList';
-// import { getLocalStorage } from '../webStorage/favoritesHelpers';
+import { getLocalStorage } from '../webStorage/favoritesHelpers';
 import { fetchStorage, filterFavorite } from '../Redux/actions/storage/getStorage';
 import { initialFavoriteStorage } from '../webStorage/storages';
-// import { initialFavoriteStorage } from '../webStorage/storages';
 
 class RecipesFavorite extends Component {
   constructor(props) {
@@ -23,18 +22,19 @@ class RecipesFavorite extends Component {
   }
 
   filterRecipesFavorite({ target }) {
-    const { favoriteStorage, filterRecipes } = this.props;
+    const { filterRecipes } = this.props;
     const filterType = target.innerText;
+    const storage = getLocalStorage();
 
     switch (filterType) {
     case 'All':
-      return filterRecipes(favoriteStorage);
+      return filterRecipes(storage);
     case 'Foods':
-      return filterRecipes(favoriteStorage.filter(({ type }) => type === 'comida'));
+      return filterRecipes(storage.filter(({ type }) => type === 'comida'));
     case 'Drinks':
-      return filterRecipes(favoriteStorage.filter(({ type }) => type === 'bebida'));
+      return filterRecipes(storage.filter(({ type }) => type === 'bebida'));
     default:
-      return filterRecipes(favoriteStorage);
+      return filterRecipes(storage);
     }
   }
 
@@ -68,7 +68,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setStorage: (key, obj) => dispatch(fetchStorage(key, obj)),
-  filter: (arr) => dispatch(filterFavorite(arr)),
+  filterRecipes: (arr) => dispatch(filterFavorite(arr)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipesFavorite);

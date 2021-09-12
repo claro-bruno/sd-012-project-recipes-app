@@ -22,7 +22,7 @@ const storage = (state = INITIAL_STATE, action) => {
   case GET_STORAGE_ERROR:
     return { ...state, error: action.payload, loading: false };
   case FILTER_FAVORITES_FOOD:
-    return { ...state };
+    return { ...state, favorites: action.payload };
   case ADD_FAVORITE_ITEM:
     return { ...state, favorites: [...state.favorites, action.payload] };
   case REMOVE_FAVORITE_ITEM:
