@@ -22,9 +22,29 @@ function ShareAndFavorite({ recipe, type, id }) {
   }, [recipe, type]);
 
   const handleFavorite = () => {
-    setIsFavorite(!isFavorite);
-    localStorage.setItem('favoriteRecipes',
-      JSON.stringify(favoriteRecipes(recipe, type)));
+    if (recipe.idMeal) {
+      const favorite = {
+        id: recipe.idMeal,
+        type,
+        area: recipe.strArea,
+        category: recipe.strCategory,
+        alcoholicOrNot: '',
+        name: recipe.strMeal,
+        image: recipe.strMealThumb,
+      };
+      setIsFavorite(favoriteRecipes(favorite));
+    } else {
+      const favorite = {
+        id: recipe.idDrink,
+        type,
+        area: '',
+        category: recipe.strCategory,
+        alcoholicOrNot: recipe.strAlcoholic,
+        name: recipe.strDrink,
+        image: recipe.strDrinkThumb,
+      };
+      setIsFavorite(favoriteRecipes(favorite));
+    }
   };
 
   const handleShare = async () => {

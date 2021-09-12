@@ -10,6 +10,7 @@ import './details.css';
 
 function FoodDetails() {
   const [recipe, setRecipe] = useState([]);
+  console.log(recipe);
   const [recommendation, setRecommendation] = useState([]);
   const [doneRecipe, setDoneRecipe] = useState(true);
   const [progressRecipe, setProgressRecipe] = useState(false);

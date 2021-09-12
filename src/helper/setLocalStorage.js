@@ -1,28 +1,27 @@
-const favoriteRecipes = (recipe, type) => {
-  if (type === 'comida') {
-    return (
-      [{
-        id: recipe.idMeal,
-        type,
-        area: recipe.strArea,
-        category: recipe.strCategory,
-        alcoholicOrNot: '',
-        name: recipe.strMeal,
-        image: recipe.strMealThumb,
-      }]
-    );
+const favoriteRecipes = (recipe) => {
+  const arrayOfFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (arrayOfFavorites) {
+    const checkName = arrayOfFavorites.filter(({ name }) => name === recipe.name);
+    if (!checkName.length) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(
+        [...arrayOfFavorites, recipe],
+      ));
+      return (true);
+    }
+    const filteredName = arrayOfFavorites.filter((food) => food.name !== recipe.name);
+    if (!filteredName.length) {
+      localStorage.removeItem('favoriteRecipes');
+    } else {
+      localStorage.removeItem('favoriteRecipes');
+      localStorage.setItem('favoriteRecipes', JSON.stringify(
+        filteredName,
+      ));
+      return (false);
+    }
+  } else {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([recipe]));
+    return (true);
   }
-  return (
-    [{
-      id: recipe.idDrink,
-      type,
-      area: '',
-      category: recipe.strCategory,
-      alcoholicOrNot: recipe.strAlcoholic,
-      name: recipe.strDrink,
-      image: recipe.strDrinkThumb,
-    }]
-  );
 };
 
 export default favoriteRecipes;

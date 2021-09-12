@@ -14,12 +14,12 @@ import DrinkIngredientesExplore from './Pages/DrinksIngredientExplore';
 import FoodIngredientesExplore from './Pages/FoodIngredientesExplore';
 import FoodPlaceExplore from './Pages/FoodPlaceExplore';
 import DoneRecipes from './Pages/DoneRecipes';
-import FavoritRecipes from './Pages/Favorites';
+import FavoritesRecipes from './Pages/FavoritesRecipes';
 
 function App() {
   return (
     <Switch>
-      <Route exact path="/receitas-favoritas" component={ FavoritRecipes } />
+      <Route exact path="/receitas-favoritas" component={ FavoritesRecipes } />
       <Route exact path="/receitas-feitas" component={ DoneRecipes } />
       <Route
         exact
