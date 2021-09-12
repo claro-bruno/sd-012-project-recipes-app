@@ -1,35 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import IngredientsCheckedItem from './IngredientsCheckedItem';
-import fetchStorage from '../../Redux/actions/storage/getStorage';
-import { initialInProgressStorage } from '../../webStorage/storages';
 import '../../pages/foods/style.css';
+import getInProgressLocalStorage from '../../webStorage/inProgressHelpers';
 
 class IngredientsCheckedList extends Component {
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   localStorage: {},
-    // };
-
-    // this.getprogress = this.getprogress.bind(this);
-    // this.setLocalStorage = this.setLocalStorage.bind(this);
-    // this.finishStatus = this.finishStatus.bind(this);
-    // this.taskItem = this.taskItem.bind(this);
     this.setIngredients = this.setIngredients.bind(this);
   }
 
-  componentDidMount() {
-    const { setStorage } = this.props;
-
-    setStorage('inProgressRecipes', initialInProgressStorage);
-  }
-
   setIngredients() {
-    const { recipe } = this.props;
+    const { meal, cocktail } = this.props;
+
+    let recipe;
+    if (meal.length !== 0) recipe = meal;
+    if (cocktail.length !== 0) recipe = cocktail;
+
     const object = recipe[0];
     const keys = Object.keys(object);
     const values = Object.values(object);
@@ -56,6 +45,7 @@ class IngredientsCheckedList extends Component {
   render() {
     const { id, type } = this.props;
     const ingredients = this.setIngredients();
+    const inProgressStorage = getInProgressLocalStorage();
 
     return (
       <div className="form">
@@ -64,9 +54,10 @@ class IngredientsCheckedList extends Component {
             <div key={ index }>
               <IngredientsCheckedItem
                 id={ id }
-                index={ index }
-                ingredient={ ingredient }
                 type={ type }
+                index={ index }
+                storage={ inProgressStorage }
+                ingredient={ ingredient }
               />
             </div>
           ))
@@ -77,33 +68,13 @@ class IngredientsCheckedList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  recipe: state.foods.recipes,
+  meal: state.foods.recipes,
+  cocktail: state.drinks.cocktails,
 });
 
-const mapDispatchToProps = (dispach) => ({
-  setRecipes: (id) => dispach(fetchRecipes(id)),
-  setStorage: (key, obj) => dispach(fetchStorage(key, obj)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(IngredientsCheckedList);
+export default connect(mapStateToProps)(IngredientsCheckedList);
 
 IngredientsCheckedList.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.object),
   setRecipe: PropTypes.func,
 }.isRequired;
-
-// setLocalStorage() {
-//   const { id } = this.props;
-//   const progress = document.querySelectorAll('.complete');
-//   const localprogress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-//   const result = [];
-//   progress.forEach((element) => result.push(element.firstElementChild.value));
-//   const progressObject = {
-//     ...localprogress,
-//     meals: {
-//       ...localprogress.meals,
-//       [id]: [...result],
-//     },
-//   };
-//   localStorage.setItem('inProgressRecipes', JSON.stringify(progressObject));
-// }

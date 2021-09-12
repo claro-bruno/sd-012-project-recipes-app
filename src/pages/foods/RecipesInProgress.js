@@ -7,8 +7,8 @@ import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import FavoriteButton from '../../components/FavoriteButton';
 import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
-// import IngredientsCheckedList from '../../components/IngredientsCheckedList';
-import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
+import IngredientsCheckedList from '../../components/Ingredients/IngredientsCheckedList';
+// import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
 import './style.css';
 import {
   addDoneItem,
@@ -102,40 +102,38 @@ class RecipesInProgress extends Component {
                 strArea,
               }, index) => (
                 <div key={ uuidv4() }>
-                  <div>
+                  <div className="d-flex">
                     <img
                       data-testid="recipe-photo"
                       src={ strMealThumb }
                       alt="foto da receita"
                       className="img-details"
                     />
+                    <ShareButton
+                      position={ index }
+                      id={ id }
+                      type="comida"
+                      tag="recipe-detail"
+                    />
+                    <FavoriteButton
+                      id={ idMeal }
+                      type="comida"
+                      area={ strArea }
+                      category={ strCategory }
+                      alcoholicOrNot=""
+                      name={ strMeal }
+                      image={ strMealThumb }
+                      position={ index }
+                      tag="recipe-detail"
+                    />
                   </div>
-                  <ShareButton
-                    position={ index }
-                    id={ id }
-                    type="comida"
-                    tag="recipe-detail"
-                  />
-                  <FavoriteButton
-                    id={ idMeal }
-                    type="comida"
-                    area={ strArea }
-                    category={ strCategory }
-                    alcoholicOrNot=""
-                    name={ strMeal }
-                    image={ strMealThumb }
-                    position={ index }
-                    tag="recipe-detail"
-                  />
+
                   <div>
                     <h2 data-testid="recipe-title">{strMeal}</h2>
                     <h2 data-testid="recipe-category">{ strCategory }</h2>
-                    <p>{' '}</p>
-                  </div>
-                  <div>
-                    <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
                   </div>
 
+                  <IngredientsCheckedList id={ id } type="comida" />
                   <Instructions />
 
                   <button

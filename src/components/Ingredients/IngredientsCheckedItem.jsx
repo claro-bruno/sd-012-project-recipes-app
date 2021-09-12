@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class IngredientsCheckedList extends Component {
@@ -48,11 +47,13 @@ class IngredientsCheckedList extends Component {
 
     let checkdIngredients;
 
-    if (ingredients) {
+    if (ingredients && ingredients[id]) {
       checkdIngredients = ingredients[id];
 
       return checkdIngredients.indexOf(ingredientName) >= 0;
     }
+
+    return false;
   }
 
   render() {
@@ -81,11 +82,7 @@ class IngredientsCheckedList extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  storage: state.storage.inProgress,
-});
-
-export default connect(mapStateToProps)(IngredientsCheckedList);
+export default IngredientsCheckedList;
 
 IngredientsCheckedList.propTypes = {
   index: PropTypes.number,

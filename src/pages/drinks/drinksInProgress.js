@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import Instructions from '../../components/Instructions';
 import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
-import DrinkscheckIngredients from '../../components/Ingredients/DrinksCheckIngredients';
+import IngredientsCheckedList from '../../components/Ingredients/IngredientsCheckedList';
+// import DrinkscheckIngredients from '../../components/Ingredients/DrinksCheckIngredients';
 import ShareButton from '../../components/ShareButton';
 import './style.css';
 import {
@@ -101,30 +102,31 @@ class DetailsDrink extends Component {
                   idDrink,
                 }, index) => (
                   <div key={ uuidv4() }>
-                    <div>
+                    <div className="d-flex">
                       <img
                         className="img-details"
                         data-testid="recipe-photo"
                         src={ strDrinkThumb }
                         alt="foto"
                       />
+                      <ShareButton
+                        position={ index }
+                        id={ id }
+                        type="bebida"
+                        tag="recipe-detail"
+                      />
+                      <FavoriteButton
+                        id={ idDrink }
+                        type="bebida"
+                        category={ strCategory }
+                        alcoholicOrNot={ strAlcoholic }
+                        name={ strDrink }
+                        image={ strDrinkThumb }
+                        position={ index }
+                        tag="recipe-detail"
+                      />
                     </div>
-                    <ShareButton
-                      position={ index }
-                      id={ id }
-                      type="bebida"
-                      tag="recipe-detail"
-                    />
-                    <FavoriteButton
-                      id={ idDrink }
-                      type="bebida"
-                      category={ strCategory }
-                      alcoholicOrNot={ strAlcoholic }
-                      name={ strDrink }
-                      image={ strDrinkThumb }
-                      position={ index }
-                      tag="recipe-detail"
-                    />
+
                     <div>
                       <h1 data-testid="recipe-title">{ strDrink }</h1>
                       <h2 data-testid="recipe-category">
@@ -132,7 +134,8 @@ class DetailsDrink extends Component {
                         { strAlcoholic }
                       </h2>
                     </div>
-                    <DrinkscheckIngredients id={ id } handleClick={ this.finishStatus } />
+
+                    <IngredientsCheckedList id={ id } type="bebida" />
                     <Instructions />
 
                     <button
@@ -144,8 +147,8 @@ class DetailsDrink extends Component {
                     >
                       Finalizar drink
                     </button>
-                    { redirect ? <Redirect to="/receitas-feitas" />
-                      : null }
+
+                    { redirect ? <Redirect to="/receitas-feitas" /> : null }
                   </div>
                 ),
               )
