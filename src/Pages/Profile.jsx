@@ -1,17 +1,12 @@
 import React from 'react';
-// import Header from '../Components/Header';
-// import ButtonCard from '../Components/ButtonCard';
-// import Footer from '../Components/Footer';
+import Header from '../Components/Header';
+import ButtonCard from '../Components/ButtonCard';
+import Footer from '../Components/Footer';
 
 function Profile() {
-/*
   const getUser = localStorage.getItem('user');
   const user = JSON.parse(getUser);
-*/
-  return (
-    <h1>hi</h1>
-  );
-/*
+
   if (getUser === null) {
     return (
       <>
@@ -75,7 +70,6 @@ function Profile() {
       <Footer />
     </>
   );
-  */
 }
 
 export default Profile;

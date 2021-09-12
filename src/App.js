@@ -37,9 +37,9 @@ function App() {
       <Route exact path="/comidas/:id" component={ FoodDetails } />
       <Route exact path="/bebidas/:id" component={ DrinkDetails } />
       <Route exact path="/comidas" component={ FoodMainPage } />
+      <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/bebidas" component={ DrinkMainPage } />
-      <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/" component={ Login } />
       <Route path="*" component={ NotFound } />
     </Switch>
