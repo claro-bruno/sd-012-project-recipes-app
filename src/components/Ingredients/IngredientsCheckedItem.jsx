@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addInProgressItem } from '../../webStorage/inProgressHelpers';
+import {
+  addInProgressItem,
+  removeInProgressItem,
+} from '../../webStorage/inProgressHelpers';
 
 class IngredientsCheckedList extends Component {
   constructor(props) {
@@ -22,13 +25,25 @@ class IngredientsCheckedList extends Component {
   }
 
   handleClick() {
-    const { id, ingredient, storage } = this.props;
+    const { id, ingredient, type } = this.props;
     const { checked } = this.state;
 
-    addInProgressItem(storage, 'cocktails', id, Object.keys(ingredient));
-
-    if (checked) this.setState({ checked: false });
-    if (!checked) this.setState({ checked: true });
+    if (checked) {
+      this.setState({ checked: false });
+      removeInProgressItem(
+        type === 'comida' ? 'meals' : 'cocktails',
+        id,
+        Object.keys(ingredient),
+      );
+    }
+    if (!checked) {
+      this.setState({ checked: true });
+      addInProgressItem(
+        type === 'comida' ? 'meals' : 'cocktails',
+        id,
+        Object.keys(ingredient),
+      );
+    }
   }
 
   getIngredients() {

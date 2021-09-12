@@ -12,9 +12,52 @@ export const getInProgressLocalStorage = () => {
   return storage;
 };
 
-export const addInProgressItem = (storage, type, id, ingredient) => {
-  console.log(id);
-  console.log(storage[type][id]);
-  console.log(type);
-  console.log(ingredient[0]);
+export const addInProgressLocalStorage = (storageKey, storageObject) => (
+  localStorage.setItem(storageKey, JSON.stringify(storageObject))
+);
+
+export const addInProgressItem = (type, id, ingredient) => {
+  const storage = getInProgressLocalStorage();
+
+  if (storage[type][id] === undefined) {
+    const inProgressRecipe = {
+      ...storage,
+      [type]: {
+        ...storage[type],
+        [id]: ingredient,
+      },
+    };
+
+    addInProgressLocalStorage('inProgressRecipes', inProgressRecipe);
+  }
+
+  if (storage[type][id] !== undefined) {
+    const inProgressRecipe = {
+      ...storage,
+      [type]: {
+        ...storage[type],
+        [id]: [...storage[type][id], ingredient[0]],
+      },
+    };
+
+    addInProgressLocalStorage('inProgressRecipes', inProgressRecipe);
+  }
+};
+
+export const removeInProgressItem = (type, id, ingredient) => {
+  const storage = getInProgressLocalStorage();
+
+  if (storage[type][id].includes(ingredient)) {
+    const newIngredients = storage[type][id].filter((ingr) => ingr !== ingredient[0]);
+
+    const inProgressRecipe = {
+      ...storage,
+      [type]: {
+        ...storage[type],
+        [id]: newIngredients,
+      },
+    };
+
+    addInProgressLocalStorage('inProgressRecipes', inProgressRecipe);
+  }
 };
