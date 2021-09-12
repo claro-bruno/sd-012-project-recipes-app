@@ -1,6 +1,6 @@
 import { initialInProgressStorage } from './storages';
 
-const getInProgressLocalStorage = () => {
+export const getInProgressLocalStorage = () => {
   let storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   if (storage === null) {
@@ -12,4 +12,10 @@ const getInProgressLocalStorage = () => {
   return storage;
 };
 
-export default getInProgressLocalStorage;
+export const addInProgressItem = (storage, type, id, ingredient) => {
+
+  console.log(id);
+  console.log(storage[type][id]);
+  console.log(type);
+  console.log(ingredient[0]);
+};

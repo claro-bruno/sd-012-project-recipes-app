@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import IngredientsCheckedItem from './IngredientsCheckedItem';
 import '../../pages/foods/style.css';
-import getInProgressLocalStorage from '../../webStorage/inProgressHelpers';
+import { getInProgressLocalStorage } from '../../webStorage/inProgressHelpers';
 
 class IngredientsCheckedList extends Component {
   constructor(props) {

@@ -13,7 +13,7 @@ import './style.css';
 import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import { getDoneLocalStorage } from '../../webStorage/donesHelpers';
-import getInProgressLocalStorage from '../../webStorage/inProgressHelpers';
+import { getInProgressLocalStorage } from '../../webStorage/inProgressHelpers';
 
 class DetailsDrink extends Component {
   constructor(props) {
