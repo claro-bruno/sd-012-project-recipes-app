@@ -13,7 +13,6 @@ export const getInProgressLocalStorage = () => {
 };
 
 export const addInProgressItem = (storage, type, id, ingredient) => {
-
   console.log(id);
   console.log(storage[type][id]);
   console.log(type);
