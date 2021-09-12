@@ -13,10 +13,12 @@ import DrinksExplore from './Pages/DrinksExplore';
 import DrinkIngredientesExplore from './Pages/DrinksIngredientExplore';
 import FoodIngredientesExplore from './Pages/FoodIngredientesExplore';
 import FoodPlaceExplore from './Pages/FoodPlaceExplore';
+import DoneRecipes from './Pages/DoneRecipes';
 
 function App() {
   return (
     <Switch>
+      <Route exact path="/receitas-feitas" component={ DoneRecipes } />
       <Route
         exact
         path="/explorar/comidas/area"
