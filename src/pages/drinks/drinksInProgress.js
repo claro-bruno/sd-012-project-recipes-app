@@ -118,6 +118,7 @@ class DetailsDrink extends Component {
                       <FavoriteButton
                         id={ idDrink }
                         type="bebida"
+                        area=""
                         category={ strCategory }
                         alcoholicOrNot={ strAlcoholic }
                         name={ strDrink }
