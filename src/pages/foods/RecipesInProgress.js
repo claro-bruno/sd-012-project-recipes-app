@@ -117,7 +117,7 @@ class RecipesInProgress extends Component {
                   <Instructions />
 
                   <button
-                    className="btn btn-warning"
+                    className="btn btn-warning fixed-bottom"
                     type="button"
                     data-testid="finish-recipe-btn"
                     onClick={ this.redirecPage }
