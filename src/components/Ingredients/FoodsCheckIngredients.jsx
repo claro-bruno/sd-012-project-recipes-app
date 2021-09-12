@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
-import fetchCocktail from '../Redux/actions/fetchCocktail';
+import fetchRecipes from '../../Redux/actions/fetchRecipes';
 // import initialStorage from '../webStorage/helper';
-import '../pages/drinks/style.css';
+import '../../pages/foods/style.css';
 
-class DrinkscheckIngredients extends Component {
+class Ingredients extends Component {
   constructor(props) {
     super(props);
     this.getprogress = this.getprogress.bind(this);
     this.setLocalStorage = this.setLocalStorage.bind(this);
     this.taskItem = this.taskItem.bind(this);
-    this.setIngredientsDrinks = this.setIngredientsDrinks.bind(this);
+    this.setIngredients = this.setIngredients.bind(this);
   }
 
   componentDidMount() {
@@ -19,41 +20,39 @@ class DrinkscheckIngredients extends Component {
   }
 
   getprogress() {
-    const localProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { id } = this.props;
+    const localProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (localProgress) {
       const nodeList = document.querySelectorAll('.itenLits');
-      console.log(nodeList);
-      const drinkId = localProgress.cocktails[id] || [];
+      const mealId = localProgress.meals[id] || [];
       nodeList.forEach((element, index) => {
-        if (element.firstElementChild.value === drinkId[index]) {
+        if (element.firstElementChild.value === mealId[index]) {
           element.className = 'complete';
           element.firstElementChild.setAttribute('checked', true);
         }
       });
     } else {
       const initialStorage = {
-        cocktails: { [id]: [] },
-        meals: {},
+        meals: { [id]: [] },
+        cocktails: {},
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(initialStorage));
     }
   }
 
-  setIngredientsDrinks() {
-    const { cocktail } = this.props;
-    const object = cocktail[0];
+  setIngredients() {
+    const { recipe } = this.props;
+    const object = recipe[0];
     const keys = Object.keys(object);
     const values = Object.values(object);
 
     const ingredientsKeys = keys.filter((item, index) => (
-      item.includes('strIngredient') && values[index] !== null
-      && item.includes('strIngredient') && values[index] !== ''
+      item.includes('strIngredient') && values[index] !== ''
+      && item.includes('strIngredient') && values[index] !== null
     ));
 
     const measurementsKeys = keys.filter((item, index) => (
-      item.includes('strMeasure') && values[index] !== null
-      && item.includes('strMeasure') && values[index] !== ''
+      item.includes('strMeasure') && values[index] !== ' '
     ));
 
     return ingredientsKeys.reduce((acc, curr, index) => (
@@ -74,8 +73,8 @@ class DrinkscheckIngredients extends Component {
     progress.forEach((element) => result.push(element.firstElementChild.value));
     const progressObject = {
       ...localprogress,
-      cocktails: {
-        ...localprogress.cocktails,
+      meals: {
+        ...localprogress.meals,
         [id]: [...result],
       },
     };
@@ -96,19 +95,21 @@ class DrinkscheckIngredients extends Component {
   }
 
   render() {
-    const ingredients = this.setIngredientsDrinks();
+    const ingredients = this.setIngredients();
     return (
-      <ul>
+      <div className="form">
         {
           ingredients.map((ingredient, index) => (
             <h3
-              id="check"
-              key={ index }
+              id="iten"
+              key={ uuidv4() }
+              value={ `${Object.keys(ingredient)[0]}` }
+              index={ index }
               data-testid={ `${index}-ingredient-step` }
               className="itenLits"
             >
               <input
-                key={ index }
+                key={ uuidv4() }
                 index={ index }
                 type="checkbox"
                 value={ `${Object.keys(ingredient)[0]}` }
@@ -117,27 +118,28 @@ class DrinkscheckIngredients extends Component {
                 className="checkedbox"
               />
               {
-                `${Object.keys(ingredient)[0]}:
+                `${Object.keys(ingredient)[0]}: 
                 ${Object.values(ingredient)[0]}`
               }
             </h3>
           ))
         }
-      </ul>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  cocktail: state.drinks.cocktails,
+  recipe: state.foods.recipes,
 });
 
 const mapDispatchToProps = (dispach) => ({
-  fetchCocktail: (id) => dispach(fetchCocktail(id)),
+  setRecipes: (id) => dispach(fetchRecipes(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DrinkscheckIngredients);
+export default connect(mapStateToProps, mapDispatchToProps)(Ingredients);
 
-DrinkscheckIngredients.propTypes = {
-  cocktail: PropTypes.objectOf(PropTypes.object),
+Ingredients.propTypes = {
+  recipe: PropTypes.objectOf(PropTypes.object),
+  setRecipe: PropTypes.func,
 }.isRequired;

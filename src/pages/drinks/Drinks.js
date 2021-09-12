@@ -5,7 +5,7 @@ import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import fetchDrinksByCategory from '../../Redux/actions/fetchDrinksByCategory';
 import fetchDrinksCategories from '../../Redux/actions/fetchDrinksCategories';
 import CategoriesFilter from '../../components/CategoriesFilter';
-import RecipesList from '../../components/RecipesList';
+import RecipesList from '../../components/Recipes/RecipesList';
 import Header from '../../components/Header';
 import MenuFooter from '../../components/MenuFooter';
 
@@ -24,8 +24,8 @@ class Drinks extends Component {
   componentDidMount() {
     const { setDrinks, setDrinksCategories } = this.props;
 
-    setDrinks();
     setDrinksCategories();
+    setDrinks();
   }
 
   setDrinkCategory(filteredCategory) {
@@ -52,16 +52,24 @@ class Drinks extends Component {
   }
 
   render() {
-    const { drinks, drinksCategories } = this.props;
+    const { drinks, drinksCategories, loading } = this.props;
 
     return (
       <div>
         <Header title="Bebidas" showSearchBottom />
-        <CategoriesFilter
-          categories={ drinksCategories }
-          handleClick={ this.filterMealsByCategory }
-        />
-        <RecipesList recipes={ drinks } type="drinks" />
+        {!loading
+          ? (
+            <CategoriesFilter
+              categories={ drinksCategories }
+              handleClick={ this.filterMealsByCategory }
+            />
+          )
+          : <div>Loading...</div>}
+
+        {!loading
+          ? <RecipesList recipes={ drinks } type="drinks" />
+          : <div>Loading...</div>}
+
         <MenuFooter />
       </div>
     );
@@ -77,6 +85,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   drinks: state.drinks.drinks,
   drinksCategories: state.drinks.categories,
+  loading: state.drinks.loading,
 });
 
 Drinks.propTypes = {

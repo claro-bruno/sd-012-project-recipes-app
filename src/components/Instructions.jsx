@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -8,13 +9,13 @@ class Instructions extends Component {
     return (
       <section data-testid="instructions">
         {
-          recipe.map(({ strInstructions }, index) => (
-            <p key={ index }>{ strInstructions }</p>
+          recipe.map(({ strInstructions }) => (
+            <p key={ uuidv4() }>{ strInstructions }</p>
           ))
         }
         {
-          cocktail.map(({ strInstructions }, index) => (
-            <p key={ index }>{ strInstructions }</p>
+          cocktail.map(({ strInstructions }) => (
+            <p key={ uuidv4() }>{ strInstructions }</p>
           ))
         }
       </section>

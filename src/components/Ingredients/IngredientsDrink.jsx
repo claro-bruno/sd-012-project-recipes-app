@@ -1,29 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
-import fetchRecipes from '../Redux/actions/fetchRecipes';
 
-class Ingredients extends Component {
+class IngredientsDrink extends Component {
   constructor(props) {
     super(props);
 
-    this.setIngredients = this.setIngredients.bind(this);
+    this.setIngredientsDrinks = this.setIngredientsDrinks.bind(this);
   }
 
-  setIngredients() {
-    const { recipe } = this.props;
-    const object = recipe[0];
+  setIngredientsDrinks() {
+    const { cocktail } = this.props;
+    const object = cocktail[0];
     const keys = Object.keys(object);
     const values = Object.values(object);
 
     const ingredientsKeys = keys.filter((item, index) => (
-      item.includes('strIngredient') && values[index] !== ''
-      && item.includes('strIngredient') && values[index] !== null
-
+      item.includes('strIngredient') && values[index] !== null
     ));
 
     const measurementsKeys = keys.filter((item, index) => (
-      item.includes('strMeasure') && values[index] !== ' '
+      item.includes('strMeasure') && values[index] !== null
     ));
 
     return ingredientsKeys.reduce((acc, curr, index) => (
@@ -37,13 +35,13 @@ class Ingredients extends Component {
   }
 
   render() {
-    const ingredients = this.setIngredients();
+    const ingredients = this.setIngredientsDrinks();
     return (
       <ul>
         {
           ingredients.map((ingredient, index) => (
             <li
-              key={ index }
+              key={ uuidv4() }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               {
@@ -59,16 +57,11 @@ class Ingredients extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  recipe: state.foods.recipes,
+  cocktail: state.drinks.cocktails,
 });
 
-const mapDispatchToProps = (dispach) => ({
-  setRecipes: (id) => dispach(fetchRecipes(id)),
-});
+export default connect(mapStateToProps)(IngredientsDrink);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ingredients);
-
-Ingredients.propTypes = {
-  recipe: PropTypes.objectOf(PropTypes.object),
-  setRecipe: PropTypes.func,
+IngredientsDrink.propTypes = {
+  cocktail: PropTypes.objectOf(PropTypes.object),
 }.isRequired;

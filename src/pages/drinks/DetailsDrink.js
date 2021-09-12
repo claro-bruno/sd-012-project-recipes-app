@@ -2,150 +2,151 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import IngredientsDrink from '../../components/IngredientsDrink';
+import { v4 as uuidv4 } from 'uuid';
+import IngredientsDrink from '../../components/Ingredients/IngredientsDrink';
 import Instructions from '../../components/Instructions';
-import RecomendationsFoods from '../../components/RecomendationsFoods';
+import Recomendations from '../../components/Recomendations';
 import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
-import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import './style.css';
+import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
+import { fetchMeals } from '../../Redux/actions/fetchMeals';
+import { getDoneLocalStorage } from '../../webStorage/donesHelpers';
+import getInProgressLocalStorage from '../../webStorage/inProgressHelpers';
 
 class DetailsDrink extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      red: false,
-      // recipes: [],
+      redirect: false,
+      hiddenBtn: false,
+      continueBtn: 'Iniciar Receita',
     };
-    // this.setRecipes = this.setRecipes.bind(this);
+
+    this.hideButton = this.hideButton.bind(this);
+    this.continueButton = this.continueButton.bind(this);
     this.setRedirect = this.setRedirect.bind(this);
   }
 
   componentDidMount() {
-    const { setCocktail, match, setMeals } = this.props;
+    const { setCocktail, setDrinks, setMeals, match } = this.props;
     const { params: { id } } = match;
-    // const startButton = document.querySelector('start-recipe-button');
-    // console.log(startButton);
-    // startButton.style.visibility = 'visible';
+
+    this.hideButton();
+    this.continueButton();
+
     setCocktail(id);
+    setDrinks();
     setMeals();
-    // this.setRecipes();
   }
 
-  // setRecipes() {
-  //   const recipesMock = [
-  //     {
-  //       id: '52771',
-  //       type: 'comida',
-  //       area: 'Italian',
-  //       category: 'Vegetarian',
-  //       alcoholicOrNot: '',
-  //       name: 'Spicy Arrabiata Penne',
-  //       image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-  //       doneDate: '23/06/2020',
-  //       tags: ['Pasta', 'Curry'],
-  //     },
-  //     {
-  //       id: '178319',
-  //       type: 'bebida',
-  //       area: '',
-  //       category: 'Cocktail',
-  //       alcoholicOrNot: 'Alcoholic',
-  //       name: 'Aquamarine',
-  //       image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-  //       doneDate: '23/06/2020',
-  //       tags: [],
-  //     },
-  //   ];
-  //   localStorage.setItem('recipesMock', JSON.stringify(recipesMock));
-  //   const savedRecipes = JSON.parse(localStorage.getItem('recipesMock'));
-
-  //   this.setState({ recipesMock: recipes });
-  // }
-
   setRedirect() {
-    const { red } = this.state;
+    const { redirect } = this.state;
     this.setState({
-      red: !red,
+      redirect: !redirect,
     });
-    // const startButton = document.querySelector('start-recipe-button');
-    // startButton.style.visibility = 'hidden';
+  }
+
+  hideButton() {
+    const { match: { params: { id } } } = this.props;
+    const doneStorage = getDoneLocalStorage();
+
+    const isDone = doneStorage.some((recipe) => recipe.id === id);
+
+    this.setState({ hiddenBtn: isDone });
+  }
+
+  continueButton() {
+    const { match: { params: { id } } } = this.props;
+    const inProgressStorage = getInProgressLocalStorage().cocktails;
+    const inProgressKeys = Object.keys(inProgressStorage);
+
+    const isBeingDone = inProgressKeys.some((recipeId) => recipeId === id);
+
+    if (isBeingDone) {
+      this.setState({
+        hiddenBtn: false,
+        continueBtn: 'Continuar Receita',
+      });
+    }
   }
 
   render() {
-    const { cocktail, match } = this.props;
+    const { cocktail, match, loading } = this.props;
     const { params: { id } } = match;
-    const { red } = this.state;
+    const { redirect, hiddenBtn, continueBtn } = this.state;
+
     return (
       <div>
-        <div>
-          {
-            cocktail.map(
-              ({
-                idDrink,
-                strDrink,
-                strCategory,
-                strDrinkThumb,
-                strAlcoholic,
-              }, index) => (
-                <div key={ index }>
-                  <div>
-                    <img
-                      data-testid="recipe-photo"
-                      className="recipe-image"
-                      src={ strDrinkThumb }
-                      alt="foto"
+        {
+          !loading
+            ? (
+              cocktail.map(
+                ({
+                  idDrink,
+                  strDrink,
+                  strCategory,
+                  strDrinkThumb,
+                  strAlcoholic,
+                }, index) => (
+                  <div key={ uuidv4() }>
+                    <div>
+                      <img
+                        data-testid="recipe-photo"
+                        className="recipe-image"
+                        src={ strDrinkThumb }
+                        alt="foto"
+                      />
+                    </div>
+
+                    <ShareButton
+                      position={ index }
+                      id={ id }
+                      type="bebida"
+                      tag="recipe-detail"
                     />
-                  </div>
+                    <FavoriteButton
+                      id={ idDrink }
+                      type="bebida"
+                      area=""
+                      category={ strCategory }
+                      alcoholicOrNot={ strAlcoholic }
+                      name={ strDrink }
+                      image={ strDrinkThumb }
+                      position={ index }
+                      tag="recipe-detail"
+                    />
 
-                  <ShareButton
-                    position={ index }
-                    id={ id }
-                    type="bebida"
-                  />
-                  <FavoriteButton
-                    id={ idDrink }
-                    type="bebida"
-                    category={ strCategory }
-                    alcoholicOrNot={ strAlcoholic }
-                    name={ strDrink }
-                    image={ strDrinkThumb }
-                    position={ index }
-                  />
+                    <div>
+                      <h1 data-testid="recipe-title">{ strDrink }</h1>
+                      <h2 data-testid="recipe-category">
+                        { strCategory }
+                        { strAlcoholic }
+                      </h2>
+                    </div>
 
-                  <div>
-                    <h1 data-testid="recipe-title">{ strDrink }</h1>
-                    <h2 data-testid="recipe-category">
-                      { strCategory }
-                      { strAlcoholic }
-                    </h2>
-                  </div>
-                  <div className="buttons">
-                    <ShareButton position={ index } id={ id } type="bebida" />
-                    <FavoriteButton />
-                  </div>
-                  <IngredientsDrink />
-                  <Instructions />
-                  <RecomendationsFoods />
+                    <IngredientsDrink />
+                    <Instructions />
+                    <Recomendations type="bebida" />
 
-                  <button
-                    className="start-recipe-button"
-                    type="button"
-                    data-testid="start-recipe-btn"
-                    onClick={ () => this.setRedirect() }
-                  >
-                    Iniciar Receita
-                  </button>
-                </div>
-              ),
-            )
-          }
-          {
-            red ? <Redirect to={ `/bebidas/${id}/in-progress` } /> : console.log('chamou')
-          }
-        </div>
+                    <button
+                      type="button"
+                      hidden={ hiddenBtn }
+                      onClick={ this.setRedirect }
+                      data-testid="start-recipe-btn"
+                      className="start-recipe-button"
+                    >
+                      { continueBtn }
+                    </button>
+                  </div>
+                ),
+              )
+            ) : <div>loading...</div>
+        }
+
+        { redirect ? <Redirect to={ `/bebidas/${id}/in-progress` } /> : null }
       </div>
     );
   }
@@ -159,12 +160,13 @@ DetailsDrink.propTypes = {
 
 const mapStateToProps = (state) => ({
   cocktail: state.drinks.cocktails,
-  meals: state.foods.meals,
+  loading: state.drinks.loading,
 });
 
-const mapDispatchToProps = (dispach) => ({
-  setCocktail: (id) => dispach(fetchCocktail(id)),
-  setMeals: () => dispach(fetchMeals()),
+const mapDispatchToProps = (dispatch) => ({
+  setCocktail: (id) => dispatch(fetchCocktail(id)),
+  setDrinks: () => dispatch(fetchDrinks()),
+  setMeals: () => dispatch(fetchMeals()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsDrink);

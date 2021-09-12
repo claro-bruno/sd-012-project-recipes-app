@@ -2,20 +2,29 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import FavoriteButton from '../../components/FavoriteButton';
 import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
-import FoodsCheckIngredients from '../../components/FoodsCheckIngredients';
+// import IngredientsCheckedList from '../../components/IngredientsCheckedList';
+import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
 import './style.css';
+import {
+  addDoneItem,
+  addDoneLocalStorage,
+  getDoneLocalStorage,
+} from '../../webStorage/donesHelpers';
 
 class RecipesInProgress extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       disabled: true,
       redirect: false,
     };
+
     this.finishStatus = this.finishStatus.bind(this);
     this.redirecPage = this.redirecPage.bind(this);
   }
@@ -26,6 +35,36 @@ class RecipesInProgress extends Component {
   }
 
   redirecPage() {
+    const { recipe } = this.props;
+    const date = new Date();
+    const formDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+    const recipeDone = [];
+
+    recipe.forEach(({
+      idMeal,
+      strArea,
+      strCategory,
+      strMeal,
+      strMealThumb,
+      strTags,
+    }) => {
+      recipeDone.push({
+        id: idMeal,
+        type: 'comida',
+        area: strArea,
+        category: strCategory,
+        alcoholicOrNot: '',
+        name: strMeal,
+        image: strMealThumb,
+        doneDate: formDate,
+        tags: strTags,
+      });
+    });
+
+    const storage = getDoneLocalStorage();
+    const newstorage = addDoneItem(storage, recipeDone);
+
+    addDoneLocalStorage('doneRecipes', newstorage);
     this.setState({ redirect: true });
   }
 
@@ -48,59 +87,72 @@ class RecipesInProgress extends Component {
   }
 
   render() {
-    const { recipe, match: { params: { id } } } = this.props;
+    const { loading, recipe, match: { params: { id } } } = this.props;
     const { disabled, redirect } = this.state;
     return (
       <>
         {
-          recipe.map(({ strMeal, strCategory, strMealThumb, idMeal, strArea }, index) => (
-            <div key={ index }>
-              <div>
-                <img
-                  data-testid="recipe-photo"
-                  src={ strMealThumb }
-                  alt="foto da receita"
-                  className="img-details"
-                />
-              </div>
-              <ShareButton
-                position={ index }
-                id={ id }
-                type="comida"
-              />
-              <FavoriteButton
-                id={ idMeal }
-                type="comida"
-                area={ strArea }
-                category={ strCategory }
-                alcoholicOrNot=""
-                name={ strMeal }
-                image={ strMealThumb }
-                position={ index }
-              />
-              <div>
-                <h2 data-testid="recipe-title">{strMeal}</h2>
-                <h2 data-testid="recipe-category">{ strCategory }</h2>
-                <p>{' '}</p>
-              </div>
-              <div>
-                <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
-              </div>
-            </div>
-          ))
+          !loading
+            ? (
+              recipe.map(({
+                strMeal,
+                strCategory,
+                strMealThumb,
+                idMeal,
+                strArea,
+              }, index) => (
+                <div key={ uuidv4() }>
+                  <div>
+                    <img
+                      data-testid="recipe-photo"
+                      src={ strMealThumb }
+                      alt="foto da receita"
+                      className="img-details"
+                    />
+                  </div>
+                  <ShareButton
+                    position={ index }
+                    id={ id }
+                    type="comida"
+                    tag="recipe-detail"
+                  />
+                  <FavoriteButton
+                    id={ idMeal }
+                    type="comida"
+                    area={ strArea }
+                    category={ strCategory }
+                    alcoholicOrNot=""
+                    name={ strMeal }
+                    image={ strMealThumb }
+                    position={ index }
+                    tag="recipe-detail"
+                  />
+                  <div>
+                    <h2 data-testid="recipe-title">{strMeal}</h2>
+                    <h2 data-testid="recipe-category">{ strCategory }</h2>
+                    <p>{' '}</p>
+                  </div>
+                  <div>
+                    <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
+                  </div>
+
+                  <Instructions />
+
+                  <button
+                    className="btn btn-warning"
+                    type="button"
+                    data-testid="finish-recipe-btn"
+                    onClick={ this.redirecPage }
+                    disabled={ disabled }
+                  >
+                    Finalizar drink
+                  </button>
+                </div>
+              ))
+            ) : <div>Loading...</div>
         }
-        <button
-          className="btn btn-warning"
-          type="button"
-          data-testid="finish-recipe-btn"
-          onClick={ this.redirecPage }
-          disabled={ disabled }
-        >
-          Finalizar a receita
-        </button>
-        <Instructions />
-        { redirect ? <Redirect to="/receitas-feitas" />
-          : console.log('não redirecionei')}
+
+        { redirect ? <Redirect to="/receitas-feitas" /> : null }
       </>
     );
   }
@@ -112,6 +164,7 @@ const mapDispatchToProps = (dispach) => ({
 
 const mapStateToProps = (state) => ({
   recipe: state.foods.recipes,
+  loading: state.foods.loading,
 });
 
 RecipesInProgress.propTypes = {

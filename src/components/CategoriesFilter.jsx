@@ -21,7 +21,7 @@ class CategoriesFilter extends Component {
       <div className="categoryStyle">
         <button
           type="button"
-          onClick={ handleClick }
+          onClick={ (e) => handleClick(e) }
           className="btn btn-warning "
           data-testid="All-category-filter"
         >
@@ -32,7 +32,7 @@ class CategoriesFilter extends Component {
             <button
               type="button"
               key={ strCategory }
-              onClick={ handleClick }
+              onClick={ (e) => handleClick(e) }
               className="btn btn-warning "
               data-testid={ `${strCategory}-category-filter` }
             >

@@ -6,6 +6,7 @@ import searchIngredientReducer from './searchIngredientMeals';
 import searchLetterReducer from './searchLetterMeals';
 import searchIngredientDrinksReducer from './searchIngredientDrinks';
 import searchLetterDrinksReducer from './searchLetterDrinks';
+import storage from './storage';
 
 const rootReducer = combineReducers({
   user,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   searchLetterReducer,
   searchIngredientDrinksReducer,
   searchLetterDrinksReducer,
+  storage,
 });
 
 export default rootReducer;

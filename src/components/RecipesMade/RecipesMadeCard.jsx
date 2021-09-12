@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ShareButton from './ShareButton';
-import FavoriteButton from './FavoriteButton';
+import ShareButton from '../ShareButton';
+import CardMadeImg from './CardMadeImg';
+import CardMadeTopText from './CardMadeTopText';
 
-class RecipesFavoriteCard extends Component {
+class RecipesMadeCard extends Component {
   constructor(props) {
     super(props);
 
@@ -26,6 +27,8 @@ class RecipesFavoriteCard extends Component {
       image,
       category,
       name,
+      doneDate,
+      tags,
       area,
       type,
       index,
@@ -35,40 +38,44 @@ class RecipesFavoriteCard extends Component {
       <div className="row">
         <div className="card-list-food">
           <div className="d-flex">
-            <Link to={ `/${type}s/${id}` }>
-              <img
-                src={ image }
-                className="card-img"
-                alt="card"
-                data-testid={ `${index}-horizontal-image` }
+            <div>
+              <CardMadeImg
+                type={ type }
+                id={ id }
+                image={ image }
+                index={ index }
               />
-            </Link>
+            </div>
 
-            <ShareButton
-              position={ index }
-              id={ id }
-              type={ type }
-            />
-            <FavoriteButton
-              id={ id }
-              type={ type }
-              area={ area }
-              category={ category }
-              alcoholicOrNot=""
-              name={ name }
-              image={ image }
-              position={ index }
-            />
+            <div>
+              <ShareButton
+                position={ index }
+                id={ id }
+                type={ type }
+              />
+              <CardMadeTopText
+                index={ index }
+                area={ area }
+                category={ category }
+              />
+            </div>
           </div>
 
           <div>
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              <span>{ `${area} - ` }</span>
-              <span>{ category }</span>
-            </p>
             <Link to={ `/${type}s/${id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
             </Link>
+            <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
+            {
+              tags.map((tag, i) => (
+                <span
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                  key={ i }
+                >
+                  { tag }
+                </span>
+              ))
+            }
           </div>
         </div>
       </div>
@@ -82,6 +89,7 @@ class RecipesFavoriteCard extends Component {
       image,
       alcoholicOrNot,
       name,
+      doneDate,
       index,
     } = this.props;
 
@@ -103,14 +111,6 @@ class RecipesFavoriteCard extends Component {
               id={ id }
               type={ type }
             />
-            <FavoriteButton
-              id={ id }
-              type={ type }
-              alcoholicOrNot=""
-              name={ name }
-              image={ image }
-              position={ index }
-            />
           </div>
 
           <div>
@@ -118,6 +118,7 @@ class RecipesFavoriteCard extends Component {
             <Link to={ `/${type}s/${id}` }>
               <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
             </Link>
+            <p data-testid={ `${index}-horizontal-done-date` }>{ doneDate }</p>
           </div>
         </div>
       </div>
@@ -135,8 +136,8 @@ class RecipesFavoriteCard extends Component {
   }
 }
 
-export default RecipesFavoriteCard;
+export default RecipesMadeCard;
 
-RecipesFavoriteCard.propTypes = {
+RecipesMadeCard.propTypes = {
   image: PropTypes.string,
 }.isRequired;

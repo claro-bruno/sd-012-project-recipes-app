@@ -4,19 +4,14 @@ import PropTypes from 'prop-types';
 
 class Video extends Component {
   render() {
-    const { recipe } = this.props;
+    const { src, title } = this.props;
     return (
       <section>
-        {
-          recipe.map(({ strYoutube }, index) => (
-            <iframe
-              key={ index }
-              src={ strYoutube }
-              title="recipe video"
-              data-testid="video"
-            />
-          ))
-        }
+        <iframe
+          src={ src }
+          title={ title }
+          data-testid="video"
+        />
       </section>
     );
   }
