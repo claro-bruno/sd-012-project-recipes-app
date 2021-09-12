@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import DoneRecipesCard from '../Components/DoneRecipeCard';
 import shareIcon from '../images/shareIcon.svg';
 import Header from '../Components/Header';
-import './details.css'
+import './details.css';
 // const doneRecipesMock = [
 //   {
 //     id: '52771',

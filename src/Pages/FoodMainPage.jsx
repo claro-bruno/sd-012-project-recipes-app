@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Footer from '../Components/Footer';
 import RecipeCard from '../Components/RecipeCard';
 import FoodHeader from '../Components/FoodHeader';
+import './details.css';
 
 function FoodMainPage() {
   const { meals } = useSelector((state) => state.foodcategories);
