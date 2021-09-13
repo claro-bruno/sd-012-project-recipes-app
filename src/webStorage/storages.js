@@ -2,12 +2,9 @@ export const initialFavoriteStorage = [];
 
 export const initialDoneStorage = [];
 
-export const initialInProgressStorage = {
-  cocktails: {},
-  meals: {},
-};
+export const initialInProgressStorage = { cocktails: {}, meals: {} };
 
-// const initialInProgressStorage = {
+// export const initialInProgressStorage = {
 //   cocktails: {
 //     13501: [
 //       'Amaretto',

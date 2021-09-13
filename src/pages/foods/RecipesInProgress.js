@@ -7,8 +7,7 @@ import fetchRecipes from '../../Redux/actions/fetchRecipes';
 import FavoriteButton from '../../components/FavoriteButton';
 import Instructions from '../../components/Instructions';
 import ShareButton from '../../components/ShareButton';
-// import IngredientsCheckedList from '../../components/IngredientsCheckedList';
-import FoodsCheckIngredients from '../../components/Ingredients/FoodsCheckIngredients';
+import IngredientsCheckedList from '../../components/Ingredients/IngredientsCheckedList';
 import './style.css';
 import {
   addDoneItem,
@@ -21,11 +20,9 @@ class RecipesInProgress extends Component {
     super(props);
 
     this.state = {
-      disabled: true,
       redirect: false,
     };
 
-    this.finishStatus = this.finishStatus.bind(this);
     this.redirecPage = this.redirecPage.bind(this);
   }
 
@@ -68,27 +65,10 @@ class RecipesInProgress extends Component {
     this.setState({ redirect: true });
   }
 
-  finishStatus() {
-    const colectionHTML = document.querySelectorAll('.checkedbox');
-    const arrayboolean = [];
-    colectionHTML.forEach((element) => {
-      arrayboolean.push(element.parentNode.className === 'complete');
-    });
-    if (arrayboolean.every((element) => element === true)) {
-      this.setState({
-        disabled: false,
-      });
-    }
-    if (arrayboolean.some((element) => element === false)) {
-      this.setState({
-        disabled: true,
-      });
-    }
-  }
-
   render() {
-    const { loading, recipe, match: { params: { id } } } = this.props;
-    const { disabled, redirect } = this.state;
+    const { disabled, loading, recipe, match: { params: { id } } } = this.props;
+    const { redirect } = this.state;
+
     return (
       <>
         {
@@ -102,44 +82,42 @@ class RecipesInProgress extends Component {
                 strArea,
               }, index) => (
                 <div key={ uuidv4() }>
-                  <div>
+                  <div className="d-flex">
                     <img
                       data-testid="recipe-photo"
                       src={ strMealThumb }
                       alt="foto da receita"
                       className="img-details"
                     />
+                    <ShareButton
+                      position={ index }
+                      id={ id }
+                      type="comida"
+                      tag="recipe-detail"
+                    />
+                    <FavoriteButton
+                      id={ idMeal }
+                      type="comida"
+                      area={ strArea }
+                      category={ strCategory }
+                      alcoholicOrNot=""
+                      name={ strMeal }
+                      image={ strMealThumb }
+                      position={ index }
+                      tag="recipe-detail"
+                    />
                   </div>
-                  <ShareButton
-                    position={ index }
-                    id={ id }
-                    type="comida"
-                    tag="recipe-detail"
-                  />
-                  <FavoriteButton
-                    id={ idMeal }
-                    type="comida"
-                    area={ strArea }
-                    category={ strCategory }
-                    alcoholicOrNot=""
-                    name={ strMeal }
-                    image={ strMealThumb }
-                    position={ index }
-                    tag="recipe-detail"
-                  />
+
                   <div>
                     <h2 data-testid="recipe-title">{strMeal}</h2>
                     <h2 data-testid="recipe-category">{ strCategory }</h2>
-                    <p>{' '}</p>
-                  </div>
-                  <div>
-                    <FoodsCheckIngredients id={ id } handleClick={ this.finishStatus } />
                   </div>
 
+                  <IngredientsCheckedList id={ id } type="comida" />
                   <Instructions />
 
                   <button
-                    className="btn btn-warning"
+                    className="btn btn-warning fixed-bottom"
                     type="button"
                     data-testid="finish-recipe-btn"
                     onClick={ this.redirecPage }
@@ -165,6 +143,7 @@ const mapDispatchToProps = (dispach) => ({
 const mapStateToProps = (state) => ({
   recipe: state.foods.recipes,
   loading: state.foods.loading,
+  disabled: state.storage.disableButton,
 });
 
 RecipesInProgress.propTypes = {

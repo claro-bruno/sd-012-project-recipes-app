@@ -5,12 +5,14 @@ import {
   FILTER_FAVORITES_FOOD,
   ADD_FAVORITE_ITEM,
   REMOVE_FAVORITE_ITEM,
+  ENABLE_BUTTON,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   loading: false,
   favorites: [],
   error: null,
+  disableButton: true,
 };
 
 const storage = (state = INITIAL_STATE, action) => {
@@ -22,7 +24,7 @@ const storage = (state = INITIAL_STATE, action) => {
   case GET_STORAGE_ERROR:
     return { ...state, error: action.payload, loading: false };
   case FILTER_FAVORITES_FOOD:
-    return { ...state };
+    return { ...state, favorites: action.payload };
   case ADD_FAVORITE_ITEM:
     return { ...state, favorites: [...state.favorites, action.payload] };
   case REMOVE_FAVORITE_ITEM:
@@ -30,6 +32,8 @@ const storage = (state = INITIAL_STATE, action) => {
       ...state,
       favorites: state.favorites.filter(({ id }) => id !== action.payload),
     };
+  case ENABLE_BUTTON:
+    return { ...state, disableButton: action.payload };
   default:
     return state;
   }

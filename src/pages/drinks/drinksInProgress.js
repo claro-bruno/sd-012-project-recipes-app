@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Instructions from '../../components/Instructions';
 import FavoriteButton from '../../components/FavoriteButton';
 import fetchCocktail from '../../Redux/actions/fetchCocktail';
-import DrinkscheckIngredients from '../../components/Ingredients/DrinksCheckIngredients';
+import IngredientsCheckedList from '../../components/Ingredients/IngredientsCheckedList';
 import ShareButton from '../../components/ShareButton';
 import './style.css';
 import {
@@ -18,11 +18,10 @@ import {
 class DetailsDrink extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      disabled: true,
       redirect: false,
     };
-    this.finishStatus = this.finishStatus.bind(this);
     this.redirecPage = this.redirecPage.bind(this);
   }
 
@@ -66,27 +65,10 @@ class DetailsDrink extends Component {
     this.setState({ redirect: true });
   }
 
-  finishStatus() {
-    const colectionHTML = document.querySelectorAll('.checkedbox');
-    const arrayboolean = [];
-    colectionHTML.forEach((element) => {
-      arrayboolean.push(element.parentNode.className === 'complete');
-    });
-    if (arrayboolean.every((element) => element === true)) {
-      this.setState({
-        disabled: false,
-      });
-    }
-    if (arrayboolean.some((element) => element === false)) {
-      this.setState({
-        disabled: true,
-      });
-    }
-  }
-
   render() {
-    const { loading, cocktail, match: { params: { id } } } = this.props;
-    const { disabled, redirect } = this.state;
+    const { disabled, loading, cocktail, match: { params: { id } } } = this.props;
+    const { redirect } = this.state;
+
     return (
       <div>
         {
@@ -101,30 +83,32 @@ class DetailsDrink extends Component {
                   idDrink,
                 }, index) => (
                   <div key={ uuidv4() }>
-                    <div>
+                    <div className="d-flex">
                       <img
                         className="img-details"
                         data-testid="recipe-photo"
                         src={ strDrinkThumb }
                         alt="foto"
                       />
+                      <ShareButton
+                        position={ index }
+                        id={ id }
+                        type="bebida"
+                        tag="recipe-detail"
+                      />
+                      <FavoriteButton
+                        id={ idDrink }
+                        type="bebida"
+                        area=""
+                        category={ strCategory }
+                        alcoholicOrNot={ strAlcoholic }
+                        name={ strDrink }
+                        image={ strDrinkThumb }
+                        position={ index }
+                        tag="recipe-detail"
+                      />
                     </div>
-                    <ShareButton
-                      position={ index }
-                      id={ id }
-                      type="bebida"
-                      tag="recipe-detail"
-                    />
-                    <FavoriteButton
-                      id={ idDrink }
-                      type="bebida"
-                      category={ strCategory }
-                      alcoholicOrNot={ strAlcoholic }
-                      name={ strDrink }
-                      image={ strDrinkThumb }
-                      position={ index }
-                      tag="recipe-detail"
-                    />
+
                     <div>
                       <h1 data-testid="recipe-title">{ strDrink }</h1>
                       <h2 data-testid="recipe-category">
@@ -132,7 +116,8 @@ class DetailsDrink extends Component {
                         { strAlcoholic }
                       </h2>
                     </div>
-                    <DrinkscheckIngredients id={ id } handleClick={ this.finishStatus } />
+
+                    <IngredientsCheckedList id={ id } type="bebida" />
                     <Instructions />
 
                     <button
@@ -144,8 +129,8 @@ class DetailsDrink extends Component {
                     >
                       Finalizar drink
                     </button>
-                    { redirect ? <Redirect to="/receitas-feitas" />
-                      : null }
+
+                    { redirect ? <Redirect to="/receitas-feitas" /> : null }
                   </div>
                 ),
               )
@@ -165,6 +150,7 @@ DetailsDrink.propTypes = {
 const mapStateToProps = (state) => ({
   cocktail: state.drinks.cocktails,
   loading: state.drinks.loading,
+  disabled: state.storage.disableButton,
 });
 
 const mapDispatchToProps = (dispach) => ({

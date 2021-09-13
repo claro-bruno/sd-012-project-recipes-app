@@ -14,7 +14,7 @@ import { fetchDrinks } from '../../Redux/actions/fetchDrinks';
 import { fetchMeals } from '../../Redux/actions/fetchMeals';
 import './style.css';
 import { getDoneLocalStorage } from '../../webStorage/donesHelpers';
-import getInProgressLocalStorage from '../../webStorage/inProgressHelpers';
+import { getInProgressLocalStorage } from '../../webStorage/inProgressHelpers';
 
 class DetailsFood extends Component {
   constructor(props) {
