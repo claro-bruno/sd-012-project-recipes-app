@@ -10,7 +10,7 @@ const url = '/bebidas/178319/in-progress';
 
 describe('Testes da pagina de bebidas em progresso', () => {
   beforeEach(() => {
-    jest.spyOn(BebidasAPI, 'buscarBebidaPeloID').mockResolvedValue(oneDrink);
+    jest.spyOn(BebidasAPI, 'buscarBebidasID').mockResolvedValue(oneDrink);
     const { history } = renderWithRouter(<App />);
     history.push(url);
   });
@@ -72,7 +72,7 @@ describe('Testes da pagina de bebidas em progresso', () => {
     userEvent.click(ingredient1);
 
     const storage1 = localStorage.getItem('inProgressRecipes');
-    expect(storage1).toBe('{"cocktails":{"178319":["0", "1"]}},"meals":{}');
+    expect(storage1).toBe('{"cocktails":{"178319":["0","1"]},"meals":{}}');
 
     const finishButton = await screen.findByTestId('finish-recipe-btn');
     expect(finishButton).toBeInTheDocument();
@@ -82,6 +82,6 @@ describe('Testes da pagina de bebidas em progresso', () => {
     expect(finishButton).not.toHaveAttribute('disabled');
 
     const storage2 = localStorage.getItem('inProgressRecipes');
-    expect(storage2).toBe('{"cocktails":{"178319":["0", "1", "2"]}},"meals":{}');
+    expect(storage2).toBe('{"cocktails":{"178319":["0","1","2"]},"meals":{}}');
   });
 });
