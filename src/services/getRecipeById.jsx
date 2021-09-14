@@ -12,4 +12,4 @@ export const getDrinkRecipe = async (id) => {
   if (!response.ok) return [];
   const result = response.json();
   return result;
-}
+};

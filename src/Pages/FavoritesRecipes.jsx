@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import BlackHeart from '../images/blackHeartIcon.svg';
+import './details.css';
 
 function FavoritesRecipes() {
   const [show, setShow] = useState(false);
