@@ -6,8 +6,6 @@ import 'react-multi-carousel/lib/styles.css';
 import { Link } from 'react-router-dom';
 
 function RecommendationsFood({ recommendation }) {
-  console.log(recommendation);
-
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },

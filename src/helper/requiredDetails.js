@@ -50,7 +50,6 @@ export function verificatioinProgressRecipe(id) {
 
 export function verificationIsFavorite(id) {
   const favoriteRecipe = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  console.log(favoriteRecipe);
   if (favoriteRecipe) {
     const result = favoriteRecipe.some((item) => item.id === id);
     return result;

@@ -1,51 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import Button from 'react-bootstrap/Button';
+import { useDispatch, useSelector } from 'react-redux';
 import RecipeHeader from '../Components/RecipeHeader';
 import IngredientsCard from '../Components/IngredientsCard';
+import { getDrinkRecipeById } from '../Redux/actions/actionSetRecipeDetails';
 
 function CurrentDrink() {
   const { id } = useParams();
-  const [currentDrink, setCurrentDrink] = useState([]);
+  const { recipeDetails: { drinkDetail } } = useSelector((state) => state);
   const dispatch = useDispatch();
   const { push } = useHistory();
 
   useEffect(() => {
-    const getCurrentRecipe = async () => {
-      const END_POINT = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-      const response = await fetch(END_POINT);
-      const drink = await response.json();
-      console.log(drink);
-      setCurrentDrink(drink.drinks[0]);
-    };
-    getCurrentRecipe();
+    dispatch(getDrinkRecipeById(id));
   }, [dispatch, id]);
+
+  if (!drinkDetail.drinks) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <div>
-      <div>
-        <RecipeHeader
-          thumb={ currentDrink.strDrinkThumb }
-          title={ currentDrink.strDrink }
-          category={ currentDrink.strAlcoholic }
-          recipe={ currentDrink }
-          type="bebida"
-          id={ id }
-        />
-        <IngredientsCard recipe={ currentDrink } />
-        <h1>Instructions</h1>
-        <p data-testid="instructions">{currentDrink.strInstructions}</p>
-        <Button
-          variant="danger"
-          size="lg"
-          type="button"
-          data-testid="finish-recipe-btn"
-          onClick={ () => push('/receitas-feitas') }
-        >
-          Finalizar Receita
-        </Button>
-      </div>
+      {drinkDetail.drinks[0] && (
+        <div>
+          <RecipeHeader
+            thumb={ drinkDetail.drinks[0].strDrinkThumb }
+            title={ drinkDetail.drinks[0].strDrink }
+            category={ drinkDetail.drinks[0].strCategory }
+            recipe={ drinkDetail.drinks[0] }
+            type="comida"
+            id={ id }
+          />
+          <IngredientsCard recipe={ drinkDetail.drinks[0] } />
+          <h1>Instructions</h1>
+          <p data-testid="instructions">{drinkDetail.drinks[0].strInstructions}</p>
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+            onClick={ () => push('/receitas-feitas') }
+          >
+            Finalizar Receita
+          </button>
+        </div>)}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-const getMealRecipe = async (id) => {
+export const getMealRecipe = async (id) => {
   const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const response = await fetch(endpoint);
   if (!response.ok) return [];
@@ -6,4 +6,10 @@ const getMealRecipe = async (id) => {
   return result;
 };
 
-export default getMealRecipe;
+export const getDrinkRecipe = async (id) => {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const response = await fetch(endpoint);
+  if (!response.ok) return [];
+  const result = response.json();
+  return result;
+}

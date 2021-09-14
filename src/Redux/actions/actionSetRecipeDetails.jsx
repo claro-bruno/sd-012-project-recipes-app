@@ -1,4 +1,4 @@
-import getMealRecipe from '../../services/getRecipeById';
+import { getMealRecipe, getDrinkRecipe} from '../../services/getRecipeById';
 
 export const MEAL_RECIPE = 'MEAL_RECIPE';
 export const DRINK_RECIPE = 'DRINK_RECIPE';
@@ -17,3 +17,8 @@ export const getMealRecipeById = (id) => async (dispatch) => {
   const resposta = await getMealRecipe(id);
   dispatch(setMealDetails(resposta));
 };
+
+export const getDrinkRecipeById = (id) => async(dispatch) => {
+  const resposta = await getDrinkRecipe(id);
+  dispatch(setDrinkDetails(resposta));
+}
