@@ -28,7 +28,7 @@ function IngredientsCard({ recipe }) {
     <>
       <h1 data-testid="recipe-category">Ingredients</h1>
       {ingredients.map((item, key) => createRecipe(item, key))}
-    </>  
+    </>
   );
 }
 
